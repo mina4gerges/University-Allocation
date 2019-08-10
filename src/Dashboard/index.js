@@ -1,5 +1,5 @@
-import React from 'react';
-import { map } from 'lodash';
+import React, { Component } from 'react';
+import { map, find } from 'lodash';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -8,20 +8,20 @@ import ModalDataChange from './ModalDataChange';
 import './Dashboard.css';
 
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: DashBoardData,
+            DashBoardData: DashBoardData,
             openModalDataChange: false,
             dataSelected: null,
         }
     }
 
     generateData = () => {
-        let { data } = this.state;
-        let x = map(data, (val, key) => {
+        let { DashBoardData } = this.state;
+        let x = map(DashBoardData, (val, key) => {
             return (
                 <div className='col-3' key={`dash-board-key-${key}`}>
                     <Card className='dash-board-card' onClick={this.classModification(val)}>
@@ -47,9 +47,15 @@ class Dashboard extends React.Component {
 
     closeModalDataChange = () => this.setState({ openModalDataChange: false, dataSelected: null });
 
+    handleChange = event => {
+        let { name, value } = event.target;
+        let { DashBoardData, dataSelected } = this.state;
+        find(DashBoardData, name)[name] = value;
+        dataSelected[name] = value;
+        this.setState({ DashBoardData, dataSelected })
+    }
 
     render() {
-
         let { openModalDataChange, dataSelected } = this.state;
 
         return (
@@ -59,9 +65,9 @@ class Dashboard extends React.Component {
                     <ModalDataChange
                         open={openModalDataChange}
                         onClose={this.closeModalDataChange}
-                        data={dataSelected}
+                        dataSelected={dataSelected}
+                        handleChange={this.handleChange}
                     />
-
                 }
             </Container>
         )
