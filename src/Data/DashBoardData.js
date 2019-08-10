@@ -1,8 +1,8 @@
 const DashBoardData = [{
         className: 'B1',
         classCapacity: 10,
-        teacher: 'Pascal',
-        çourse: 'Java 1',
+        teacher: 'Mina l zaber',
+        çourse: 'Java 3',
         nbrStudents: 10,
         date: '12-05-2019',
         startTime: '15:00',
