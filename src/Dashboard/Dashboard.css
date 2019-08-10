@@ -1,8 +1,12 @@
 .dash-board-card {
-    margin: 5px 0 5px 0
+    margin: 5px 0 5px 0;
 }
 
 .dash-board-card .card-title {
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, .125)
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.modal-data-change div {
+    margin: 2px 1px 2px 1px;
 }

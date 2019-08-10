@@ -27,7 +27,7 @@ class ModalDataChange extends Component {
         let { dataSelected } = this.state;
 
         return (
-            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change'>
                 <DialogContent>
                     <DialogContentText>
                         Please add your new modification
