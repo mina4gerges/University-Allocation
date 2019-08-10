@@ -1,4 +1,5 @@
 const DashBoardData = [{
+        id: 1,
         className: 'B1',
         classCapacity: 10,
         teacher: 'Pascal',
@@ -10,6 +11,7 @@ const DashBoardData = [{
         status: 'live'
     },
     {
+        id: 2,
         className: 'B2',
         classCapacity: 20,
         teacher: 'Rabih',
@@ -21,6 +23,7 @@ const DashBoardData = [{
         status: 'live'
     },
     {
+        id: 3,
         className: 'B3',
         classCapacity: 30,
         teacher: 'Chady',
@@ -32,6 +35,7 @@ const DashBoardData = [{
         status: 'live'
     },
     {
+        id: 4,
         className: 'B4',
         classCapacity: 40,
         teacher: 'Bilal',
@@ -44,6 +48,7 @@ const DashBoardData = [{
     },
 
     {
+        id: 5,
         className: 'B4',
         classCapacity: 40,
         teacher: 'Bilal',
