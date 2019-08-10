@@ -1,0 +1,8 @@
+.dash-board-card {
+    margin: 5px 0 5px 0
+}
+
+.dash-board-card .card-title {
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, .125)
+}
