@@ -34,23 +34,23 @@ class ModalDataChange extends Component {
                         </DialogContentText>
                     <div className='row'>
                         <div className='çol-2'><label>Class :</label></div>
-                        <div className=' col-10'><input type='text' name='className' onChange={this.handleChange} value={dataSelected.className} className='form-control' /></div>
+                        <div className=' col-8'><input type='text' name='className' onChange={this.handleChange} value={dataSelected.className} className='form-control' /></div>
                     </div>
                     <div className='row'>
                         <div className='çol-2'><label>Date :</label></div>
-                        <div className=' col-10'><input type='text' name='date' onChange={this.handleChange} value={dataSelected.date} className='form-control' /></div>
+                        <div className=' col-8'><input type='text' name='date' onChange={this.handleChange} value={dataSelected.date} className='form-control' /></div>
                     </div>
                     <div className='row'>
-                        <div className='çol-sm-2'><label>Start Time : </label></div>
-                        <div className=' col-sm-10'><input type='text' name='startTime' onChange={this.handleChange} value={dataSelected.startTime} className='form-control' /></div>
+                        <div className='çol-2'><label>Start Time : </label></div>
+                        <div className=' col-8'><input type='text' name='startTime' onChange={this.handleChange} value={dataSelected.startTime} className='form-control' /></div>
                     </div>
                     <div className='row'>
-                        <div className='çol-sm-2'><label>End Time : </label></div>
-                        <div className=' col-sm-10'><input type='text' name='endTime' onChange={this.handleChange} value={dataSelected.endTime} className='form-control' /></div>
+                        <div className='çol-2'><label>End Time : </label></div>
+                        <div className=' col-8'><input type='text' name='endTime' onChange={this.handleChange} value={dataSelected.endTime} className='form-control' /></div>
                     </div>
                     <div className='row'>
-                        <div className='çol-sm-2'><label>Class Status : </label></div>
-                        <div className=' col-sm-10'><input type='text' name='status' onChange={this.handleChange} value={dataSelected.status} className='form-control' /></div>
+                        <div className='çol-2'><label>Class Status : </label></div>
+                        <div className=' col-8'><input type='text' name='status' onChange={this.handleChange} value={dataSelected.status} className='form-control' /></div>
                     </div>
                 </DialogContent>
                 <DialogActions>
