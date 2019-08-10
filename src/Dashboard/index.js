@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { map, find } from 'lodash';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import DashBoardData from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import './Dashboard.css';
-
 
 class Dashboard extends Component {
 
@@ -21,7 +20,7 @@ class Dashboard extends Component {
 
     generateData = () => {
         let { DashBoardData } = this.state;
-        let x = map(DashBoardData, (val, key) => {
+        let cardDisplay = map(DashBoardData, (val, key) => {
             return (
                 <div className='col-3' key={`dash-board-key-${key}`}>
                     <Card className='dash-board-card' onClick={this.classModification(val)}>
@@ -33,6 +32,7 @@ class Dashboard extends Component {
                                 Start Time: {val.startTime}<br />
                                 End Time: {val.endTime}<br />
                                 Number Of Students: {val.nbrStudents}<br />
+                                Status: {val.status}<br />
                             </CardText>
                             {/* <Button size="small" color="primary">More Info</Button> */}
                         </CardBody>
@@ -40,19 +40,21 @@ class Dashboard extends Component {
                 </div>
             )
         });
-        return x;
+        return cardDisplay;
     }
 
     classModification = clickedCardValue => event => this.setState({ openModalDataChange: true, dataSelected: clickedCardValue });
 
     closeModalDataChange = () => this.setState({ openModalDataChange: false, dataSelected: null });
 
-    handleChange = event => {
-        let { name, value } = event.target;
-        let { DashBoardData, dataSelected } = this.state;
-        find(DashBoardData, name)[name] = value;
-        dataSelected[name] = value;
-        this.setState({ DashBoardData, dataSelected })
+    handleModalSave = dataSelected => event => {
+        let { DashBoardData } = this.state;
+        let tempSataSelected = find(DashBoardData, { id: dataSelected.id });
+        map(tempSataSelected, (val, key) => {
+            if (tempSataSelected[key] !== dataSelected[key]) tempSataSelected[key] = dataSelected[key]
+        });
+        this.closeModalDataChange();
+        this.setState({ DashBoardData });
     }
 
     render() {
@@ -66,7 +68,7 @@ class Dashboard extends Component {
                         open={openModalDataChange}
                         onClose={this.closeModalDataChange}
                         dataSelected={dataSelected}
-                        handleChange={this.handleChange}
+                        handleModalSave={this.handleModalSave}
                     />
                 }
             </Container>
