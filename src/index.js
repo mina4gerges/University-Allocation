@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-select/dist/react-select.css'
+import 'react-virtualized-select/styles.css'
 import Dashboard from './Dashboard';
+import Creation from './Creation';
 
-ReactDOM.render( < Dashboard / > , document.getElementById('root'));
+ReactDOM.render(< Creation />, document.getElementById('root'));
 
 {
     /*  If you want your app to work offline and load faster, you can change
