@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-select/dist/react-select.css'
 import 'react-virtualized-select/styles.css'
+import './customcss.css'
 import Dashboard from './Dashboard';
 import Creation from './Creation';
 
