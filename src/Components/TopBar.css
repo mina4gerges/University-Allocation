@@ -1,0 +1,17 @@
+.test::placeholder {
+    color: white;
+  }
+
+  .search {
+    position: relative;
+    margin-right: 5px;
+    margin-left: 0px;
+    width: 100%;
+}
+
+.searchIcon {
+    /* width: theme.spacing(7), */
+    height: 100%;
+    position: absolute;
+    display: flex;
+}

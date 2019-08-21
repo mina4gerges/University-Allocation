@@ -5,6 +5,7 @@ import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import Container from '@material-ui/core/Container';
 import DashBoardData from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
+import TopBar from '../Components/TopBar';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -61,17 +62,21 @@ class Dashboard extends Component {
         let { openModalDataChange, dataSelected } = this.state;
 
         return (
-            <Container>
-                <div className='row'>{this.generateData()}</div>
-                {openModalDataChange &&
-                    <ModalDataChange
-                        open={openModalDataChange}
-                        onClose={this.closeModalDataChange}
-                        dataSelected={dataSelected}
-                        handleModalSave={this.handleModalSave}
-                    />
-                }
-            </Container>
+            <div>
+                <TopBar></TopBar>
+                <Container>
+                    <div className='row'>{this.generateData()}</div>
+                    {openModalDataChange &&
+                        <ModalDataChange
+                            open={openModalDataChange}
+                            onClose={this.closeModalDataChange}
+                            dataSelected={dataSelected}
+                            handleModalSave={this.handleModalSave}
+                        />
+                    }
+                </Container>
+            </div>
+
         )
     }
 }
