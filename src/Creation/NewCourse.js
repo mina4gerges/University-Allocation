@@ -107,7 +107,7 @@ class NewCourse extends Component {
                     <CardBody>
                         <div className="row" style={{ textAlign: 'center' }}>
                             <Label className="col-12">
-                                <b>Course Details</b>
+                                <b>Course Detail</b>
                             </Label>
                         </div>
                         <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>

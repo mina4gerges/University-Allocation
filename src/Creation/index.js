@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import NewRoom from './NewRoom';
 import NewCourse from './NewCourse';
 import './Creation.css';
+import NewTeacher from './NewTeacher';
 
 class Creaction extends Component {
 
@@ -16,6 +17,7 @@ class Creaction extends Component {
         switch (creationType.toLowerCase().trim()) {
             case "class": return (<NewRoom />);
             case "course": return (<NewCourse />);
+            case "teacher": return (<NewTeacher />)
             default: return (<div>Wrong Creation</div>);
         }
     }
@@ -24,7 +26,7 @@ class Creaction extends Component {
         return (
             <div>
                 <Container maxWidth="sm">
-                    {this.generateData('class')}
+                    {this.generateData('teacher')}
                 </Container>
             </div >
         )

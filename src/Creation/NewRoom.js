@@ -3,6 +3,7 @@ import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import { filter, map, includes, isEmpty, remove } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
+import moment from 'moment';
 
 import globalMsg from "../Data/globalMsg";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
@@ -49,9 +50,11 @@ class NewRoom extends Component {
     }
 
     handleSelectChange = name => value => {
+        let roomHoldUntil = null;
         this.handleRemoveMandatory(name);
         this.handleAddRemoveMandatoryValue(value);
-        this.setState({ [name]: value });
+        if (name === 'roomStatus' && value && value.roomHoldUntil) roomHoldUntil = new moment();
+        this.setState({ [name]: value, roomHoldUntil });
     }
 
     handleAddRemoveMandatoryValue = value => {
@@ -114,7 +117,7 @@ class NewRoom extends Component {
                     <CardBody>
                         <div className="row" style={{ textAlign: 'center' }}>
                             <Label className="col-12">
-                                <b>Room Details</b>
+                                <b>Room Detail</b>
                             </Label>
                         </div>
                         <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
@@ -168,7 +171,7 @@ class NewRoom extends Component {
                             roomStatus && roomStatus.roomHoldUntil &&
                             <div className="row" style={{ marginBottom: "7px" }}>
                                 <Label className="col-4">Hold Until</Label>
-                                <div className={`col-8  ${includes(tempMandatory, 'roomHoldUntil') ? 'alert-danger' : ''}`} style={{ paddingLeft: "0px" }}>
+                                <div className={`col-8  ${includes(tempMandatory, 'roomHoldUntil') ? 'alert-danger' : ''}`} style={{ paddingLeft: "3px" }}>
                                     <DateTimePickerComp
                                         name='roomHoldUntil'
                                         dateTimePickerValue={this.dateTimePickerValue}
