@@ -6,7 +6,7 @@ import Select from "react-virtualized-select";
 
 import globalMsg from "../Data/globalMsg";
 
-class Creaction extends Component {
+class NewCourse extends Component {
 
     constructor(props) {
         super(props);
@@ -214,4 +214,4 @@ class Creaction extends Component {
     }
 }
 
-export default Creaction;
+export default NewCourse;
