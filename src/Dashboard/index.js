@@ -7,7 +7,8 @@ import DashBoardData from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import TopBar from '../Components/TopBar';
 import './Dashboard.css';
-
+//#00acc1 background bar
+//#eeeeee body backgrouond
 class Dashboard extends Component {
 
     constructor(props) {

@@ -5,8 +5,9 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 
 import globalMsg from "../Data/globalMsg";
+import { statusOptions, currencyOptions } from "../Data/CreactionData";
 
-class Creaction extends Component {
+class NewCourse extends Component {
 
     constructor(props) {
         super(props);
@@ -23,8 +24,8 @@ class Creaction extends Component {
             errorMsg: null,
             tempMandatory: [],
             semesterOptions: [{ label: 1, value: 1 }, { label: 2, value: 2 }],
-            statusOptions: [{ label: "Open", value: "Open" }, { label: "Closed", value: "Closed" }],
-            currencyOptions: [{ label: "L.L", value: "L.L" }, { label: "$", value: "$" }],
+            statusOptions,
+            currencyOptions,
         };
 
         this.mandatory = [
@@ -107,7 +108,7 @@ class Creaction extends Component {
                     <CardBody>
                         <div className="row" style={{ textAlign: 'center' }}>
                             <Label className="col-12">
-                                <b>Course Details</b>
+                                <b>Course Detail</b>
                             </Label>
                         </div>
                         <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
@@ -214,4 +215,4 @@ class Creaction extends Component {
     }
 }
 
-export default Creaction;
+export default NewCourse;
