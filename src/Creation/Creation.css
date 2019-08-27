@@ -2,3 +2,7 @@
     padding-right: 0px;
     padding-left: 0px
 }
+
+.phone-number .form-control{
+    width: 100% !important;
+}

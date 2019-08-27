@@ -6,6 +6,7 @@ import Select from "react-virtualized-select";
 import moment from 'moment';
 
 import globalMsg from "../Data/globalMsg";
+import { roomStatusOptions } from "../Data/CreactionData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
 
 class NewRoom extends Component {
@@ -20,12 +21,7 @@ class NewRoom extends Component {
             roomStatus: null,
             roomHoldUntil: null,
             tempMandatory: [],
-            roomStatusOptions: [
-                { label: "Available", value: "Available", "roomHoldUntil": false },
-                { label: "Closed Permanently", value: "Closed Permanently", "roomHoldUntil": false },
-                { label: "Closed temporarily", value: "Closed temporarily", "roomHoldUntil": true },
-                { label: "Closed For Maintenance", value: "For Maintenance", "roomHoldUntil": true },
-            ],
+            roomStatusOptions
         };
 
         this.mandatory = [

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
-import { filter, map, includes, isEmpty, remove } from 'lodash';
+import { filter, map, includes, isEmpty } from 'lodash';
 import InputMask from 'react-input-mask';
+import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
-import moment from 'moment';
 
 import globalMsg from "../Data/globalMsg";
-import DateTimePickerComp from '../Components/DateTimePickerComp';
+import InputComp from "../Components/InputComp";
+import validateEmail from '../GlobalFunctions';
+import { teacherMajorMajorOptions } from '../Data/CreactionData';
+import 'react-phone-input-2/dist/style.css';
 
 class NewTeacher extends Component {
 
@@ -18,15 +21,13 @@ class NewTeacher extends Component {
             teacherName: null,
             teacherLastName: null,
             teacherPhoneNumber: null,
-            teacherStatus: null,
-            teacherHoldUntil: null,
+            teacherEmail: null,
+            teacherMajor: null,
+            teacherAdress: null,
+
             tempMandatory: [],
-            teacherStatusOptions: [
-                { label: "Available", value: "Available", "teacherHoldUntil": false },
-                { label: "Closed Permanently", value: "Closed Permanently", "teacherHoldUntil": false },
-                { label: "Closed temporarily", value: "Closed temporarily", "teacherHoldUntil": true },
-                { label: "Closed For Maintenance", value: "For Maintenance", "teacherHoldUntil": true },
-            ],
+            tempInvalid: [],
+            teacherMajorMajorOptions,
         };
 
         this.mandatory = [
@@ -34,7 +35,9 @@ class NewTeacher extends Component {
             'teacherName',
             'teacherLastName',
             'teacherPhoneNumber',
-            'teacherStatus',
+            'teacherEmail',
+            'teacherMajor',
+            'teacherAdress'
         ];
 
         this.toSave = [
@@ -42,34 +45,32 @@ class NewTeacher extends Component {
             'teacherName',
             'teacherLastName',
             'teacherPhoneNumber',
-            'teacherStatus',
+            'teacherEmail',
+            'teacherMajor',
+            'teacherAdress'
         ];
     }
 
     handleTextChange = event => {
         let { name, value } = event.target;
         this.handleRemoveMandatory(name);
-        this.setState({ [name]: value });
+        this.setState({ [name]: value ? value : null });
     }
+
+    handleTextBlur = event => {
+        let { name, value } = event.target;
+        if (name === 'teacherEmail') {
+            let { tempInvalid } = this.state;
+            tempInvalid = this.handleInvalid(name, value, tempInvalid);
+            this.setState({ tempInvalid });
+        }
+    }
+
+    handlePhoneChange = name => number => this.setState({ [name]: number });
 
     handleSelectChange = name => value => {
-        let teacherHoldUntil = null;
         this.handleRemoveMandatory(name);
-        this.handleAddRemoveMandatoryValue(value);
-        if (name === 'teacherStatus' && value && value.teacherHoldUntil) teacherHoldUntil = new moment();
-        this.setState({ [name]: value, teacherHoldUntil });
-    }
-
-    handleAddRemoveMandatoryValue = value => {
-        if (value && value.teacherHoldUntil && !includes(this.mandatory, 'teacherHoldUntil')) {
-            this.mandatory.push('teacherHoldUntil');
-            this.toSave.push('teacherHoldUntil');
-        }
-        else if (!value || !value.teacherHoldUntil) {
-            remove(this.mandatory, value => { return value === 'teacherHoldUntil' });
-            remove(this.toSave, value => { return value === 'teacherHoldUntil' });
-            this.setState({ teacherHoldUntil: null });
-        }
+        this.setState({ [name]: value });
     }
 
     handleRemoveMandatory = name => {
@@ -88,6 +89,12 @@ class NewTeacher extends Component {
         this.setState({ tempMandatory, errorMsg });
     }
 
+    handleInvalid = (name, value, tempInvalid) => {
+        if (value && !validateEmail(value) && !includes(tempInvalid, name)) tempInvalid.push(name);
+        else if (!value || validateEmail(value)) tempInvalid = filter(tempInvalid, val => { return val !== name });
+        return tempInvalid;
+    }
+
     handleSave = () => {
         this.handleMandatory();
         let savedValue = {};
@@ -103,14 +110,15 @@ class NewTeacher extends Component {
         map(this.toSave, val => {
             tempState[val] = null
         })
-        this.handleAddRemoveMandatoryValue();
         this.setState({ ...tempState, errorMsg: null, tempMandatory: null })
     }
 
     dateTimePickerValue = (name, value) => this.setState({ [name]: value });
 
     render() {
-        let { teacherID, teacherName, teacherLastName, teacherPhoneNumber, teacherStatus, teacherHoldUntil, teacherStatusOptions, tempMandatory, errorMsg } = this.state;
+        let { teacherID, teacherName, teacherLastName, teacherPhoneNumber,
+            teacherEmail, teacherMajor, teacherAdress, teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
+        console.log('this.state', this.state);
         return (
             <div>
                 <Card>
@@ -158,26 +166,48 @@ class NewTeacher extends Component {
                         </div>
                         <div className="row" style={{ marginBottom: "7px" }}>
                             <Label className="col-4">Phone Number</Label>
-                            {/* <ReactPhoneInput */}
-                            {/* defaultCountry={'us'} */}
-                            {/* value={teacherPhoneNumber} */}
-                            {/* name='teacherPhoneNumber' */}
-                            {/* onChange={this.handleTextChange} */}
-                            {/* /> */}
-                        </div>
-                        {
-                            teacherStatus && teacherStatus.teacherHoldUntil &&
-                            <div className="row" style={{ marginBottom: "7px" }}>
-                                <Label className="col-4">Hold Until</Label>
-                                <div className={`col-8  ${includes(tempMandatory, 'teacherHoldUntil') ? 'alert-danger' : ''}`} style={{ paddingLeft: "3px" }}>
-                                    <DateTimePickerComp
-                                        name='teacherHoldUntil'
-                                        dateTimePickerValue={this.dateTimePickerValue}
-                                        value={teacherHoldUntil}
-                                    />
-                                </div>
+                            <div className={`col-8 phone-number ${includes(tempMandatory, 'teacherPhoneNumber') ? 'alert-danger' : ''}`} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                                <ReactPhoneInput
+                                    defaultCountry='lb'
+                                    value={teacherPhoneNumber ? teacherPhoneNumber : ''}
+                                    onChange={this.handlePhoneChange('teacherPhoneNumber')}
+                                    inputExtraProps={{
+                                        name: 'teacherPhoneNumber',
+                                        // required: true,
+                                    }}
+                                />
                             </div>
-                        }
+                        </div>
+                        <div className="row" style={{ marginBottom: "5px" }}>
+                            <Label className="col-4">Email</Label>
+                            <div className='col-8'>
+                                <InputComp
+                                    name='teacherEmail'
+                                    value={teacherEmail ? teacherEmail : ''}
+                                    className={includes(tempMandatory, 'teacherEmail') ? 'alert-danger' : ''}
+                                    onChange={this.handleTextChange}
+                                    onBlur={this.handleTextBlur}
+                                    errorMsg={includes(tempInvalid, 'teacherEmail') ? globalMsg.mail : null}
+                                />
+                            </div>
+                        </div>
+                        <div className="row" style={{ marginBottom: "5px" }}>
+                            <Label className="col-4">Major</Label>
+                            <Select
+                                className={`col-8 semestre ${includes(tempMandatory, 'teacherMajor') ? 'alert-danger' : ''}`}
+                                name="teacherMajor"
+                                value={teacherMajor}
+                                options={teacherMajorMajorOptions}
+                                onChange={this.handleSelectChange('teacherMajor')}
+                            />
+                        </div>
+
+                        <div className="row" style={{ marginBottom: "5px" }}>
+                            <Label className="col-4">Adress</Label>
+                            <div className='col-8'>
+
+                            </div>
+                        </div>
                         <div className="row">
                             <div className='col-4'></div>
                             <div className='col-4'>

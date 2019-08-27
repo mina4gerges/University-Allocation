@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 
 import globalMsg from "../Data/globalMsg";
+import { statusOptions, currencyOptions } from "../Data/CreactionData";
 
 class NewCourse extends Component {
 
@@ -23,8 +24,8 @@ class NewCourse extends Component {
             errorMsg: null,
             tempMandatory: [],
             semesterOptions: [{ label: 1, value: 1 }, { label: 2, value: 2 }],
-            statusOptions: [{ label: "Open", value: "Open" }, { label: "Closed", value: "Closed" }],
-            currencyOptions: [{ label: "L.L", value: "L.L" }, { label: "$", value: "$" }],
+            statusOptions,
+            currencyOptions,
         };
 
         this.mandatory = [
