@@ -63,7 +63,6 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <TopBar></TopBar>
                 <Container>
                     <div className='row'>{this.generateData()}</div>
                     {openModalDataChange &&

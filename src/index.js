@@ -5,10 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-select/dist/react-select.css'
 import 'react-virtualized-select/styles.css'
 import './customcss.css'
-import Dashboard from './Dashboard';
-import Creation from './Creation';
+import Full from './Container/Full';
 
-ReactDOM.render(< Creation />, document.getElementById('root'));
+ReactDOM.render(< Full />, document.getElementById('root'));
 
 {
     /*  If you want your app to work offline and load faster, you can change
