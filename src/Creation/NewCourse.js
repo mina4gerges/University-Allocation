@@ -91,7 +91,10 @@ class NewCourse extends Component {
         axios({
             method: 'post',
             url: 'http://127.0.0.1/CNAMUniversity/Dashboard',
-            params: {}
+            params: {},
+            headers: {
+                'Access-Control-Allow-Origin': true,
+            },
             // data: {}
             // cancelToken: new CancelToken(function (cancel) {
             // })
