@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import TopBar from '../Components/TopBar';
 import Dashboard from '../Dashboard';
-import Creation from '../Creation/index';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Container from '@material-ui/core/Container';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Creaction from '../Creation';
 
 class Full extends Component {
-
+    //#00acc1 background bar
+    //#eeeeee body backgrouond
     render() {
         return (
-            <div>
+            <div style={{ background: '#eeeeee' }}>
                 <TopBar />
-                <Dashboard />
-                {/* <Router> */}
+                <Router>
+                    <Container>
+                        <Router>
+                            <Route path="/" exact component={Dashboard} />
+                            <Route path="/Creation/" component={Creaction} />
+                        </Router>
+                    </Container>
+                </Router>
+            </div >
 
-                {/* <Route path="/" component={Dashboard} /> */}
-                {/* <Route path="/Creation" component={Creation} /> */}
-                {/* </Router> */}
-            </div>
         )
     }
 
