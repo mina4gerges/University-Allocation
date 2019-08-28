@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { map, find } from 'lodash';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 // import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import DashBoardData from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import './Dashboard.css';
@@ -61,7 +60,7 @@ class Dashboard extends Component {
         let { openModalDataChange, dataSelected } = this.state;
 
         return (
-            <div style={{ paddingTop: '15px' }}>
+            <div>
                 <div className='row'>{this.generateData()}</div>
                 {openModalDataChange &&
                     <ModalDataChange

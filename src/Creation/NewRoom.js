@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import { filter, map, includes, isEmpty, remove } from 'lodash';
+import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import moment from 'moment';
@@ -104,89 +105,88 @@ class NewRoom extends Component {
 
     render() {
         let { roomID, roomName, roomCapacity, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
-        console.log('state', this.state);
-        console.log('this.mandatory', this.mandatory);
-        console.log('this.toSave', this.toSave);
         return (
             <div>
-                <Card>
-                    <CardBody>
-                        <div className="row" style={{ textAlign: 'center' }}>
-                            <Label className="col-12">
-                                <b>Room Detail</b>
-                            </Label>
-                        </div>
-                        <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
-                            <Alert color="danger" >
-                                {errorMsg}
-                            </Alert>
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">ID</Label>
-                            <InputMask
-                                className={`col-8 form-control ${includes(tempMandatory, 'roomID') ? 'alert-danger' : ''}`}
-                                mask="999"
-                                maskChar=" "
-                                name="roomID"
-                                value={roomID ? roomID : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Name</Label>
-                            <Input
-                                type="text"
-                                className={`col-8 ${includes(tempMandatory, 'roomName') ? 'alert-danger' : ''}`}
-                                name="roomName"
-                                value={roomName ? roomName : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Capacity</Label>
-                            <InputMask
-                                className={`col-8 form-control ${includes(tempMandatory, 'roomCapacity') ? 'alert-danger' : ''}`}
-                                mask="99"
-                                maskChar=" "
-                                name="roomCapacity"
-                                value={roomCapacity ? roomCapacity : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "7px" }}>
-                            <Label className="col-4">Status</Label>
-                            <Select
-                                className={`col-8 semestre ${includes(tempMandatory, 'roomStatus') ? 'alert-danger' : ''}`}
-                                name="roomStatus"
-                                value={roomStatus}
-                                options={roomStatusOptions}
-                                onChange={this.handleSelectChange('roomStatus')}
-                            />
-                        </div>
-                        {
-                            roomStatus && roomStatus.roomHoldUntil &&
+                <Container maxWidth="sm">
+                    <Card>
+                        <CardBody>
+                            <div className="row" style={{ textAlign: 'center' }}>
+                                <Label className="col-12">
+                                    <b>Room Detail</b>
+                                </Label>
+                            </div>
+                            <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
+                                <Alert color="danger" >
+                                    {errorMsg}
+                                </Alert>
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">ID</Label>
+                                <InputMask
+                                    className={`col-8 form-control ${includes(tempMandatory, 'roomID') ? 'alert-danger' : ''}`}
+                                    mask="999"
+                                    maskChar=" "
+                                    name="roomID"
+                                    value={roomID ? roomID : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Name</Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'roomName') ? 'alert-danger' : ''}`}
+                                    name="roomName"
+                                    value={roomName ? roomName : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Capacity</Label>
+                                <InputMask
+                                    className={`col-8 form-control ${includes(tempMandatory, 'roomCapacity') ? 'alert-danger' : ''}`}
+                                    mask="99"
+                                    maskChar=" "
+                                    name="roomCapacity"
+                                    value={roomCapacity ? roomCapacity : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
                             <div className="row" style={{ marginBottom: "7px" }}>
-                                <Label className="col-4">Hold Until</Label>
-                                <div className={`col-8  ${includes(tempMandatory, 'roomHoldUntil') ? 'alert-danger' : ''}`} style={{ paddingLeft: "3px" }}>
-                                    <DateTimePickerComp
-                                        name='roomHoldUntil'
-                                        dateTimePickerValue={this.dateTimePickerValue}
-                                        value={roomHoldUntil}
-                                    />
+                                <Label className="col-4">Status</Label>
+                                <Select
+                                    className={`col-8 semestre ${includes(tempMandatory, 'roomStatus') ? 'alert-danger' : ''}`}
+                                    name="roomStatus"
+                                    value={roomStatus}
+                                    options={roomStatusOptions}
+                                    onChange={this.handleSelectChange('roomStatus')}
+                                />
+                            </div>
+                            {
+                                roomStatus && roomStatus.roomHoldUntil &&
+                                <div className="row" style={{ marginBottom: "7px" }}>
+                                    <Label className="col-4">Hold Until</Label>
+                                    <div className={`col-8  ${includes(tempMandatory, 'roomHoldUntil') ? 'alert-danger' : ''}`} style={{ paddingLeft: "3px" }}>
+                                        <DateTimePickerComp
+                                            name='roomHoldUntil'
+                                            dateTimePickerValue={this.dateTimePickerValue}
+                                            value={roomHoldUntil}
+                                        />
+                                    </div>
+                                </div>
+                            }
+                            <div className="row">
+                                <div className='col-4'></div>
+                                <div className='col-4'>
+                                    <Button onClick={this.handleSave} color='success'>SAVE</Button>
+                                </div>
+                                <div className='col-4'>
+                                    <Button onClick={this.handleClear} color='secondary'>CLEAR</Button>
                                 </div>
                             </div>
-                        }
-                        <div className="row">
-                            <div className='col-4'></div>
-                            <div className='col-4'>
-                                <Button onClick={this.handleSave} color='success'>SAVE</Button>
-                            </div>
-                            <div className='col-4'>
-                                <Button onClick={this.handleClear} color='secondary'>CLEAR</Button>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
+                        </CardBody>
+                    </Card>
+                </Container>
             </div>
         )
     }

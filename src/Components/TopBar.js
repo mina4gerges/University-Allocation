@@ -3,7 +3,6 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,8 +13,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
+import { Nav, NavItem } from 'reactstrap';
+
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import './TopBar.css';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -78,7 +80,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     topbarbackground: {
-        background: '#00acc1'
+        background: '#26A65B'//green
     }
 }));
 
@@ -165,17 +167,12 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
-    function handleChange(event, newValue) {
-        setValue(newValue);
-        // event.preventDefault();
-    }
-
-    function a11yProps(index) {
-        return { id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}`, };
+    function handleTabChange(z) {
+        setValue(z.target.id)
     }
 
     return (
-        <div className={classes.grow}>
+        < div className={classes.grow} >
             <AppBar position="static" className={classes.topbarbackground}>
                 <Toolbar>
                     <IconButton
@@ -186,13 +183,18 @@ export default function PrimarySearchAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Dashboard
-                    </Typography>
-                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="Dashboard" href="/" {...a11yProps(0)} />
-                        <Tab label="Creation" href="/Creation/" {...a11yProps(1)} />
-                    </Tabs>
+                    <Nav tabs>
+                        <NavItem>
+                            <div className={`MuiTab-root ${parseInt(value, 10) === 0 ? 'active' : 'notActive'}`} style={{ borderBottom: (parseInt(value, 10) === 0 ? "1px solid red" : 'none') }}>
+                                <Link to="/" id='0' onClick={handleTabChange}>DASHBOARD</Link>
+                            </div>
+                        </NavItem>
+                        <NavItem>
+                            <div className={`MuiTab-root ${parseInt(value, 10) === 1 ? 'active' : 'notActive'}`} style={{ borderBottom: (parseInt(value, 10) === 1 ? "1px solid red" : 'none') }}>
+                                <Link to="/Creation" id='1' onClick={handleTabChange}>CREATION</Link>
+                            </div>
+                        </NavItem>
+                    </Nav>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

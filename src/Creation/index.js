@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Card, CardText, CardBody } from 'reactstrap';
 import { map } from 'lodash';
-import NewRoom from './NewRoom';
-import NewCourse from './NewCourse';
+import { BrowserRouter as Router, Link } from "react-router-dom";
+
 import './Creation.css';
-import NewTeacher from './NewTeacher';
 
 class Creaction extends Component {
 
@@ -14,47 +13,33 @@ class Creaction extends Component {
         this.state = {
         }
         this.creationType = [
-            'class',
-            'course',
-            'teacher',
+            'NewRoom',
+            'NewCourse',
+            'NewTeacher',
         ]
     }
 
-    handleCardClick = val => event => {
-        console.log(val)
-        console.log(event)
-        switch (val) {
-            case "class": return (<NewRoom />);
-            case "course": return (<NewCourse />);
-            case "teacher": return (<NewTeacher />)
-            default: return (<div>Wrong Creation</div>);
-        }
-    }
-
     generateData = () => {
-        let x = map(this.creationType, (val, key) => {
+        let cardDisplay = map(this.creationType, (val, key) => {
             return (
-                <div className='col-3' key={`creation-type-key-${key}`}>
-                    <Card className='creation-type-card' onClick={this.handleCardClick(val)}>
+                <div className='col-4' key={`creation-type-key-${key}`}>
+                    <Card className='creation-type-card'>
                         <CardBody>
-                            <CardTitle>{val}</CardTitle>
-                            <CardSubtitle><b>{val}</b></CardSubtitle>
-                            <CardText>
-                                {val}
+                            <CardText style={{ textAlign: 'center' }}>
+                                <Link to={`/Creation/${val}`} ><b>{`Create New ${val}`}</b></Link>
                             </CardText>
                         </CardBody>
                     </Card>
                 </div>
             )
         })
-        return x;
-
+        return cardDisplay;
     }
 
     render() {
         return (
             <div>
-                <Container maxWidth="sm">
+                <Container>
                     <div className='row'>
                         {this.generateData()}
                     </div>

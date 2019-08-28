@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
+import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
@@ -104,112 +105,114 @@ class NewCourse extends Component {
 
         return (
             <div>
-                <Card>
-                    <CardBody>
-                        <div className="row" style={{ textAlign: 'center' }}>
-                            <Label className="col-12">
-                                <b>Course Detail</b>
-                            </Label>
-                        </div>
-                        <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
-                            <Alert color="danger" >
-                                {errorMsg}
-                            </Alert>
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Code</Label>
-                            <Input
-                                type="text"
-                                className={`col-8 ${includes(tempMandatory, 'courseCode') ? 'alert-danger' : ''}`}
-                                name="courseCode"
-                                value={courseCode ? courseCode : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Name</Label>
-                            <Input
-                                type="text"
-                                className={`col-8 ${includes(tempMandatory, 'courseName') ? 'alert-danger' : ''}`}
-                                name="courseName"
-                                value={courseName ? courseName : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Number Of Credits</Label>
-                            <InputMask
-                                className={`col-8 form-control ${includes(tempMandatory, 'numberOfCredits') ? 'alert-danger' : ''}`}
-                                mask="99"
-                                maskChar=" "
-                                name="numberOfCredits"
-                                value={numberOfCredits ? numberOfCredits : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Number Of Hours</Label>
-                            <InputMask
-                                className={`col-8 form-control ${includes(tempMandatory, 'numberOfHours') ? 'alert-danger' : ''}`}
-                                mask="999"
-                                maskChar=" "
-                                name="numberOfHours"
-                                value={numberOfHours ? numberOfHours : ''}
-                                onChange={this.handleTextChange}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Course Price</Label>
-                            <InputMask
-                                className={`col-4 form-control ${includes(tempMandatory, 'coursePrice') ? 'alert-danger' : ''}`}
-                                mask="999"
-                                maskChar=" "
-                                name="coursePrice"
-                                value={coursePrice ? coursePrice : ''}
-                                onChange={this.handleTextChange}
-                            />
-                            <div className='col-4' style={{ paddingRight: '0px' }}>
-                                <Select
-                                    className={`semestre ${includes(tempMandatory, 'currency') ? 'alert-danger' : ''}`}
-                                    name="semester"
-                                    placeholder="Currency"
-                                    value={currency}
-                                    options={currencyOptions}
-                                    onChange={this.handleSelectChange('currency')}
+                <Container maxWidth="sm">
+                    <Card>
+                        <CardBody>
+                            <div className="row" style={{ textAlign: 'center' }}>
+                                <Label className="col-12">
+                                    <b>Course Detail</b>
+                                </Label>
+                            </div>
+                            <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
+                                <Alert color="danger" >
+                                    {errorMsg}
+                                </Alert>
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Code</Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'courseCode') ? 'alert-danger' : ''}`}
+                                    name="courseCode"
+                                    value={courseCode ? courseCode : ''}
+                                    onChange={this.handleTextChange}
                                 />
                             </div>
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Semester</Label>
-                            <Select
-                                className={`col-8 semestre ${includes(tempMandatory, 'semester') ? 'alert-danger' : ''}`}
-                                name="semester"
-                                value={semester}
-                                options={semesterOptions}
-                                onChange={this.handleSelectChange('semester')}
-                            />
-                        </div>
-                        <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Course Status</Label>
-                            <Select
-                                className={`col-8 semestre ${includes(tempMandatory, 'courseStatus') ? 'alert-danger' : ''}`}
-                                name="courseStatus"
-                                value={courseStatus}
-                                options={statusOptions}
-                                onChange={this.handleSelectChange('courseStatus')}
-                            />
-                        </div>
-                        <div className="row">
-                            <div className='col-4'></div>
-                            <div className='col-4'>
-                                <Button onClick={this.handleSave} color='success'>SAVE</Button>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Name</Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'courseName') ? 'alert-danger' : ''}`}
+                                    name="courseName"
+                                    value={courseName ? courseName : ''}
+                                    onChange={this.handleTextChange}
+                                />
                             </div>
-                            <div className='col-4'>
-                                <Button onClick={this.handleClear} color='secondary'>CLEAR</Button>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Number Of Credits</Label>
+                                <InputMask
+                                    className={`col-8 form-control ${includes(tempMandatory, 'numberOfCredits') ? 'alert-danger' : ''}`}
+                                    mask="99"
+                                    maskChar=" "
+                                    name="numberOfCredits"
+                                    value={numberOfCredits ? numberOfCredits : ''}
+                                    onChange={this.handleTextChange}
+                                />
                             </div>
-                        </div>
-                    </CardBody>
-                </Card>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Number Of Hours</Label>
+                                <InputMask
+                                    className={`col-8 form-control ${includes(tempMandatory, 'numberOfHours') ? 'alert-danger' : ''}`}
+                                    mask="999"
+                                    maskChar=" "
+                                    name="numberOfHours"
+                                    value={numberOfHours ? numberOfHours : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Course Price</Label>
+                                <InputMask
+                                    className={`col-4 form-control ${includes(tempMandatory, 'coursePrice') ? 'alert-danger' : ''}`}
+                                    mask="999"
+                                    maskChar=" "
+                                    name="coursePrice"
+                                    value={coursePrice ? coursePrice : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                                <div className='col-4' style={{ paddingRight: '0px' }}>
+                                    <Select
+                                        className={`semestre ${includes(tempMandatory, 'currency') ? 'alert-danger' : ''}`}
+                                        name="semester"
+                                        placeholder="Currency"
+                                        value={currency}
+                                        options={currencyOptions}
+                                        onChange={this.handleSelectChange('currency')}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Semester</Label>
+                                <Select
+                                    className={`col-8 semestre ${includes(tempMandatory, 'semester') ? 'alert-danger' : ''}`}
+                                    name="semester"
+                                    value={semester}
+                                    options={semesterOptions}
+                                    onChange={this.handleSelectChange('semester')}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Course Status</Label>
+                                <Select
+                                    className={`col-8 semestre ${includes(tempMandatory, 'courseStatus') ? 'alert-danger' : ''}`}
+                                    name="courseStatus"
+                                    value={courseStatus}
+                                    options={statusOptions}
+                                    onChange={this.handleSelectChange('courseStatus')}
+                                />
+                            </div>
+                            <div className="row">
+                                <div className='col-4'></div>
+                                <div className='col-4'>
+                                    <Button onClick={this.handleSave} color='success'>SAVE</Button>
+                                </div>
+                                <div className='col-4'>
+                                    <Button onClick={this.handleClear} color='secondary'>CLEAR</Button>
+                                </div>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Container>
             </div>
         )
     }

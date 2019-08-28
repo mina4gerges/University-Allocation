@@ -1,40 +1,46 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Nav, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React from 'react';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import classnames from 'classnames';
 
-import Dashboard from "./Dashboard";
-import Creaction from "./Creation";
+export default class Example extends React.Component {
+    constructor(props) {
+        super(props);
 
-function Test() {
-    return (
-        <Router>
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            activeTab: '1'
+        };
+    }
+
+    toggle(tab) {
+        if (this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab
+            });
+        }
+    }
+    render() {
+        return (
             <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Dashboard</Link>
-                        </li>
-                        <li>
-                            <Link to="/Creaction/">Creaction</Link>
-                        </li>
-
-                        <NavItem>
-                            <NavLink href="/" style={{ color: 'red' }}>Link</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/Creaction/" style={{ color: 'red' }}>Link</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#" style={{ color: 'red' }}>Another Link</NavLink>
-                        </NavItem>
-                    </ul>
-                </nav>
-
-                <Route path="/" exact component={Dashboard} />
-                <Route path="/Creaction/" component={Creaction} />
+                <Nav tabs>
+                    <NavItem>
+                        <NavLink
+                            className={classnames({ active: this.state.activeTab === '1' })}
+                            onClick={() => { this.toggle('1'); }}
+                        >
+                            Tab1
+                            </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink
+                            className={classnames({ active: this.state.activeTab === '2' })}
+                            onClick={() => { this.toggle('2'); }}
+                        >
+                            Moar Tabs
+                            </NavLink>
+                    </NavItem>
+                </Nav>
             </div>
-        </Router>
-    );
+        );
+    }
 }
-
-export default Test;
