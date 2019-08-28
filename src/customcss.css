@@ -3,3 +3,9 @@
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+.bread-crumb-background .breadcrumb{
+    background: #95A5A6;
+    border-radius: unset;
+    padding: 2px 6px
+}

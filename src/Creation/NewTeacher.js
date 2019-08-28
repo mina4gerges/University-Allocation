@@ -12,7 +12,7 @@ import InputComp from "../Components/InputComp";
 import validateEmail from '../GlobalFunctions';
 import { teacherMajorMajorOptions } from '../Data/CreationData';
 import 'react-phone-input-2/dist/style.css';
-
+//ciploma, experties, name, lastname, phone, email, logo, userame, pass, type(user3ade aw admin), status(active or not)
 class NewTeacher extends Component {
 
     constructor(props) {

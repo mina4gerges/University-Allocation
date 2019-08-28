@@ -17,7 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { Nav, NavItem } from 'reactstrap';
 
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import './TopBar.css';
+import './Header.css';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -79,12 +79,12 @@ const useStyles = makeStyles(theme => ({
             display: 'none',
         },
     },
-    topbarbackground: {
+    headerbackground: {
         background: '#26A65B'//green
     }
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -167,13 +167,13 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
-    function handleTabChange(z) {
-        setValue(z.target.id)
+    function handleTabChange(tab) {
+        setValue(tab.target.id)
     }
 
     return (
         < div className={classes.grow} >
-            <AppBar position="static" className={classes.topbarbackground}>
+            <AppBar position="static" className={classes.headerbackground}>
                 <Toolbar>
                     <IconButton
                         edge="start"

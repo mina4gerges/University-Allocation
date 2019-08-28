@@ -1,46 +1,37 @@
 import React from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-import classnames from 'classnames';
+import { css } from '@emotion/core';
+// First way to import
+import { PropagateLoader } from 'react-spinners';
+// Another way to import. This is recommended to reduce bundle size
+// import ClipLoader from 'react-spinners/ClipLoader';
 
-export default class Example extends React.Component {
+// Can be a string as well. Need to ensure each key-value pair ends with ;
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
+
+class Test extends React.Component {
     constructor(props) {
         super(props);
-
-        this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '1'
-        };
-    }
-
-    toggle(tab) {
-        if (this.state.activeTab !== tab) {
-            this.setState({
-                activeTab: tab
-            });
+            loading: true
         }
     }
     render() {
         return (
-            <div>
-                <Nav tabs>
-                    <NavItem>
-                        <NavLink
-                            className={classnames({ active: this.state.activeTab === '1' })}
-                            onClick={() => { this.toggle('1'); }}
-                        >
-                            Tab1
-                            </NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink
-                            className={classnames({ active: this.state.activeTab === '2' })}
-                            onClick={() => { this.toggle('2'); }}
-                        >
-                            Moar Tabs
-                            </NavLink>
-                    </NavItem>
-                </Nav>
+            <div className='sweet-loading'>
+                <PropagateLoader
+                    css={override}
+                    sizeUnit={"px"}
+                    size={15}
+                    color={'#123abc'}
+                    loading={this.state.loading}
+                />
             </div>
-        );
+        )
     }
 }
+
+export default Test

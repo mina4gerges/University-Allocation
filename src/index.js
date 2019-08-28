@@ -6,6 +6,7 @@ import 'react-select/dist/react-select.css'
 import 'react-virtualized-select/styles.css'
 import './customcss.css'
 import Full from './Container/Full';
+import Test from './Test'
 
 ReactDOM.render(< Full />, document.getElementById('root'));
 

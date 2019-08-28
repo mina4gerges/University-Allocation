@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
+import axios from "axios";
 
 import globalMsg from "../Data/globalMsg";
 import { statusOptions, currencyOptions } from "../Data/CreationData";
@@ -87,6 +88,21 @@ class NewCourse extends Component {
             savedValue = { ...savedValue, [val]: this.state[val] };
         })
         console.log('savedValue', savedValue)
+        axios({
+            method: 'post',
+            url: 'localhost/CNAMUniversity/Dashboard',
+            data: {}
+            // data: {
+            //     firstName: 'Fred',
+            //     lastName: 'Flintstone'
+            // }
+        })
+            .then(response => {
+                console.log("response", response)
+            })
+            .catch(error => {
+                console.log("error", error)
+            })
         return savedValue;
     }
 
