@@ -90,11 +90,13 @@ class NewCourse extends Component {
         console.log('savedValue', savedValue)
         axios({
             method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin': '*'
+            },
             url: 'http://127.0.0.1/CNAMUniversity/Dashboard',
             params: {},
-            headers: {
-                'Access-Control-Allow-Origin': true,
-            },
             // data: {}
             // cancelToken: new CancelToken(function (cancel) {
             // })
