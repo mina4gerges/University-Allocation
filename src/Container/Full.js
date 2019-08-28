@@ -10,7 +10,8 @@ class Full extends Component {
         return (
             <div>
                 <TopBar />
-                <Dashboard />
+                {/* <Dashboard /> */}
+                <Creation />
                 {/* <Router> */}
 
                 {/* <Route path="/" component={Dashboard} /> */}

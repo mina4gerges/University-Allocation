@@ -5,7 +5,7 @@ import NewCourse from './NewCourse';
 import './Creation.css';
 import NewTeacher from './NewTeacher';
 
-class Creaction extends Component {
+class Creation extends Component {
 
     constructor(props) {
         super(props);
@@ -33,4 +33,4 @@ class Creaction extends Component {
     }
 }
 
-export default Creaction;
+export default Creation;

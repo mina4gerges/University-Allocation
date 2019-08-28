@@ -4,11 +4,12 @@ import { filter, map, includes, isEmpty } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
+import AlgoliaPlaces from 'algolia-places-react';
 
 import globalMsg from "../Data/globalMsg";
 import InputComp from "../Components/InputComp";
 import validateEmail from '../GlobalFunctions';
-import { teacherMajorMajorOptions } from '../Data/CreactionData';
+import { teacherMajorMajorOptions } from '../Data/CreationData';
 import 'react-phone-input-2/dist/style.css';
 
 class NewTeacher extends Component {
@@ -23,7 +24,7 @@ class NewTeacher extends Component {
             teacherPhoneNumber: null,
             teacherEmail: null,
             teacherMajor: null,
-            teacherAdress: null,
+            teacherAddress: null,
 
             tempMandatory: [],
             tempInvalid: [],
@@ -37,7 +38,7 @@ class NewTeacher extends Component {
             'teacherPhoneNumber',
             'teacherEmail',
             'teacherMajor',
-            'teacherAdress'
+            'teacherAddress'
         ];
 
         this.toSave = [
@@ -47,7 +48,7 @@ class NewTeacher extends Component {
             'teacherPhoneNumber',
             'teacherEmail',
             'teacherMajor',
-            'teacherAdress'
+            'teacherAddress'
         ];
     }
 
@@ -113,11 +114,14 @@ class NewTeacher extends Component {
         this.setState({ ...tempState, errorMsg: null, tempMandatory: null })
     }
 
-    dateTimePickerValue = (name, value) => this.setState({ [name]: value });
+
+    handleAddressChange = query => {
+        console.log('query', query)
+    }
 
     render() {
         let { teacherID, teacherName, teacherLastName, teacherPhoneNumber,
-            teacherEmail, teacherMajor, teacherAdress, teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
+            teacherEmail, teacherMajor, teacherAddress, teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
         console.log('this.state', this.state);
         return (
             <div>
@@ -201,11 +205,23 @@ class NewTeacher extends Component {
                                 onChange={this.handleSelectChange('teacherMajor')}
                             />
                         </div>
-
                         <div className="row" style={{ marginBottom: "5px" }}>
-                            <Label className="col-4">Adress</Label>
-                            <div className='col-8'>
-
+                            <Label className="col-4">Address</Label>
+                            <div className='col-8' style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+                                <AlgoliaPlaces
+                                    placeholder=''
+                                    name='teacherAddress'
+                                    onChange={this.handleAddressChange}
+                                    className={includes(tempMandatory, 'teacherAddress') ? 'alert-danger testing1' : 'testing2'}
+                                    options={{
+                                        appId: 'plV842AJCU0M',
+                                        apiKey: '6755273aa0e09c361d3d3f873af3326d',
+                                        language: 'en',
+                                        // language: 'sv', //result in arabic
+                                        countries: ['lb'],
+                                        type: 'city'
+                                    }}
+                                />
                             </div>
                         </div>
                         <div className="row">

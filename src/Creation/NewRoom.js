@@ -6,7 +6,7 @@ import Select from "react-virtualized-select";
 import moment from 'moment';
 
 import globalMsg from "../Data/globalMsg";
-import { roomStatusOptions } from "../Data/CreactionData";
+import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
 
 class NewRoom extends Component {

@@ -5,7 +5,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 
 import globalMsg from "../Data/globalMsg";
-import { statusOptions, currencyOptions } from "../Data/CreactionData";
+import { statusOptions, currencyOptions } from "../Data/CreationData";
 
 class NewCourse extends Component {
 
