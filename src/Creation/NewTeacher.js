@@ -215,7 +215,7 @@ class NewTeacher extends Component {
                                     className={includes(tempMandatory, 'teacherAddress') ? 'alert-danger testing1' : 'testing2'}
                                     options={{
                                         appId: 'plV842AJCU0M',
-                                        apiKey: '6755273aa0e09c361d3d3f873af3326d',
+                                        apiKey: ~ '6755273aa0e09c361d3d3f873af3326d',
                                         language: 'en',
                                         // language: 'sv', //result in arabic
                                         countries: ['lb'],

@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { map, find } from 'lodash';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 // import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import DashBoardData from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
-import TopBar from '../Components/TopBar';
 import './Dashboard.css';
-//#00acc1 background bar
-//#eeeeee body backgrouond
+
 class Dashboard extends Component {
 
     constructor(props) {
@@ -64,17 +61,15 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <Container>
-                    <div className='row'>{this.generateData()}</div>
-                    {openModalDataChange &&
-                        <ModalDataChange
-                            open={openModalDataChange}
-                            onClose={this.closeModalDataChange}
-                            dataSelected={dataSelected}
-                            handleModalSave={this.handleModalSave}
-                        />
-                    }
-                </Container>
+                <div className='row'>{this.generateData()}</div>
+                {openModalDataChange &&
+                    <ModalDataChange
+                        open={openModalDataChange}
+                        onClose={this.closeModalDataChange}
+                        dataSelected={dataSelected}
+                        handleModalSave={this.handleModalSave}
+                    />
+                }
             </div>
 
         )

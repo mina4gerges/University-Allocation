@@ -1,17 +1,39 @@
-.test::placeholder {
-    color: white;
-  }
-
-  .search {
+.MuiTab-root {
+    padding: 12px;
+    overflow: hidden;
     position: relative;
-    margin-right: 5px;
-    margin-left: 0px;
-    width: 100%;
+    font-size: 0.875rem;
+    max-width: 264px;
+    min-width: 72px;
+    box-sizing: border-box;
+    min-height: 48px;
+    text-align: center;
+    flex-shrink: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    white-space: normal;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+
+    align-items: center;
 }
 
-.searchIcon {
-    /* width: theme.spacing(7), */
-    height: 100%;
-    position: absolute;
-    display: flex;
+.MuiTab-root a {
+    color: white;
+}
+
+.MuiTab-root a:hover {
+    color: #0056b3;
+}
+
+.nav-tabs{
+    border: none
+}
+.active{
+    opacity: 1
+}
+
+.notActive{
+    opacity: 0.7
 }
