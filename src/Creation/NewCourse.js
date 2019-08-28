@@ -90,8 +90,12 @@ class NewCourse extends Component {
         console.log('savedValue', savedValue)
         axios({
             method: 'post',
-            url: 'localhost/CNAMUniversity/Dashboard',
-            data: {}
+            url: 'http://127.0.0.1/CNAMUniversity/Dashboard',
+            params: {}
+            // data: {}
+            // cancelToken: new CancelToken(function (cancel) {
+            // })
+
             // data: {
             //     firstName: 'Fred',
             //     lastName: 'Flintstone'
