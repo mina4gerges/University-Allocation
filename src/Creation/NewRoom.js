@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import moment from 'moment';
 
-import globalMsg from "../Data/globalMsg";
+import { globalMsg } from "../Data/globalMsg";
 import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
 //name, capacity, floor, status, campus

@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import axios from "axios";
 
-import globalMsg from "../Data/globalMsg";
+import { globalMsg } from "../Data/globalMsg";
 import { statusOptions, currencyOptions } from "../Data/CreationData";
 
 class NewCourse extends Component {
@@ -54,6 +54,19 @@ class NewCourse extends Component {
 
     }
 
+    componentDidMount() {
+        const CancelToken = axios.CancelToken;
+        this.CancelToken = CancelToken.source();
+    }
+
+    componentWillUnmount() {
+        //cancel axios request
+        if (this.CancelToken) {
+            this.CancelToken.cancel('Request canceled by the user.');
+            this.CancelToken = undefined;
+        }
+    }
+
     handleTextChange = event => {
         let { name, value } = event.target;
         this.handleRemoveMandatory(name);
@@ -88,31 +101,21 @@ class NewCourse extends Component {
             savedValue = { ...savedValue, [val]: this.state[val] };
         })
         console.log('savedValue', savedValue)
+
+        const params = {};
         axios({
             method: 'post',
-            mode: 'no-cors',
-            headers: {
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            },
             url: 'http://127.0.0.1/CNAMUniversity/Dashboard',
-            params: {},
-            data: {}
-            // cancelToken: new CancelToken(function (cancel) {
-            // })
+            data: params,
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            cancelToken: this.CancelToken.token
+        }).then((response) => {
+            let res = response.data.DashboardResult;
+            console.log('res', res);
+        }).catch((error) => {
+            console.log('error', error);
+        });
 
-            // data: {
-            //     firstName: 'Fred',
-            //     lastName: 'Flintstone'
-            // }
-        })
-            .then(response => {
-                console.log("response", response)
-            })
-            .catch(error => {
-                console.log("error", error)
-            })
         return savedValue;
     }
 

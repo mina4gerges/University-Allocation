@@ -7,7 +7,7 @@ import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
 import AlgoliaPlaces from 'algolia-places-react';
 
-import globalMsg from "../Data/globalMsg";
+import { globalMsg } from "../Data/globalMsg";
 import InputComp from "../Components/InputComp";
 import validateEmail from '../GlobalFunctions';
 import { teacherMajorMajorOptions } from '../Data/CreationData';
