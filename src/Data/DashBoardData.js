@@ -1,6 +1,6 @@
 const DashBoardData = [{
     id: 1,
-    className: 'B1',
+    room: 'B1',
     classCapacity: 10,
     teacher: 'Mina l zaber',
     çourse: 'Java 3',
@@ -8,11 +8,12 @@ const DashBoardData = [{
     date: '12-05-2019',
     startTime: '15:00',
     endTime: '17:00',
+    floor: '1',
     status: 'live'
 },
 {
     id: 2,
-    className: 'B2',
+    room: 'B2',
     classCapacity: 20,
     teacher: 'Rabih',
     çourse: 'Data base',
@@ -20,11 +21,12 @@ const DashBoardData = [{
     date: '12-05-2019',
     startTime: '17:00',
     endTime: '19:00',
+    floor: '2',
     status: 'live'
 },
 {
     id: 3,
-    className: 'B3',
+    room: 'B3',
     classCapacity: 30,
     teacher: 'Chady',
     çourse: 'Programmation Avance',
@@ -32,11 +34,12 @@ const DashBoardData = [{
     date: '13-05-2019',
     startTime: '13:00',
     endTime: '15:00',
+    floor: '3',
     status: 'live'
 },
 {
     id: 4,
-    className: 'B4',
+    room: 'B4',
     classCapacity: 40,
     teacher: 'Bilal',
     çourse: 'Reseaux',
@@ -44,12 +47,13 @@ const DashBoardData = [{
     date: '14-05-2019',
     startTime: '17:00',
     endTime: '19:00',
+    floor: '1',
     status: 'cancelled'
 },
 
 {
     id: 5,
-    className: 'B4',
+    room: 'B4',
     classCapacity: 40,
     teacher: 'Bilal',
     çourse: 'Reseaux',
@@ -57,11 +61,12 @@ const DashBoardData = [{
     date: '14-05-2019',
     startTime: '13:00',
     endTime: '17:00',
+    floor: '1',
     status: 'live'
 },
 {
     id: 6,
-    className: 'B1',
+    room: 'B1',
     classCapacity: 40,
     teacher: null,
     çourse: null,
@@ -69,11 +74,12 @@ const DashBoardData = [{
     date: null,
     startTime: null,
     endTime: null,
+    floor: '2',
     status: 'vacant'
 },
 {
     id: 7,
-    className: 'C4',
+    room: 'C4',
     classCapacity: 20,
     teacher: null,
     çourse: null,
@@ -81,6 +87,7 @@ const DashBoardData = [{
     date: null,
     startTime: null,
     endTime: null,
+    floor: '2',
     status: 'vacant'
 },
 ];
