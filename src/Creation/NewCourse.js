@@ -105,7 +105,7 @@ class NewCourse extends Component {
         const params = {};
         axios({
             method: 'post',
-            url: 'http://127.0.0.1/CNAMUniversity/Dashboard',
+            url: 'http://127.0.0.1/CNAMUniversity/DataService.svc/web/Dashboard',
             data: params,
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             cancelToken: this.CancelToken.token
