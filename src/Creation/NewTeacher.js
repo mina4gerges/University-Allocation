@@ -190,7 +190,7 @@ class NewTeacher extends Component {
                                         className={includes(tempMandatory, 'teacherAddress') ? 'alert-danger testing1' : 'testing2'}
                                         options={{
                                             appId: 'plV842AJCU0M',
-                                            apiKey: ~ '6755273aa0e09c361d3d3f873af3326d',
+                                            apiKey: '6755273aa0e09c361d3d3f873af3326d',
                                             language: 'en',
                                             // language: 'sv', //result in arabic
                                             countries: ['lb'],
@@ -224,22 +224,6 @@ class NewTeacher extends Component {
                                         onBlur={this.handleTextBlur}
                                         errorMsg={includes(tempInvalid, 'teacherEmail') ? globalMsg.mail : null}
                                     />
-                                </div>
-                            </div>
-                            <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">Major</Label>
-                                <Select
-                                    className={`col-8 semestre ${includes(tempMandatory, 'teacherMajor') ? 'alert-danger' : ''}`}
-                                    name="teacherMajor"
-                                    value={teacherMajor}
-                                    options={teacherMajorMajorOptions}
-                                    onChange={this.handleSelectChange('teacherMajor')}
-                                />
-                            </div>
-                            <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">Adress</Label>
-                                <div className='col-8'>
-
                                 </div>
                             </div>
                             <div className="row">
