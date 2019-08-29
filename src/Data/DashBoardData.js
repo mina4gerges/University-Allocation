@@ -47,7 +47,7 @@ const DashBoardData = [{
     date: '14-05-2019',
     startTime: '17:00',
     endTime: '19:00',
-    floor: '1',
+    floor: '4',
     status: 'cancelled'
 },
 
@@ -61,7 +61,7 @@ const DashBoardData = [{
     date: '14-05-2019',
     startTime: '13:00',
     endTime: '17:00',
-    floor: '1',
+    floor: '4',
     status: 'live'
 },
 {
@@ -74,12 +74,12 @@ const DashBoardData = [{
     date: null,
     startTime: null,
     endTime: null,
-    floor: '2',
+    floor: '1',
     status: 'vacant'
 },
 {
     id: 7,
-    room: 'C4',
+    room: 'C2',
     classCapacity: 20,
     teacher: null,
     çourse: null,
@@ -88,6 +88,32 @@ const DashBoardData = [{
     startTime: null,
     endTime: null,
     floor: '2',
+    status: 'vacant'
+},
+{
+    id: 8,
+    room: 'A2',
+    classCapacity: 20,
+    teacher: null,
+    çourse: null,
+    nbrStudents: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    floor: '1',
+    status: 'vacant'
+},
+{
+    id: 9,
+    room: 'E3',
+    classCapacity: 20,
+    teacher: null,
+    çourse: null,
+    nbrStudents: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    floor: '3',
     status: 'vacant'
 },
 ];
