@@ -7,7 +7,7 @@ import Creaction from '../Creation';
 import NewRoom from '../Creation/NewRoom';
 import NewCourse from '../Creation/NewCourse';
 import NewTeacher from '../Creation/NewTeacher';
-import TopBar from '../Components/ToBar';
+// import TopBar from '../Components/TopBar';
 
 class Full extends Component {
     //#00acc1 background bar
