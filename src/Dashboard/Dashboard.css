@@ -28,7 +28,7 @@
     visibility: hidden;
 }
 
-.card-body:hover {
+.dash-board-card .card-body:hover {
     background: #BFBFBF;
     cursor: pointer;
     filter: grayscale(100%) blur(1px);
