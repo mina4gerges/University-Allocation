@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { map, find, groupBy, cloneDeep, filter } from 'lodash';
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-import { withStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import DashBoardData from '../Data/DashBoardData';
+import { map, find, groupBy, cloneDeep, filter, includes, isEmpty } from 'lodash';
+import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import format from 'date-fns/format';
+import { DashBoardData } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
-import { statusColor } from '../Data/globalMsg';
+import { statusColor } from '../Data/DashBoardData';
+import { nameCapitalized } from '../GlobalFunctions';
+import FiltrationBar from './FiltrationBar';
 import './Dashboard.css';
-
 class Dashboard extends Component {
 
     constructor(props) {
@@ -27,42 +27,60 @@ class Dashboard extends Component {
             vacant: false,
 
             groupingName: 'floor',
-            filtrationName: null
+            filtrationValue: null,
+
+            tooltipOpen: false
         }
+
+        this.filtrationOption = [
+            'live',
+            'upcoming',
+            'cancelled',
+            'vacant',
+        ];
     }
 
-    generateData = () => {
-        let { DashBoardData, groupingName } = this.state;
-        let cardDisplay = map(DashBoardData, (val1, key1) => {
-            return (
-                <div className='row' key={`dash-board-key-filtarion${key1}`}>
-                    <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{groupingName + " " + key1}</b></div>
-                    {
-                        map(val1, (val, key) => {
-                            let borderColor = statusColor[val.status];
-                            return (
-                                <div className='col-3' key={`dash-board-key-${key}`}>
-                                    <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid` }}>
-                                        <CardBody>
-                                            <CardTitle>{val.room}</CardTitle>
-                                            <CardSubtitle><b>{val.çourse}</b></CardSubtitle>
-                                            <CardText>
-                                                Date: {val.date}<br />
-                                                Start Time: {val.startTime}<br />
-                                                End Time: {val.endTime}<br />
-                                                Number Of Students: {val.nbrStudents}<br />
-                                            </CardText>
-                                            {/* <Button size="small" color="primary">More Info</Button> */}
-                                        </CardBody>
-                                    </Card>
-                                </div>
-                            )
-                        })
-                    }
-                    <hr style={{ width: '90%' }} />
-                </div>
-            )
+    toggle = () => {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
         });
+    }
+
+    generateCard = () => {
+        let { DashBoardData, groupingName } = this.state;
+        let cardDisplay = <div className='no-data-found center'>No Data Found</div>;
+        if (!isEmpty(DashBoardData)) {
+            cardDisplay = map(DashBoardData, (val1, key1) => {
+                return (
+                    <div className='row' key={`dash-board-key-filtarion${key1}`}>
+                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized(groupingName + " " + key1)}</b></div>
+                        {
+                            map(val1, (val, key) => {
+                                let borderColor = statusColor[val.status];
+                                return (
+                                    <div className='col-3' key={`dash-board-key-${key}`}>
+                                        <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid` }}>
+                                            <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.id}`} className='center card-icon' style={{ fontSize: '30px' }} />
+                                            <CardBody>
+                                                <CardTitle>{groupingName === 'floor' ? `Room ${val.room}` : `Floor ${val.floor}`}</CardTitle>
+                                                <CardText>
+                                                    Course: {val.çourse}<br />
+                                                    Date: {val.date ? format(val.date, 'dd/MM/yyyy') : ''}<br />
+                                                    Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
+                                                    End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />
+                                                    Number Of Students: {val.nbrStudents}<br />
+                                                </CardText>
+                                            </CardBody>
+                                        </Card>
+                                    </div>
+                                )
+                            })
+                        }
+                        <hr style={{ width: '90%' }} />
+                    </div>
+                )
+            });
+        }
         return cardDisplay;
     }
 
@@ -90,130 +108,54 @@ class Dashboard extends Component {
         this.setState({ [event.target.value]: event.target.checked });
     }
 
-    handleFiltration = (filtrationName, filtrationType) => {
-        let { clonedDashBoardData, groupingName } = this.state;
-        let DashBoardData = groupBy(filter(clonedDashBoardData, { [filtrationType]: filtrationName }), groupingName);
-        this.setState({ DashBoardData, filtrationName });
+    filterCard = (clonedDashBoardData, groupingName, DashBoardData, filtrationChecked, filtrationType) => {
+        DashBoardData = groupBy(filter(clonedDashBoardData, val => {
+            return ((includes(filtrationChecked, 'live') && val[filtrationType] === 'live')
+                || (includes(filtrationChecked, 'upcoming') && val[filtrationType] === 'upcoming')
+                || (includes(filtrationChecked, 'cancelled') && val[filtrationType] === 'cancelled')
+                || (includes(filtrationChecked, 'vacant') && val[filtrationType] === 'vacant')
+            )
+        }), groupingName);
+        return DashBoardData
+    }
+
+    handleFiltration = (filtrationValue, filtrationType) => {
+        this.setState({ filtrationValue }, () => {
+            let { clonedDashBoardData, groupingName } = this.state;
+            let DashBoardData = groupBy(clonedDashBoardData, groupingName);
+            let filtrationChecked = [];
+            map(this.filtrationOption, val => { if (this.state[val]) filtrationChecked.push(val) })
+            if (!isEmpty(filtrationChecked)) DashBoardData = this.filterCard(clonedDashBoardData, groupingName, DashBoardData, filtrationChecked, filtrationType);
+            this.setState({ DashBoardData })
+        });
     }
 
     handleGrouping = groupingName => {
         let { clonedDashBoardData } = this.state;
         let DashBoardData = groupBy(clonedDashBoardData, groupingName);
+        let filtrationChecked = [];
+        map(this.filtrationOption, val => { if (this.state[val]) filtrationChecked.push(val) })
+        if (!isEmpty(filtrationChecked)) DashBoardData = this.filterCard(clonedDashBoardData, groupingName, DashBoardData, filtrationChecked, 'status');
         this.setState({ DashBoardData, groupingName });
     }
 
     render() {
         let { openModalDataChange, dataSelected, radioSelectedValue, live, upcoming, cancelled, vacant } = this.state;
-
-        let liveColor = statusColor.live;
-        let upcomingColor = statusColor.upcoming;
-        let cancelledColor = statusColor.cancelled;
-        let vacantColor = statusColor.vacant;
-
-        const LiveCheckbox = withStyles({
-            root: { color: liveColor, '&$checked': { color: liveColor } },
-            checked: {},
-        })(props => <Checkbox color="default" {...props} />);
-
-        const UpComingCheckbox = withStyles({
-            root: { color: upcomingColor, '&$checked': { color: upcomingColor } },
-            checked: {},
-        })(props => <Checkbox color="default" {...props} />);
-
-        const CancelledCheckbox = withStyles({
-            root: { color: cancelledColor, '&$checked': { color: cancelledColor } },
-            checked: {},
-        })(props => <Checkbox color="default" {...props} />);
-
-        const VacantCheckbox = withStyles({
-            root: { color: vacantColor, '&$checked': { color: vacantColor } },
-            checked: {},
-        })(props => <Checkbox color="default" {...props} />);
-
         return (
             <div>
-                <div className='filtration-bar'>
-                    <div className='row filtration-status'>
-                        <span className='col-3'><b>Class Status :</b></span>
-                        <span className='col-9'>
-                            <FormControlLabel
-                                control={
-                                    <LiveCheckbox
-                                        checked={live}
-                                        onChange={this.handleCheckBoxChange}
-                                        value="live"
-                                    />
-                                }
-                                label='Live'
-                                style={{ color: liveColor }}
-                            />
-                            <FormControlLabel
-                                control={
-                                    <UpComingCheckbox
-                                        checked={upcoming}
-                                        onChange={this.handleCheckBoxChange}
-                                        value="upcoming"
-                                    />
-                                }
-                                label='Up Coming'
-                                style={{ color: upcomingColor }}
-                            />
-                            <FormControlLabel
-                                control={
-                                    <CancelledCheckbox
-                                        checked={cancelled}
-                                        onChange={this.handleCheckBoxChange}
-                                        value="cancelled"
-                                    />
-                                }
-                                label='Cancelled'
-                                style={{ color: cancelledColor }}
-                            />
-                            <FormControlLabel
-                                control={
-                                    <VacantCheckbox
-                                        checked={vacant}
-                                        onChange={this.handleCheckBoxChange}
-                                        value="vacant"
-                                    />
-                                }
-                                label='Vacant'
-                                style={{ color: vacantColor }}
-                            />
-                        </span>
-                    </div>
+                <FiltrationBar
+                    statusColor={statusColor}
+                    radioSelectedValue={radioSelectedValue}
+                    live={live}
+                    upcoming={upcoming}
+                    cancelled={cancelled}
+                    vacant={vacant}
+                    handleCheckBoxChange={this.handleCheckBoxChange}
+                    handleRadioChange={this.handleRadioChange}
+                />
 
-                    <div className='row filtration-floor-room'>
-                        <span className='col-3'><b>Floor / Room :</b></span>
-                        <span className='col-9'>
-                            <FormControlLabel
-                                control={
-                                    <Radio
-                                        checked={radioSelectedValue === 'floor'}
-                                        onChange={this.handleRadioChange}
-                                        value="floor"
-                                        name="floor"
-                                        color="default"
-                                    />
-                                }
-                                label='Floor'
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Radio
-                                        checked={radioSelectedValue === 'room'}
-                                        onChange={this.handleRadioChange}
-                                        value="room"
-                                        name="room"
-                                        color="default"
-                                    />
-                                }
-                                label='Room'
-                            />
-                        </span>
-                    </div>
-                </div>
-                <div className='dash-board-main' style={{ marginTop: '15px' }}>{this.generateData()}</div>
+                <div className='dash-board-main' style={{ marginTop: '15px' }}>{this.generateCard()}</div>
+
                 {openModalDataChange &&
                     <ModalDataChange
                         open={openModalDataChange}

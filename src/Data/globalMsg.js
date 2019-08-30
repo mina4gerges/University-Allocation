@@ -3,12 +3,6 @@ export const globalMsg = {
     mail: 'Invalid Mail'
 }
 
-export const statusColor = {
-    vacant: '#D2D7D3',
-    live: '#19B5FE',
-    cancelled: '#CF000F',
-    upcoming: '#F7CA18',
-}
 
 
 

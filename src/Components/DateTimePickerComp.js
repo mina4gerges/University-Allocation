@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
-import moment from 'moment';
 
 export default function DateTimePickerComp(props) {
 
-    const [selectedDate, setSelectedDate] = useState(new moment());
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
     function handleDateChange(date) {
         setSelectedDate(date);
@@ -14,13 +13,13 @@ export default function DateTimePickerComp(props) {
     }
 
     return (
-        <MuiPickersUtilsProvider utils={MomentUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDateTimePicker
                 ampm
                 showTodayButton
                 value={props.value ? props.value : selectedDate}
                 onChange={handleDateChange}
-                minDate={new moment()}
+                minDate={new Date()}
                 format="DD/MM/YYYY hh:mm a"
             // maxDateMessage="test 1"
             // minDateMessage="test 2"

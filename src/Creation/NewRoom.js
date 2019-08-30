@@ -4,7 +4,6 @@ import { filter, map, includes, isEmpty, remove } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
-import moment from 'moment';
 
 import { globalMsg } from "../Data/globalMsg";
 import { roomStatusOptions } from "../Data/CreationData";
@@ -50,7 +49,7 @@ class NewRoom extends Component {
         let roomHoldUntil = null;
         this.handleRemoveMandatory(name);
         this.handleAddRemoveMandatoryValue(value);
-        if (name === 'roomStatus' && value && value.roomHoldUntil) roomHoldUntil = new moment();
+        if (name === 'roomStatus' && value && value.roomHoldUntil) roomHoldUntil = new Date();
         this.setState({ [name]: value, roomHoldUntil });
     }
 

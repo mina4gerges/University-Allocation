@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { cloneDeep } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { cloneDeep, map } from 'lodash';
+import { roomName, roomStatus } from '../Data/DashBoardData';
+import TimePickerComp from '../Components/TimePickerComp';
+import DatePcikerComp from '../Components/DatePickerComp';
 class ModalDataChange extends Component {
     constructor(props) {
         super(props);
@@ -21,36 +28,64 @@ class ModalDataChange extends Component {
         this.setState({ dataSelected })
     }
 
+    x = name => value => {
+        let { dataSelected } = this.state;
+        dataSelected[name] = value;
+        this.setState({ dataSelected })
+    }
+
 
     render() {
         let { onClose, open, handleModalSave } = this.props;
         let { dataSelected } = this.state;
-
         return (
             <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change'>
                 <DialogContent>
-                    <DialogContentText>
-                        Please add your new modification
+                    {dataSelected.çourse && dataSelected.teacher &&
+                        <DialogContentText style={{ textAlign: 'center' }}>
+                            {`${dataSelected.çourse} (${dataSelected.teacher})`}
                         </DialogContentText>
-                    <div className='row'>
-                        <div className='çol-2'><label>Class :</label></div>
-                        <div className=' col-8'><input type='text' name='className' onChange={this.handleChange} value={dataSelected.className} className='form-control' /></div>
+                    }
+                    <FormControl style={{ width: '100%' }} className='row'>
+                        <InputLabel htmlFor="age-simple">Room</InputLabel>
+                        <Select
+                            value={dataSelected.room}
+                            onChange={this.handleChange}
+                            name='room'
+                        >
+                            {map(roomName, roomValue => { return (<MenuItem key={roomValue.value} value={roomValue.value} >{roomValue.label}</MenuItem>) })}
+                        </Select>
+                    </FormControl>
+                    <FormControl style={{ width: '100%' }} className='row'>
+                        <InputLabel htmlFor="age-simple">Status</InputLabel>
+                        <Select
+                            value={dataSelected.status}
+                            onChange={this.handleChange}
+                            name='status'
+                        >
+                            {map(roomStatus, statusName => { return (<MenuItem key={statusName.value} value={statusName.value} >{statusName.label}</MenuItem>) })}
+                        </Select>
+                    </FormControl>
+                    <div className='raw'>
+                        <DatePcikerComp
+                            label='Date'
+                            value={dataSelected.date}
+                            onChange={this.x('date')}
+                        />
                     </div>
-                    <div className='row'>
-                        <div className='çol-2'><label>Date :</label></div>
-                        <div className=' col-8'><input type='text' name='date' onChange={this.handleChange} value={dataSelected.date} className='form-control' /></div>
+                    <div className='raw'>
+                        <TimePickerComp
+                            label='Start Time'
+                            value={dataSelected.startTime}
+                            onChange={this.x('startTime')}
+                        />
                     </div>
-                    <div className='row'>
-                        <div className='çol-2'><label>Start Time : </label></div>
-                        <div className=' col-8'><input type='text' name='startTime' onChange={this.handleChange} value={dataSelected.startTime} className='form-control' /></div>
-                    </div>
-                    <div className='row'>
-                        <div className='çol-2'><label>End Time : </label></div>
-                        <div className=' col-8'><input type='text' name='endTime' onChange={this.handleChange} value={dataSelected.endTime} className='form-control' /></div>
-                    </div>
-                    <div className='row'>
-                        <div className='çol-2'><label>Class Status : </label></div>
-                        <div className=' col-8'><input type='text' name='status' onChange={this.handleChange} value={dataSelected.status} className='form-control' /></div>
+                    <div className='raw'>
+                        <TimePickerComp
+                            label='End Time'
+                            value={dataSelected.endTime}
+                            onChange={this.x('endTime')}
+                        />
                     </div>
                 </DialogContent>
                 <DialogActions>
