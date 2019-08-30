@@ -59,10 +59,10 @@ class Dashboard extends Component {
                                 let borderColor = statusColor[val.status];
                                 return (
                                     <div className='col-3' key={`dash-board-key-${key}`}>
-                                        <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid` }}>
+                                        <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid`, borderRadius: '10px' }}>
                                             <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.id}`} className='center card-icon' style={{ fontSize: '30px' }} />
                                             <CardBody>
-                                                <CardTitle>{groupingName === 'floor' ? `Room ${val.room}` : `Floor ${val.floor}`}</CardTitle>
+                                                <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${val.room}` : `Floor ${val.floor}`}</CardTitle>
                                                 <CardText>
                                                     Course: {val.çourse}<br />
                                                     Date: {val.date ? format(val.date, 'dd/MM/yyyy') : ''}<br />
