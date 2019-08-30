@@ -68,14 +68,14 @@ export const DashBoardData = [{
     id: 6,
     room: 'B1',
     classCapacity: 40,
-    teacher: null,
-    çourse: null,
-    nbrStudents: null,
-    date: null,
-    startTime: null,
-    endTime: null,
+    teacher: 'Dr. Fady Moukawam',
+    çourse: 'Arabe',
+    nbrStudents: 10,
+    date: new Date('2019-11-04'),//YYYY-MM-DD
+    startTime: new Date('2019-10-02 05:15 PM'),
+    endTime: new Date('2019-10-02 07:00 PM'),
     floor: '1',
-    status: 'vacant'
+    status: 'upcoming'
 },
 {
     id: 7,
@@ -115,6 +115,58 @@ export const DashBoardData = [{
     endTime: null,
     floor: '3',
     status: 'vacant'
+},
+{
+    id: 10,
+    room: 'B2',
+    classCapacity: 20,
+    teacher: 'Dr. Omar',
+    çourse: 'Structure',
+    nbrStudents: 11,
+    date: new Date('2019-10-12'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 03:00 PM'),
+    endTime: new Date('2019-10-01 04:45 PM'),
+    floor: '1',
+    status: 'live'
+},
+{
+    id: 11,
+    room: 'B2',
+    classCapacity: 20,
+    teacher: 'Dr. Rashid Aoun',
+    çourse: 'Operating System',
+    nbrStudents: 5,
+    date: new Date('2019-10-11'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 01:00 PM'),
+    endTime: new Date('2019-10-01 02:00 PM'),
+    floor: '1',
+    status: 'cancelled'
+},
+{
+    id: 12,
+    room: 'B2',
+    classCapacity: 20,
+    teacher: 'Dr. Rosario Issa',
+    çourse: 'Base De Donne',
+    nbrStudents: 40,
+    date: new Date('2019-10-09'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 05:00 PM'),
+    endTime: new Date('2019-10-01 07:45 PM'),
+    floor: '2',
+    status: 'upcoming'
+},
+{
+    id: 13,
+    room: 'B2',
+    classCapacity: 20,
+    teacher: 'Dr. Rabih',
+    çourse: 'Data base',
+    nbrStudents: 15,
+    date: new Date('2019-10-07'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 12:00 PM'),
+    endTime: new Date('2019-10-01 02:45 PM'),
+    floor: '2',
+    status: 'cancelled'
 },
 ];
 
