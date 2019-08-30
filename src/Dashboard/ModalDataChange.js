@@ -43,7 +43,7 @@ class ModalDataChange extends Component {
                 <DialogContent>
                     {dataSelected.çourse && dataSelected.teacher &&
                         <DialogContentText style={{ textAlign: 'center' }}>
-                            {`${dataSelected.çourse} (${dataSelected.teacher})`}
+                            {`${dataSelected.çourse.toUpperCase()} (${dataSelected.teacher})`}
                         </DialogContentText>
                     }
                     <FormControl style={{ width: '100%' }} className='row'>
