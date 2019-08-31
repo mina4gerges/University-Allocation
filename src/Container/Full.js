@@ -13,7 +13,7 @@ class Full extends Component {
     //#00acc1 background bar
     //#eeeeee body backgrouond
     render() {
-        console.log(" window.location.pathname : ", window.location.pathname)
+        // console.log(" window.location.pathname : ", window.location.pathname)
         return (
             <div style={{ background: '#eeeeee' }}>
                 <Router>
