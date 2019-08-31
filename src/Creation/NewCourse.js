@@ -16,6 +16,7 @@ class NewCourse extends Component {
         super(props);
 
         this.state = {
+            cours_ID: '',
             cours_Name: null,
             cours_Code: null,
             cours_Credit: null,
@@ -100,7 +101,7 @@ class NewCourse extends Component {
         this.handleMandatory();
         let savedValue = {};
         map(this.toSave, val => {
-            savedValue = { ...savedValue, [val]: this.state[val] };
+            savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
         })
 
         const params = { ...savedValue };
