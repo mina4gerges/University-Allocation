@@ -8,6 +8,8 @@ import Select from "react-virtualized-select";
 import { globalMsg } from "../Data/globalMsg";
 import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
+import axios from "axios";
+import { DB_Link } from '../global';
 //name, capacity, floor, status, campus
 class NewRoom extends Component {
 
@@ -15,11 +17,12 @@ class NewRoom extends Component {
         super(props);
 
         this.state = {
-            roomID: null,
-            roomName: null,
-            roomCapacity: null,
-            roomStatus: null,
-            roomHoldUntil: null,
+            roomID: "",
+            roomName: "",
+            roomCapacity: "",
+            roomFloor:"",
+            roomStatus: "",
+            roomHoldUntil: "",
             tempMandatory: [],
             roomStatusOptions
         };
@@ -39,6 +42,18 @@ class NewRoom extends Component {
         ];
     }
 
+    componentDidMount() {
+        const CancelToken = axios.CancelToken;
+        this.CancelToken = CancelToken.source();
+    }
+
+    componentWillUnmount() {
+        //cancel axios request
+        if (this.CancelToken) {
+            this.CancelToken.cancel('Request canceled by the user.');
+            this.CancelToken = undefined;
+        }
+    }
     handleTextChange = event => {
         let { name, value } = event.target;
         this.handleRemoveMandatory(name);
@@ -50,7 +65,7 @@ class NewRoom extends Component {
         this.handleRemoveMandatory(name);
         this.handleAddRemoveMandatoryValue(value);
         if (name === 'roomStatus' && value && value.roomHoldUntil) roomHoldUntil = new Date();
-        this.setState({ [name]: value, roomHoldUntil });
+        this.setState({ [name]: value.value, roomHoldUntil });
     }
 
     handleAddRemoveMandatoryValue = value => {
@@ -83,12 +98,26 @@ class NewRoom extends Component {
 
     handleSave = () => {
         this.handleMandatory();
-        let savedValue = {};
-        map(this.toSave, val => {
-            savedValue = { ...savedValue, [val]: this.state[val] };
-        })
-        console.log('savedValue', savedValue)
-        return savedValue;
+        const params = {
+            roomID: "",
+            roomName: this.state.roomName,
+            roomCapacity: this.state.roomCapacity,
+            roomFloor: this.state.roomFloor,
+            roomStatus: this.state.roomStatus,
+            roomCampusID: 1
+        };
+        axios({
+            method: 'post',
+            url: `${DB_Link}SaveRoom`,
+            data: JSON.stringify(params),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            // cancelToken: this.CancelToken.token
+        }).then((response) => {
+            let res = response.data.SaveRoomResult;
+            // console.log('res', res);
+        }).catch((error) => {
+            // console.log('error', error);
+        });
     }
 
     handleClear = () => {
@@ -103,7 +132,7 @@ class NewRoom extends Component {
     dateTimePickerValue = (name, value) => this.setState({ [name]: value });
 
     render() {
-        let { roomID, roomName, roomCapacity, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
+        let {roomName, roomCapacity,roomFloor, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
         return (
             <div>
                 <Container maxWidth="sm">
@@ -118,17 +147,6 @@ class NewRoom extends Component {
                                 <Alert color="danger" >
                                     {errorMsg}
                                 </Alert>
-                            </div>
-                            <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">ID</Label>
-                                <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'roomID') ? 'alert-danger' : ''}`}
-                                    mask="999"
-                                    maskChar=" "
-                                    name="roomID"
-                                    value={roomID ? roomID : ''}
-                                    onChange={this.handleTextChange}
-                                />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Name</Label>
@@ -148,6 +166,16 @@ class NewRoom extends Component {
                                     maskChar=" "
                                     name="roomCapacity"
                                     value={roomCapacity ? roomCapacity : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Floor Name</Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'roomFloor') ? 'alert-danger' : ''}`}
+                                    name="roomFloor"
+                                    value={roomFloor ? roomFloor : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>

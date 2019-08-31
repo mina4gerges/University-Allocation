@@ -1,0 +1,1 @@
+export const DB_Link = "http://127.0.0.1/CNAMUniversity/DataService.svc/web/";

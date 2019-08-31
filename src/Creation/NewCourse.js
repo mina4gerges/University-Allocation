@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {DB_Link} from '../global';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty } from 'lodash';
@@ -105,15 +106,15 @@ class NewCourse extends Component {
         const params = {};
         axios({
             method: 'post',
-            url: 'http://127.0.0.1/CNAMUniversity/DataService.svc/web/Dashboard',
-            data: params,
+            url: `${DB_Link}Dashboard`,
+            data: JSON.stringify(params),
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            cancelToken: this.CancelToken.token
+            // cancelToken: this.CancelToken.token
         }).then((response) => {
-            let res = response.data.DashboardResult;
-            console.log('res', res);
+             let res = response.data.TestMinaResult;
+            // console.log('res', res);
         }).catch((error) => {
-            console.log('error', error);
+            // console.log('error', error);
         });
 
         return savedValue;
