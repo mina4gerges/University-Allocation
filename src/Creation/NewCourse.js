@@ -43,14 +43,15 @@ class NewCourse extends Component {
         ];
 
         this.toSave = [
-            'courseName',
-            'courseCode',
-            'numberOfCredits',
-            'numberOfHours',
-            'semester',
-            'courseStatus',
-            'coursePrice',
-            'currency'
+            "cours_ID", 
+            "cours_Code",
+            "cours_Name",
+            "cours_Credit",
+            "cours_Hours",
+            "cours_Semestre",
+            "cours_Status",
+            'cours_Price',
+            "currency",
         ];
 
     }
@@ -101,17 +102,19 @@ class NewCourse extends Component {
         map(this.toSave, val => {
             savedValue = { ...savedValue, [val]: this.state[val] };
         })
-        console.log('savedValue', savedValue)
 
-        const params = {};
+        const params = {
+ ...savedValue,
+        };
         axios({
             method: 'post',
-            url: `${DB_Link}Dashboard`,
+            url: `${DB_Link}SaveCours`,
             data: JSON.stringify(params),
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             // cancelToken: this.CancelToken.token
         }).then((response) => {
-             let res = response.data.TestMinaResult;
+             let res = response.data.SaveCoursResult;
+             alert(res);
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
