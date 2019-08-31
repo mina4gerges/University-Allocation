@@ -36,8 +36,8 @@ export default function FiltrationBar(props) {
     return (
         < div className='filtration-bar' >
             <div className='row filtration-status'>
-                <span className='col-3'><b>Class Status :</b></span>
-                <span className='col-9'>
+                <span className='col-2'><b>Class Status :</b></span>
+                <span className='col-10'>
                     <FormControlLabel
                         control={
                             <LiveCheckbox
@@ -86,8 +86,8 @@ export default function FiltrationBar(props) {
             </div>
 
             <div className='row filtration-floor-room'>
-                <span className='col-3'><b>Floor / Room :</b></span>
-                <span className='col-9'>
+                <span className='col-2'><b>Floor / Room :</b></span>
+                <span className='col-10'>
                     <FormControlLabel
                         control={
                             <Radio
