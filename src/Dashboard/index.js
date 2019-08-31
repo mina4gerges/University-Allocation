@@ -10,13 +10,15 @@ import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
 import FiltrationBar from './FiltrationBar';
 import './Dashboard.css';
+import axios from "axios";
+import { DB_Link } from '../global';
 class Dashboard extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            clonedDashBoardData: cloneDeep(DashBoardData),
-            DashBoardData: groupBy(DashBoardData, 'floor'),
+            clonedDashBoardData: [],
+            DashBoardData: [],
             openModalDataChange: false,
             dataSelected: null,
 
@@ -40,6 +42,50 @@ class Dashboard extends Component {
         ];
     }
 
+
+    componentDidMount() {
+        const CancelToken = axios.CancelToken;
+        this.CancelToken = CancelToken.source();
+
+        this.FillData();
+    }
+
+    componentWillUnmount() {
+        //cancel axios request
+        if (this.CancelToken) {
+            this.CancelToken.cancel('Request canceled by the user.');
+            this.CancelToken = undefined;
+        }
+    }
+
+FillData = ()=>{
+ const params = {};
+        axios({
+            method: 'post',
+            url: `${DB_Link}Dashboard`,
+            data: JSON.stringify(params),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            // cancelToken: this.CancelToken.token
+        }).then((response) => {
+            let res = response.data.DashboardResult;
+            if(res){
+                res = JSON.parse(res);
+                let newRes = [];
+                map(res, value=>{
+                    value.startTime = new Date(value.date + " " +value.startTime);
+                    value.endTime = new Date(value.date + " " +value.endTime);
+                    value.date = new Date(value.date);
+                })
+                this.setState({
+                    clonedDashBoardData: cloneDeep(res),
+                    DashBoardData : groupBy(res, 'floor')
+                })
+            }
+            // console.log('res', res);
+        }).catch((error) => {
+            // console.log('error', error);
+        });
+}
     toggle = () => {
         this.setState({
             tooltipOpen: !this.state.tooltipOpen
@@ -64,7 +110,7 @@ class Dashboard extends Component {
                                             <CardBody>
                                                 <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${val.room}` : `Floor ${val.floor}`}</CardTitle>
                                                 <CardText>
-                                                    Course: {val.çourse}<br />
+                                                    Course: {val.course}<br />
                                                     Date: {val.date ? format(val.date, 'dd/MM/yyyy') : ''}<br />
                                                     Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
                                                     End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />

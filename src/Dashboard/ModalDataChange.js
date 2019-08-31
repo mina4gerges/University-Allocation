@@ -41,9 +41,9 @@ class ModalDataChange extends Component {
         return (
             <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change'>
                 <DialogContent>
-                    {dataSelected.çourse && dataSelected.teacher &&
+                    {dataSelected.course && dataSelected.teacher &&
                         <DialogContentText style={{ textAlign: 'center' }}>
-                            {`${dataSelected.çourse.toUpperCase()} (${dataSelected.teacher})`}
+                            {`${dataSelected.course.toUpperCase()} (${dataSelected.teacher})`}
                         </DialogContentText>
                     }
                     <FormControl style={{ width: '100%' }} className='row'>
