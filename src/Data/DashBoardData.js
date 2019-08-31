@@ -3,7 +3,7 @@ export const DashBoardData = [{
     room: 'B1',
     classCapacity: 10,
     teacher: 'Dr. Mina l zaber',
-    çourse: 'Java 3',
+    course: 'Java 3',
     nbrStudents: 10,
     date: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-11-04 03:00 PM'),
@@ -16,7 +16,7 @@ export const DashBoardData = [{
     room: 'B2',
     classCapacity: 20,
     teacher: 'Dr. Rabih',
-    çourse: 'Data base',
+    course: 'Data base',
     nbrStudents: 15,
     date: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
@@ -29,7 +29,7 @@ export const DashBoardData = [{
     room: 'B3',
     classCapacity: 30,
     teacher: 'Dr. Chady',
-    çourse: 'Programmation Avance',
+    course: 'Programmation Avance',
     nbrStudents: 20,
     date: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
@@ -42,7 +42,7 @@ export const DashBoardData = [{
     room: 'B4',
     classCapacity: 40,
     teacher: 'Dr. Bilal',
-    çourse: 'Reseaux',
+    course: 'Reseaux',
     nbrStudents: 35,
     date: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
@@ -56,7 +56,7 @@ export const DashBoardData = [{
     room: 'B5',
     classCapacity: 40,
     teacher: 'Dr. Bilal',
-    çourse: 'Reseaux',
+    course: 'Reseaux',
     nbrStudents: 35,
     date: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
@@ -69,7 +69,7 @@ export const DashBoardData = [{
     room: 'B1',
     classCapacity: 40,
     teacher: 'Dr. Fady Moukawam',
-    çourse: 'Arabe',
+    course: 'Arabe',
     nbrStudents: 10,
     date: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 05:15 PM'),
@@ -82,7 +82,7 @@ export const DashBoardData = [{
     room: 'C2',
     classCapacity: 20,
     teacher: null,
-    çourse: null,
+    course: null,
     nbrStudents: null,
     date: null,
     startTime: null,
@@ -95,7 +95,7 @@ export const DashBoardData = [{
     room: 'A2',
     classCapacity: 20,
     teacher: null,
-    çourse: null,
+    course: null,
     nbrStudents: null,
     date: null,
     startTime: null,
@@ -108,7 +108,7 @@ export const DashBoardData = [{
     room: 'E3',
     classCapacity: 20,
     teacher: null,
-    çourse: null,
+    course: null,
     nbrStudents: null,
     date: null,
     startTime: null,
@@ -121,7 +121,7 @@ export const DashBoardData = [{
     room: 'B2',
     classCapacity: 20,
     teacher: 'Dr. Omar',
-    çourse: 'Structure',
+    course: 'Structure',
     nbrStudents: 11,
     date: new Date('2019-10-12'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
@@ -134,7 +134,7 @@ export const DashBoardData = [{
     room: 'B2',
     classCapacity: 20,
     teacher: 'Dr. Rashid Aoun',
-    çourse: 'Operating System',
+    course: 'Operating System',
     nbrStudents: 5,
     date: new Date('2019-10-11'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 01:00 PM'),
@@ -147,7 +147,7 @@ export const DashBoardData = [{
     room: 'B2',
     classCapacity: 20,
     teacher: 'Dr. Rosario Issa',
-    çourse: 'Base De Donne',
+    course: 'Base De Donne',
     nbrStudents: 40,
     date: new Date('2019-10-09'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
@@ -160,7 +160,7 @@ export const DashBoardData = [{
     room: 'B2',
     classCapacity: 20,
     teacher: 'Dr. Rabih',
-    çourse: 'Data base',
+    course: 'Data base',
     nbrStudents: 15,
     date: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
