@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {DB_Link} from '../global';
+import { DB_Link } from '../global';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty } from 'lodash';
@@ -16,13 +16,13 @@ class NewCourse extends Component {
         super(props);
 
         this.state = {
-            courseName: null,
-            courseCode: null,
-            numberOfCredits: null,
-            numberOfHours: null,
-            semester: null,
-            courseStatus: null,
-            coursePrice: null,
+            cours_Name: null,
+            cours_Code: null,
+            cours_Credit: null,
+            cours_Hours: null,
+            cours_Semestre: null,
+            cours_Status: null,
+            cours_Price: null,
             currency: null,
             errorMsg: null,
             tempMandatory: [],
@@ -32,18 +32,18 @@ class NewCourse extends Component {
         };
 
         this.mandatory = [
-            'courseName',
-            'courseCode',
-            'numberOfCredits',
-            'numberOfHours',
-            'semester',
-            'courseStatus',
-            'coursePrice',
+            'cours_Name',
+            'cours_Code',
+            'cours_Credit',
+            'cours_Hours',
+            'cours_Semestre',
+            'cours_Status',
+            'cours_Price',
             'currency'
         ];
 
         this.toSave = [
-            "cours_ID", 
+            "cours_ID",
             "cours_Code",
             "cours_Name",
             "cours_Credit",
@@ -103,9 +103,8 @@ class NewCourse extends Component {
             savedValue = { ...savedValue, [val]: this.state[val] };
         })
 
-        const params = {
- ...savedValue,
-        };
+        const params = { ...savedValue };
+
         axios({
             method: 'post',
             url: `${DB_Link}SaveCours`,
@@ -113,8 +112,7 @@ class NewCourse extends Component {
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             // cancelToken: this.CancelToken.token
         }).then((response) => {
-             let res = response.data.SaveCoursResult;
-             alert(res);
+            let res = response.data.SaveCoursResult;
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
@@ -133,8 +131,8 @@ class NewCourse extends Component {
 
     render() {
 
-        let { courseName, courseCode, numberOfCredits, numberOfHours, semester, semesterOptions,
-            courseStatus, statusOptions, coursePrice, currency, currencyOptions, tempMandatory, errorMsg } = this.state;
+        let { cours_Name, cours_Code, cours_Credit, cours_Hours, cours_Semestre, semesterOptions,
+            cours_Status, statusOptions, cours_Price, currency, currencyOptions, tempMandatory, errorMsg } = this.state;
 
         return (
             <div>
@@ -155,9 +153,9 @@ class NewCourse extends Component {
                                 <Label className="col-4">Code</Label>
                                 <Input
                                     type="text"
-                                    className={`col-8 ${includes(tempMandatory, 'courseCode') ? 'alert-danger' : ''}`}
-                                    name="courseCode"
-                                    value={courseCode ? courseCode : ''}
+                                    className={`col-8 ${includes(tempMandatory, 'cours_Code') ? 'alert-danger' : ''}`}
+                                    name="cours_Code"
+                                    value={cours_Code ? cours_Code : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
@@ -165,48 +163,48 @@ class NewCourse extends Component {
                                 <Label className="col-4">Name</Label>
                                 <Input
                                     type="text"
-                                    className={`col-8 ${includes(tempMandatory, 'courseName') ? 'alert-danger' : ''}`}
-                                    name="courseName"
-                                    value={courseName ? courseName : ''}
+                                    className={`col-8 ${includes(tempMandatory, 'cours_Name') ? 'alert-danger' : ''}`}
+                                    name="cours_Name"
+                                    value={cours_Name ? cours_Name : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Number Of Credits</Label>
                                 <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'numberOfCredits') ? 'alert-danger' : ''}`}
+                                    className={`col-8 form-control ${includes(tempMandatory, 'cours_Credit') ? 'alert-danger' : ''}`}
                                     mask="99"
                                     maskChar=" "
-                                    name="numberOfCredits"
-                                    value={numberOfCredits ? numberOfCredits : ''}
+                                    name="cours_Credit"
+                                    value={cours_Credit ? cours_Credit : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Number Of Hours</Label>
                                 <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'numberOfHours') ? 'alert-danger' : ''}`}
+                                    className={`col-8 form-control ${includes(tempMandatory, 'cours_Hours') ? 'alert-danger' : ''}`}
                                     mask="999"
                                     maskChar=" "
-                                    name="numberOfHours"
-                                    value={numberOfHours ? numberOfHours : ''}
+                                    name="cours_Hours"
+                                    value={cours_Hours ? cours_Hours : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Course Price</Label>
                                 <InputMask
-                                    className={`col-4 form-control ${includes(tempMandatory, 'coursePrice') ? 'alert-danger' : ''}`}
+                                    className={`col-4 form-control ${includes(tempMandatory, 'cours_Price') ? 'alert-danger' : ''}`}
                                     mask="999"
                                     maskChar=" "
-                                    name="coursePrice"
-                                    value={coursePrice ? coursePrice : ''}
+                                    name="cours_Price"
+                                    value={cours_Price ? cours_Price : ''}
                                     onChange={this.handleTextChange}
                                 />
                                 <div className='col-4' style={{ paddingRight: '0px' }}>
                                     <Select
                                         className={`semestre ${includes(tempMandatory, 'currency') ? 'alert-danger' : ''}`}
-                                        name="semester"
+                                        name="cours_Semestre"
                                         placeholder="Currency"
                                         value={currency}
                                         options={currencyOptions}
@@ -217,21 +215,21 @@ class NewCourse extends Component {
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Semester</Label>
                                 <Select
-                                    className={`col-8 semestre ${includes(tempMandatory, 'semester') ? 'alert-danger' : ''}`}
-                                    name="semester"
-                                    value={semester}
+                                    className={`col-8 semestre ${includes(tempMandatory, 'cours_Semestre') ? 'alert-danger' : ''}`}
+                                    name="cours_Semestre"
+                                    value={cours_Semestre}
                                     options={semesterOptions}
-                                    onChange={this.handleSelectChange('semester')}
+                                    onChange={this.handleSelectChange('cours_Semestre')}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Course Status</Label>
                                 <Select
-                                    className={`col-8 semestre ${includes(tempMandatory, 'courseStatus') ? 'alert-danger' : ''}`}
-                                    name="courseStatus"
-                                    value={courseStatus}
+                                    className={`col-8 semestre ${includes(tempMandatory, 'cours_Status') ? 'alert-danger' : ''}`}
+                                    name="cours_Status"
+                                    value={cours_Status}
                                     options={statusOptions}
-                                    onChange={this.handleSelectChange('courseStatus')}
+                                    onChange={this.handleSelectChange('cours_Status')}
                                 />
                             </div>
                             <div className="row">
