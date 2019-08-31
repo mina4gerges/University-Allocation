@@ -20,7 +20,7 @@ class NewRoom extends Component {
             roomID: "",
             roomName: "",
             roomCapacity: "",
-            roomFloor:"",
+            roomFloor: "",
             roomStatus: "",
             roomHoldUntil: "",
             tempMandatory: [],
@@ -113,7 +113,7 @@ class NewRoom extends Component {
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             // cancelToken: this.CancelToken.token
         }).then((response) => {
-            let res = response.data.SaveRoomResult;
+            // let res = response.data.SaveRoomResult;
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
@@ -132,7 +132,7 @@ class NewRoom extends Component {
     dateTimePickerValue = (name, value) => this.setState({ [name]: value });
 
     render() {
-        let {roomName, roomCapacity,roomFloor, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
+        let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
         return (
             <div>
                 <Container maxWidth="sm">

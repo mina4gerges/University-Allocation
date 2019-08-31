@@ -122,8 +122,8 @@ class NewTeacher extends Component {
 
     render() {
         let { teacherID, teacherName, teacherLastName, teacherPhoneNumber,
-            teacherEmail, teacherMajor, teacherAddress, teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
-        console.log('this.state', this.state);
+            teacherEmail, teacherMajor, //teacherAddress,
+            teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
         return (
             <div>
                 <Container maxWidth="sm">

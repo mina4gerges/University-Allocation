@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { map, find, groupBy, cloneDeep, filter, includes, isEmpty } from 'lodash';
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import format from 'date-fns/format';
-import { DashBoardData } from '../Data/DashBoardData';
+// import { DashBoardData } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
@@ -58,8 +58,8 @@ class Dashboard extends Component {
         }
     }
 
-FillData = ()=>{
- const params = {};
+    FillData = () => {
+        const params = {};
         axios({
             method: 'post',
             url: `${DB_Link}Dashboard`,
@@ -68,24 +68,23 @@ FillData = ()=>{
             // cancelToken: this.CancelToken.token
         }).then((response) => {
             let res = response.data.DashboardResult;
-            if(res){
+            if (res) {
                 res = JSON.parse(res);
-                let newRes = [];
-                map(res, value=>{
-                    value.startTime = new Date(value.date + " " +value.startTime);
-                    value.endTime = new Date(value.date + " " +value.endTime);
+                map(res, value => {
+                    value.startTime = new Date(value.date + " " + value.startTime);
+                    value.endTime = new Date(value.date + " " + value.endTime);
                     value.date = new Date(value.date);
                 })
                 this.setState({
                     clonedDashBoardData: cloneDeep(res),
-                    DashBoardData : groupBy(res, 'floor')
+                    DashBoardData: groupBy(res, 'floor')
                 })
             }
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
         });
-}
+    }
     toggle = () => {
         this.setState({
             tooltipOpen: !this.state.tooltipOpen

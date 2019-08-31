@@ -63,8 +63,6 @@ export default function ViewTable() {
         ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
-    console.clear();
-    console.log('state', state);
     return (
         <MaterialTable
             icons={tableIcons}

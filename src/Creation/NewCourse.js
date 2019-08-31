@@ -113,7 +113,7 @@ class NewCourse extends Component {
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             // cancelToken: this.CancelToken.token
         }).then((response) => {
-            let res = response.data.SaveCoursResult;
+            // let res = response.data.SaveCoursResult;
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
