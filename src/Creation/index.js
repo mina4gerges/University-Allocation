@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faChalkboardTeacher, faSchool } from '@fortawesome/free-solid-svg-icons';
 import './Creation.css';
+import ViewTable from './ViewTable';
 
 class Creation extends Component {
 
@@ -44,12 +45,17 @@ class Creation extends Component {
         return cardDisplay;
     }
 
+    // componentDidUpdate() {
+    //     console.log('Search Value Creation', this.props.location.search)
+    // }
+
     render() {
         return (
             <div>
                 <Container>
-                    <div className='row'>
-                        {this.generateData()}
+                    <div className='row creation-index'>
+                        {/* {this.generateData()} */}
+                        <ViewTable />
                     </div>
                 </Container>
             </div >

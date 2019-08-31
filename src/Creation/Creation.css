@@ -29,3 +29,7 @@
     transition:background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
 }
 
+.creation-index .MuiPaper-root.MuiPaper-elevation2.MuiPaper-rounded{
+    width: 100%
+}
+

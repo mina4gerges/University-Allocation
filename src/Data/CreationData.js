@@ -13,15 +13,28 @@ export const teacherMajorMajorOptions = [
     { label: 'Business Management and Administration', value: 'Business Management and Administration' },
 ];
 
-export const statusOptions = [{ label: "Open", value: "Open" }, { label: "Closed", value: "Closed" }];
+export const courseStatus = [
+    { label: "Open", value: "Open" },
+    { label: "Closed", value: "Closed" }
+];
 
-export const currencyOptions = [{ label: "L.L", value: "L.L" }, { label: "$", value: "$" }];
+export const currencyOptions = [
+    { label: "L.L", value: "L.L" },
+    { label: "$", value: "$" }
+];
 
 export const roomStatusOptions = [
-    { label: "Available", value: "Available", "roomHoldUntil": false },
-    { label: "Closed Permanently", value: "Closed Permanently", "roomHoldUntil": false },
-    { label: "Closed temporarily", value: "Closed temporarily", "roomHoldUntil": true },
-    { label: "Closed For Maintenance", value: "For Maintenance", "roomHoldUntil": true },
+    { Available: "Available", label: "Available", value: "Available", "roomHoldUntil": false },
+    { ClosedPermanently: "Closed Permanently", label: "Closed Permanently", value: "Closed Permanently", "roomHoldUntil": false },
+    { Closedtemporarily: "Closed temporarily", label: "Closed temporarily", value: "Closed temporarily", "roomHoldUntil": true },
+    { ClosedForMaintenance: "Closed For Maintenance", label: "Closed For Maintenance", value: "For Maintenance", "roomHoldUntil": true },
+];
+
+export const availableCourses = [
+    { cours_Code: 'NFP121', cours_Name: 'Java 1', cours_Credit: 6, cours_Hours: 60, cours_Price: 240000, cours_Semestre: '1', cours_Status: 'Open', currency: '$' },
+    { cours_Code: 'NFP136', cours_Name: 'Operating System', cours_Credit: 4, cours_Hours: 40, cours_Price: 200000, cours_Semestre: '2', cours_Status: 'Closed', currency: '$' },
+    { cours_Code: 'NFP122', cours_Name: 'Java 3', cours_Credit: 8, cours_Hours: 70, cours_Price: 360000, cours_Semestre: '1', cours_Status: 'Open', currency: 'L.L' },
+    { cours_Code: 'MFP140', cours_Name: 'Analyse Et Mathematique', cours_Credit: 6, cours_Hours: 60, cours_Price: 200, cours_Semestre: '1', cours_Status: 'Closed', currency: 'L.L' },
 ];
 
 

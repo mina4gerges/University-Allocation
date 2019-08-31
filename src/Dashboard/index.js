@@ -139,6 +139,17 @@ class Dashboard extends Component {
         this.setState({ DashBoardData, groupingName });
     }
 
+    // componentDidUpdate() {
+    //     let { DashBoardData } = this.state;
+    //     let x = map(DashBoardData, val => {
+    //         return (map(val, val1 => {
+    //             return (filter(val1, (val2, key2) => {
+    //                 return val2 === this.props.location.search
+    //             }))
+    //         }))
+    //     })
+    // }
+
     render() {
         let { openModalDataChange, dataSelected, radioSelectedValue, live, upcoming, cancelled, vacant } = this.state;
         return (

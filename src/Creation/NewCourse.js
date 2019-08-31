@@ -8,7 +8,7 @@ import Select from "react-virtualized-select";
 import axios from "axios";
 
 import { globalMsg } from "../Data/globalMsg";
-import { statusOptions, currencyOptions } from "../Data/CreationData";
+import { courseStatus, currencyOptions } from "../Data/CreationData";
 
 class NewCourse extends Component {
 
@@ -28,7 +28,7 @@ class NewCourse extends Component {
             errorMsg: null,
             tempMandatory: [],
             semesterOptions: [{ label: 1, value: 1 }, { label: 2, value: 2 }],
-            statusOptions,
+            courseStatus,
             currencyOptions,
         };
 
@@ -133,7 +133,7 @@ class NewCourse extends Component {
     render() {
 
         let { cours_Name, cours_Code, cours_Credit, cours_Hours, cours_Semestre, semesterOptions,
-            cours_Status, statusOptions, cours_Price, currency, currencyOptions, tempMandatory, errorMsg } = this.state;
+            cours_Status, courseStatus, cours_Price, currency, currencyOptions, tempMandatory, errorMsg } = this.state;
 
         return (
             <div>
@@ -229,7 +229,7 @@ class NewCourse extends Component {
                                     className={`col-8 semestre ${includes(tempMandatory, 'cours_Status') ? 'alert-danger' : ''}`}
                                     name="cours_Status"
                                     value={cours_Status}
-                                    options={statusOptions}
+                                    options={courseStatus}
                                     onChange={this.handleSelectChange('cours_Status')}
                                 />
                             </div>

@@ -15,9 +15,13 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { Nav, NavItem } from 'reactstrap';
-
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './Header.css';
+import Dashboard from '../Dashboard';
+import { conditionalExpression } from '@babel/types';
+
+import { includes, debounce } from 'lodash'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -84,9 +88,11 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function PrimarySearchAppBar(props) {
+// export default function PrimarySearchAppBar(props) {
+function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(window.location.pathname === '/' ? 0 : 1);
+    const [searchValue, setSearchValue] = React.useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -109,6 +115,14 @@ export default function PrimarySearchAppBar(props) {
     function handleMobileMenuOpen(event) {
         setMobileMoreAnchorEl(event.currentTarget);
     }
+
+    function handleFiltration(event) {
+        let val = event.target.value;
+        if (!val) props.history.push(window.location.pathname);
+        else props.history.push(`${window.location.pathname}?${val}`);
+        setSearchValue(val);
+    }
+
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -201,6 +215,8 @@ export default function PrimarySearchAppBar(props) {
                         </div>
                         <InputBase
                             placeholder="Search…"
+                            value={searchValue ? searchValue : ''}
+                            onChange={handleFiltration}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
@@ -249,3 +265,5 @@ export default function PrimarySearchAppBar(props) {
         </div >
     );
 }
+
+export default withRouter(PrimarySearchAppBar);
