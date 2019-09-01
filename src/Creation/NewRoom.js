@@ -10,6 +10,7 @@ import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
 import axios from "axios";
 import { DB_Link } from '../global';
+import ViewTable from './ViewTable';
 //name, capacity, floor, status, campus
 class NewRoom extends Component {
 
