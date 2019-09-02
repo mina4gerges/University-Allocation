@@ -13,6 +13,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
 
 import { Nav, NavItem } from 'reactstrap';
 import { withRouter } from "react-router-dom";
@@ -95,6 +96,7 @@ function PrimarySearchAppBar(props) {
     const [searchValue, setSearchValue] = React.useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [anchorEl1, setAnchorEl1] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -185,6 +187,14 @@ function PrimarySearchAppBar(props) {
         setValue(tab.target.id)
     }
 
+    function handleClick(event) {
+        setAnchorEl1(event.currentTarget);
+    }
+
+    function handleClose() {
+        setAnchorEl1(null);
+    }
+
     return (
         < div className={classes.grow} >
             <AppBar position="static" className={classes.headerbackground}>
@@ -205,8 +215,20 @@ function PrimarySearchAppBar(props) {
                         </NavItem>
                         <NavItem>
                             <div className={`MuiTab-root ${parseInt(value, 10) === 1 ? 'active' : 'notActive'}`} style={{ borderBottom: (parseInt(value, 10) === 1 ? "1px solid red" : 'none') }}>
-                                <Link to="/Creation" id='1' onClick={handleTabChange}>CREATION</Link>
+                                {/* <Link to="/Creation" id='1' onClick={handleTabChange}>CREATION</Link> */}
+                                <Link id='1' onClick={handleClick}>CREATION</Link>
                             </div>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl1}
+                                keepMounted
+                                open={Boolean(anchorEl1)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}><Link to="/Creation/NewTeacher" onClick={handleTabChange}>Teacher</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="/Creation/NewCourse" onClick={handleTabChange}>Course</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="/Creation/NewRoom" onClick={handleTabChange}>Room</Link></MenuItem>
+                            </Menu>
                         </NavItem>
                     </Nav>
                     <div className={classes.search}>

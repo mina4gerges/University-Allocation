@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 import { Card, CardText, CardBody } from 'reactstrap';
 import { map } from 'lodash';
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faChalkboardTeacher, faSchool } from '@fortawesome/free-solid-svg-icons';
-import './Creation.css';
 import ViewTable from './ViewTable';
+import './Creation.css';
+import NewRoom from './NewRoom';
+import NewCourse from './NewCourse';
+import NewTeacher from './NewTeacher';
 
 class Creation extends Component {
 
@@ -55,7 +58,14 @@ class Creation extends Component {
                 <Container>
                     <div className='row creation-index'>
                         {/* {this.generateData()} */}
-                        <ViewTable />
+                        <Router>
+                            <Container style={{ paddingTop: '15px', paddingBottom: '15px' }}>
+                                <Route path="/Creation" exact component={ViewTable} />
+                                <Route path="/Creation/NewRoom" component={NewRoom} />
+                                <Route path="/Creation/NewCourse" component={NewCourse} />
+                                <Route path="/Creation/NewTeacher" component={NewTeacher} />
+                            </Container>
+                        </Router>
                     </div>
                 </Container>
             </div >

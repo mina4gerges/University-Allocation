@@ -22,9 +22,9 @@ class Full extends Component {
                     <Container style={{ paddingTop: '15px', paddingBottom: '15px' }}>
                         <Route path="/" exact component={Dashboard} />
                         <Route path="/Creation" component={Creaction} />
-                        <Route path="/Creation/NewRoom" component={NewRoom} />
+                        {/* <Route path="/Creation/NewRoom" component={NewRoom} />
                         <Route path="/Creation/NewCourse" component={NewCourse} />
-                        <Route path="/Creation/NewTeacher" component={NewTeacher} />
+                        <Route path="/Creation/NewTeacher" component={NewTeacher} /> */}
                     </Container>
                 </Router>
             </div >
