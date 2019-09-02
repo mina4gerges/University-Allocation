@@ -104,16 +104,21 @@ class NewCourse extends Component {
             savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
         })
 
-        const params = { ...savedValue };
+        // const params = { ...savedValue };
+        // const params = { whichData: 'courses' };
+        const params = { whichData: 'teachers' };
+        // const params = { whichData: 'rooms'};
+
 
         axios({
             method: 'post',
-            url: `${DB_Link}SaveCours`,
+            // url: `${DB_Link}SaveCours`,
+            url: `${DB_Link}LoadData`,
             data: JSON.stringify(params),
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             // cancelToken: this.CancelToken.token
         }).then((response) => {
-            // let res = response.data.SaveCoursResult;
+            // let res = response.data.LoadDataResult;
             // console.log('res', res);
         }).catch((error) => {
             // console.log('error', error);
