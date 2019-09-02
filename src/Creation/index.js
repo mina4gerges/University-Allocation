@@ -5,11 +5,12 @@ import { map } from 'lodash';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faChalkboardTeacher, faSchool } from '@fortawesome/free-solid-svg-icons';
-import ViewTable from './ViewTable';
+// import ViewTable from './ViewTable';
 import './Creation.css';
-import NewRoom from './NewRoom';
-import NewCourse from './NewCourse';
-import NewTeacher from './NewTeacher';
+// import NewRoom from './NewRoom';
+// import NewCourse from './NewCourse';
+// import NewTeacher from './NewTeacher';
+// import { Button } from '@material-ui/core';
 
 class Creation extends Component {
 
@@ -57,15 +58,7 @@ class Creation extends Component {
             <div>
                 <Container>
                     <div className='row creation-index'>
-                        {/* {this.generateData()} */}
-                        <Router>
-                            <Container style={{ paddingTop: '15px', paddingBottom: '15px' }}>
-                                <Route path="/Creation" exact component={ViewTable} />
-                                <Route path="/Creation/NewRoom" component={NewRoom} />
-                                <Route path="/Creation/NewCourse" component={NewCourse} />
-                                <Route path="/Creation/NewTeacher" component={NewTeacher} />
-                            </Container>
-                        </Router>
+                        {this.generateData()}
                     </div>
                 </Container>
             </div >

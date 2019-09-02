@@ -13,7 +13,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
 
 import { Nav, NavItem } from 'reactstrap';
 import { withRouter } from "react-router-dom";
@@ -195,6 +194,8 @@ function PrimarySearchAppBar(props) {
         setAnchorEl1(null);
     }
 
+    let creationName = window.location.pathname.substring(1)
+
     return (
         < div className={classes.grow} >
             <AppBar position="static" className={classes.headerbackground}>
@@ -225,9 +226,9 @@ function PrimarySearchAppBar(props) {
                                 open={Boolean(anchorEl1)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}><Link to="/Creation/NewTeacher" onClick={handleTabChange}>Teacher</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to="/Creation/NewCourse" onClick={handleTabChange}>Course</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to="/Creation/NewRoom" onClick={handleTabChange}>Room</Link></MenuItem>
+                                <MenuItem onClick={handleClose} key='Room' selected={'Room' === creationName}><Link to="/Room" style={{ color: '#2a2c36', textDecoration: 'none' }}>Room</Link></MenuItem>
+                                <MenuItem onClick={handleClose} key='Course' selected={'Course' === creationName}><Link to="/Course" style={{ color: '#2a2c36', textDecoration: 'none' }}>Course</Link></MenuItem>
+                                <MenuItem onClick={handleClose} key='Teacher' selected={'Teacher' === creationName}><Link to="/Teacher" style={{ color: '#2a2c36', textDecoration: 'none' }}>Teacher</Link></MenuItem>
                             </Menu>
                         </NavItem>
                     </Nav>

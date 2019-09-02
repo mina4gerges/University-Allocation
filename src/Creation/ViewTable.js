@@ -1,7 +1,10 @@
 import React from 'react';
-import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
+import { map } from 'lodash';
+import { makeStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, withRouter, Route } from "react-router-dom";
 
+import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';
@@ -17,13 +20,30 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import { availableCourses, courseStatus, currencyOptions } from '../Data/CreationData';
-import { map } from 'lodash';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
-export default function ViewTable() {
+import { availableCourses, courseStatus, currencyOptions } from '../Data/CreationData';
+import NewRoom from './NewRoom';
+import NewCourse from './NewCourse';
+import NewTeacher from './NewTeacher';
+
+
+const useStyles = makeStyles(theme => ({
+    fab: {
+        margin: theme.spacing(1),
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
+function ViewTable(props) {
 
     let courseStatusLookup = {};
     let currencyOptionsLookup = {};
+
+    const classes = useStyles();
 
     map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })
     map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })
@@ -63,41 +83,65 @@ export default function ViewTable() {
         ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
+
+    let creationName = window.location.pathname.substring(1)
+
+    function test(e) {
+        console.log(props)
+        // props.history.push(`/${creationName}/New${creationName}`);
+    }
+
     return (
-        <MaterialTable
-            icons={tableIcons}
-            title="Courses"
-            columns={state.columns}
-            data={state.data}
-            editable={{
-                // onRowAdd: newData =>
-                //     new Promise(resolve => {
-                //         setTimeout(() => {
-                //             resolve();
-                //             const data = [...state.data];
-                //             data.push(newData);
-                //             setState({ ...state, data });
-                //         }, 600);
-                //     }),
-                onRowUpdate: (newData, oldData) =>
-                    new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve();
-                            const data = [...state.data];
-                            data[data.indexOf(oldData)] = newData;
-                            setState({ ...state, data });
-                        }, 600);
-                    }),
-                onRowDelete: oldData =>
-                    new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve();
-                            const data = [...state.data];
-                            data.splice(data.indexOf(oldData), 1);
-                            setState({ ...state, data });
-                        }, 600);
-                    }),
-            }}
-        />
+        <div>
+            <div className='row view-table-buttom' style={{ marginLeft: '1px', marginRight: '1px', marginBottom: '5px' }}>
+                <div className='col-12' style={{ textAlign: 'center' }}>
+                    <Fab variant="extended" aria-label="delete" color="primary" className={classes.fab} onClick={test}>
+                        <AddIcon className={classes.extendedIcon} />
+                        {`New ${creationName}`}
+                    </Fab>
+                </div>
+            </div>
+            <div className='row view-table'>
+                <div className='col-12'>
+                    <MaterialTable
+                        icons={tableIcons}
+                        title={creationName}
+                        columns={state.columns}
+                        data={state.data}
+                        editable={{
+                            // onRowAdd: newData =>
+                            //     new Promise(resolve => {
+                            //         setTimeout(() => {
+                            //             resolve();
+                            //             const data = [...state.data];
+                            //             data.push(newData);
+                            //             setState({ ...state, data });
+                            //         }, 600);
+                            //     }),
+                            onRowUpdate: (newData, oldData) =>
+                                new Promise(resolve => {
+                                    setTimeout(() => {
+                                        resolve();
+                                        const data = [...state.data];
+                                        data[data.indexOf(oldData)] = newData;
+                                        setState({ ...state, data });
+                                    }, 600);
+                                }),
+                            onRowDelete: oldData =>
+                                new Promise(resolve => {
+                                    setTimeout(() => {
+                                        resolve();
+                                        const data = [...state.data];
+                                        data.splice(data.indexOf(oldData), 1);
+                                        setState({ ...state, data });
+                                    }, 600);
+                                }),
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
     );
 }
+
+export default withRouter(ViewTable);
