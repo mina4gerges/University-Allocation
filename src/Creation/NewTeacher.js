@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import Container from '@material-ui/core/Container';
-import { filter, map, includes, isEmpty } from 'lodash';
+import { filter, map, includes, isEmpty, startsWith } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
 import AlgoliaPlaces from 'algolia-places-react';
 import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
 
 import { globalMsg } from "../Data/globalMsg";
 import InputComp from "../Components/InputComp";
@@ -14,6 +15,7 @@ import { validateEmail } from '../GlobalFunctions';
 import { teacher_DiplomaOptions, user_TypeOptions, user_StatusOptions } from '../Data/CreationData';
 import 'react-phone-input-2/dist/style.css';
 import SnackBarComp from '../Components/SnackBarCom';
+import { DB_Link } from '../global';
 //ciploma, experties, name, lastname, phone, email, logo, userame, pass, type(user3ade aw admin), status(active or not)
 class NewTeacher extends Component {
 
@@ -124,6 +126,7 @@ class NewTeacher extends Component {
 
     handleSave = () => {
         this.handleMandatory();
+        let { tempMandatory } = this.state;
         let savedValue = {};
         map(this.toSave, val => {
             savedValue = { ...savedValue, [val]: this.state[val] };
