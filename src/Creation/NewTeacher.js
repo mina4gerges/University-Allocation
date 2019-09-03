@@ -13,6 +13,7 @@ import InputComp from "../Components/InputComp";
 import { validateEmail } from '../GlobalFunctions';
 import { teacher_DiplomaOptions, user_TypeOptions, user_StatusOptions } from '../Data/CreationData';
 import 'react-phone-input-2/dist/style.css';
+import SnackBarComp from '../Components/SnackBarCom';
 //ciploma, experties, name, lastname, phone, email, logo, userame, pass, type(user3ade aw admin), status(active or not)
 class NewTeacher extends Component {
 
@@ -127,8 +128,22 @@ class NewTeacher extends Component {
         map(this.toSave, val => {
             savedValue = { ...savedValue, [val]: this.state[val] };
         })
-        console.log('savedValue', savedValue)
-        return savedValue;
+        if (isEmpty(tempMandatory)) {//validation
+            const params = { ...savedValue };
+
+            axios({
+                method: 'post',
+                url: `${DB_Link}SaveCours`,
+                data: JSON.stringify(params),
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                // cancelToken: this.CancelToken.token
+            }).then((response) => {
+                let res = response.data.SaveCoursResult;
+                this.setState({ errorMsg: res })
+            }).catch((error) => {
+                // console.log('error', error);
+            });
+        }
     }
 
     handleClear = () => {
@@ -144,12 +159,14 @@ class NewTeacher extends Component {
         console.log('query', query)
     }
 
+    onCloseSnackBar = () => this.setState({ openSnackBar: false })
+
     render() {
         let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
             user_Email, teacher_Diploma, //teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
             teacher_Code, user_Name, user_Password,
-            teacher_Expertise, user_Type, user_Status } = this.state;
+            teacher_Expertise, user_Type, user_Status, openSnackBar } = this.state;
 
         return (
             <div>
@@ -320,6 +337,12 @@ class NewTeacher extends Component {
                             </div>
                         </CardBody>
                     </Card>
+                    <SnackBarComp
+                        open={openSnackBar}
+                        onClose={this.onCloseSnackBar}
+                        message={errorMsg}
+                        color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                    />
                 </Container>
             </div>
         )
