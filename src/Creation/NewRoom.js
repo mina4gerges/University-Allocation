@@ -95,30 +95,26 @@ class NewRoom extends Component {
         })
         if (!isEmpty(tempMandatory)) errorMsg = globalMsg.mandatory;
         this.setState({ tempMandatory, errorMsg });
+        return tempMandatory;
     }
 
     handleSave = () => {
-        this.handleMandatory();
-        const params = {
-            roomID: "",
-            roomName: this.state.roomName,
-            roomCapacity: this.state.roomCapacity,
-            roomFloor: this.state.roomFloor,
-            roomStatus: this.state.roomStatus,
-            roomCampusID: 1
-        };
-        axios({
-            method: 'post',
-            url: `${DB_Link}SaveRoom`,
-            data: JSON.stringify(params),
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            // cancelToken: this.CancelToken.token
-        }).then((response) => {
-            // let res = response.data.SaveRoomResult;
-            // console.log('res', res);
-        }).catch((error) => {
-            // console.log('error', error);
-        });
+        let tempMandatory = this.handleMandatory();
+        if (isEmpty) {
+            const params = { ...this.toSave };
+            axios({
+                method: 'post',
+                url: `${DB_Link}SaveRoom`,
+                data: JSON.stringify(params),
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                // cancelToken: this.CancelToken.token
+            }).then((response) => {
+                // let res = response.data.SaveRoomResult;
+                // console.log('res', res);
+            }).catch((error) => {
+                // console.log('error', error);
+            });
+        }
     }
 
     handleClear = () => {

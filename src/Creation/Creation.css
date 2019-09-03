@@ -40,3 +40,14 @@
     border-radius: 4px
 }
 
+@media (max-width: 767px){
+    .center{
+    margin: none; 
+     position: unset; 
+     top: 0;
+     left: 0;
+     transform:none;
+     white-space: nowrap;
+    }
+}
+

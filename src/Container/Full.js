@@ -17,7 +17,7 @@ class Full extends Component {
     render() {
         // console.log(" window.location.pathname : ", window.location.pathname)
         return (
-            <div style={{ background: '#eeeeee' }}>
+            <div style={{ background: '#eeeeee', height: '-webkit-fill-available' }}>
                 <Router>
                     <Header />
                     {/* <TopBar /> */}
