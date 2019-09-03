@@ -37,6 +37,7 @@ class NewTeacher extends Component {
             user_logo: '/static/images/avatar/1.jpg',
             user_Type: null,
             user_Status: null,
+            openSnackBar:false,
 
             tempMandatory: [],
             tempInvalid: [],
@@ -127,6 +128,7 @@ class NewTeacher extends Component {
     handleSave = () => {
         this.handleMandatory();
         let { tempMandatory } = this.state;
+        this.setState({ openSnackBar: true })
         let savedValue = {};
         map(this.toSave, val => {
             savedValue = { ...savedValue, [val]: this.state[val] };
@@ -181,11 +183,11 @@ class NewTeacher extends Component {
                                     <b>Teacher Detail</b>
                                 </Label>
                             </div>
-                            <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
+                            {/* <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
                                 <Alert color="danger" >
                                     {errorMsg}
                                 </Alert>
-                            </div>
+                            </div> */}
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <div className="col-12">
                                     <Avatar alt="Teacher Logo" href="%PUBLIC_URL%/CNAM_Logo.svg.png" style={{ margin: '10px', width: '60px', height: '60px' }} />
