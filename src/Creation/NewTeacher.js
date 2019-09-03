@@ -117,6 +117,7 @@ class NewTeacher extends Component {
         })
         if (!isEmpty(tempMandatory)) errorMsg = globalMsg.mandatory;
         this.setState({ tempMandatory, errorMsg });
+        return tempMandatory
     }
 
     handleInvalid = (name, value, tempInvalid) => {
@@ -126,8 +127,7 @@ class NewTeacher extends Component {
     }
 
     handleSave = () => {
-        this.handleMandatory();
-        let { tempMandatory } = this.state;
+        let tempMandatory = this.handleMandatory();
         this.setState({ openSnackBar: true })
         let savedValue = {};
         map(this.toSave, val => {
