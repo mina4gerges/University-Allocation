@@ -86,16 +86,15 @@ function ViewTable(props) {
 
     let creationName = window.location.pathname.substring(1)
 
-    function test(e) {
-        console.log(props)
-        // props.history.push(`/${creationName}/New${creationName}`);
+    function handleChange(e) {
+        props.history.push(`/New${creationName}`);
     }
 
     return (
         <div>
             <div className='row view-table-buttom' style={{ marginLeft: '1px', marginRight: '1px', marginBottom: '5px' }}>
                 <div className='col-12' style={{ textAlign: 'center' }}>
-                    <Fab variant="extended" aria-label="delete" color="primary" className={classes.fab} onClick={test}>
+                    <Fab variant="extended" aria-label="delete" color="primary" className={classes.fab} onClick={handleChange}>
                         <AddIcon className={classes.extendedIcon} />
                         {`New ${creationName}`}
                     </Fab>

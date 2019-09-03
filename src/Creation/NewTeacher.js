@@ -6,50 +6,74 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
 import AlgoliaPlaces from 'algolia-places-react';
+import Avatar from '@material-ui/core/Avatar';
 
 import { globalMsg } from "../Data/globalMsg";
 import InputComp from "../Components/InputComp";
 import { validateEmail } from '../GlobalFunctions';
-import { teacherMajorMajorOptions } from '../Data/CreationData';
+import { teacher_DiplomaOptions, user_TypeOptions, user_StatusOptions } from '../Data/CreationData';
 import 'react-phone-input-2/dist/style.css';
 //ciploma, experties, name, lastname, phone, email, logo, userame, pass, type(user3ade aw admin), status(active or not)
 class NewTeacher extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
-            teacherID: null,
-            teacherName: null,
-            teacherLastName: null,
-            teacherPhoneNumber: null,
-            teacherEmail: null,
-            teacherMajor: null,
-            teacherAddress: null,
+            teacher_ID: '',
+            teacher_Name: null,
+            teacher_familyName: null,
+            user_PhoneNumber: null,
+            teacher_Diploma: null,
+            teacher_Address: null,
+            teacher_Expertise: null,
+            teacher_Code: null,
+            user_Name: null,
+            user_Email: null,
+            user_PhoneNumber: null,
+            user_Password: null,
+            user_logo: '/static/images/avatar/1.jpg',
+            user_Type: null,
+            user_Status: null,
 
             tempMandatory: [],
             tempInvalid: [],
-            teacherMajorMajorOptions,
+            teacher_DiplomaOptions,
+            user_TypeOptions,
+            user_StatusOptions,
         };
 
         this.mandatory = [
-            'teacherID',
-            'teacherName',
-            'teacherLastName',
-            'teacherPhoneNumber',
-            'teacherEmail',
-            'teacherMajor',
-            'teacherAddress'
+            'teacher_ID',
+            'teacher_Name',
+            'teacher_familyName',
+            'teacher_Diploma',
+            'teacher_Address',
+            'teacher_Expertise',
+            'teacher_Code',
+            'user_Name',
+            'user_PhoneNumber',
+            'user_Email',
+            'user_Password',
+            'user_logo',
+            'user_Type',
+            'user_Status',
         ];
 
         this.toSave = [
-            'teacherID',
-            'teacherName',
-            'teacherLastName',
-            'teacherPhoneNumber',
-            'teacherEmail',
-            'teacherMajor',
-            'teacherAddress'
+            'teacher_ID',
+            'teacher_Name',
+            'teacher_familyName',
+            'teacher_Diploma',
+            'teacher_Address',
+            'teacher_Expertise',
+            'teacher_Code',
+            'user_Name',
+            'user_PhoneNumber',
+            'user_Email',
+            'user_Password',
+            'user_logo',
+            'user_Type',
+            'user_Status',
         ];
     }
 
@@ -61,7 +85,7 @@ class NewTeacher extends Component {
 
     handleTextBlur = event => {
         let { name, value } = event.target;
-        if (name === 'teacherEmail') {
+        if (name === 'user_Email') {
             let { tempInvalid } = this.state;
             tempInvalid = this.handleInvalid(name, value, tempInvalid);
             this.setState({ tempInvalid });
@@ -121,9 +145,12 @@ class NewTeacher extends Component {
     }
 
     render() {
-        let { teacherID, teacherName, teacherLastName, teacherPhoneNumber,
-            teacherEmail, teacherMajor, //teacherAddress,
-            teacherMajorMajorOptions, tempMandatory, tempInvalid, errorMsg } = this.state;
+        let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
+            user_Email, teacher_Diploma, //teacher_Address,
+            teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
+            teacher_Code, user_Name, user_Password,
+            teacher_Expertise, user_Type, user_Status } = this.state;
+
         return (
             <div>
                 <Container maxWidth="sm">
@@ -140,13 +167,18 @@ class NewTeacher extends Component {
                                 </Alert>
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">ID</Label>
+                                <div className="col-12">
+                                    <Avatar alt="Teacher Logo" href="%PUBLIC_URL%/CNAM_Logo.svg.png" style={{ margin: '10px', width: '60px', height: '60px' }} />
+                                </div>
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Code</Label>
                                 <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'teacherID') ? 'alert-danger' : ''}`}
+                                    className={`col-8 form-control ${includes(tempMandatory, 'teacher_Code') ? 'alert-danger' : ''}`}
                                     mask="999"
                                     maskChar=" "
-                                    name="teacherID"
-                                    value={teacherID ? teacherID : ''}
+                                    name="teacher_Code"
+                                    value={teacher_Code ? teacher_Code : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
@@ -154,9 +186,9 @@ class NewTeacher extends Component {
                                 <Label className="col-4">Name</Label>
                                 <Input
                                     type="text"
-                                    className={`col-8 ${includes(tempMandatory, 'teacherName') ? 'alert-danger' : ''}`}
-                                    name="teacherName"
-                                    value={teacherName ? teacherName : ''}
+                                    className={`col-8 ${includes(tempMandatory, 'teacher_Name') ? 'alert-danger' : ''}`}
+                                    name="teacher_Name"
+                                    value={teacher_Name ? teacher_Name : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
@@ -164,20 +196,84 @@ class NewTeacher extends Component {
                                 <Label className="col-4">Last Name</Label>
                                 <Input
                                     type="text"
-                                    className={`col-8 ${includes(tempMandatory, 'teacherLastName') ? 'alert-danger' : ''}`}
-                                    name="teacherLastName"
-                                    value={teacherLastName ? teacherLastName : ''}
+                                    className={`col-8 ${includes(tempMandatory, 'teacher_familyName') ? 'alert-danger' : ''}`}
+                                    name="teacher_familyName"
+                                    value={teacher_familyName ? teacher_familyName : ''}
                                     onChange={this.handleTextChange}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">Major</Label>
+                                <Label className="col-4">User Name</Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'user_Name') ? 'alert-danger' : ''}`}
+                                    name="user_Name"
+                                    value={user_Name ? user_Name : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">User Password </Label>
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'user_Password') ? 'alert-danger' : ''}`}
+                                    name="user_Password"
+                                    value={user_Password ? user_Password : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Email</Label>
+                                <div className='col-8'>
+                                    <InputComp
+                                        name='user_Email'
+                                        value={user_Email ? user_Email : ''}
+                                        className={includes(tempMandatory, 'user_Email') ? 'alert-danger' : ''}
+                                        onChange={this.handleTextChange}
+                                        onBlur={this.handleTextBlur}
+                                        errorMsg={includes(tempInvalid, 'user_Email') ? globalMsg.mail : null}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Diploma</Label>
                                 <Select
-                                    className={`col-8 semestre ${includes(tempMandatory, 'teacherMajor') ? 'alert-danger' : ''}`}
-                                    name="teacherMajor"
-                                    value={teacherMajor}
-                                    options={teacherMajorMajorOptions}
-                                    onChange={this.handleSelectChange('teacherMajor')}
+                                    className={`col-8 semestre ${includes(tempMandatory, 'teacher_Diploma') ? 'alert-danger' : ''}`}
+                                    name="teacher_Diploma"
+                                    value={teacher_Diploma}
+                                    options={teacher_DiplomaOptions}
+                                    onChange={this.handleSelectChange('teacher_Diploma')}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Expertise</Label>
+                                <InputMask
+                                    className={`col-8 form-control ${includes(tempMandatory, 'teacher_Expertise') ? 'alert-danger' : ''}`}
+                                    mask="999"
+                                    maskChar=" "
+                                    name="teacher_Expertise"
+                                    value={teacher_Expertise ? teacher_Expertise : ''}
+                                    onChange={this.handleTextChange}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Type</Label>
+                                <Select
+                                    className={`col-8 semestre ${includes(tempMandatory, 'user_Type') ? 'alert-danger' : ''}`}
+                                    name="user_Type"
+                                    value={user_Type}
+                                    options={user_TypeOptions}
+                                    onChange={this.handleSelectChange('user_Type')}
+                                />
+                            </div>
+                            <div className="row" style={{ marginBottom: "5px" }}>
+                                <Label className="col-4">Status</Label>
+                                <Select
+                                    className={`col-8 semestre ${includes(tempMandatory, 'user_Status') ? 'alert-danger' : ''}`}
+                                    name="user_Status"
+                                    value={user_Status}
+                                    options={user_StatusOptions}
+                                    onChange={this.handleSelectChange('user_Status')}
                                 />
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
@@ -185,9 +281,9 @@ class NewTeacher extends Component {
                                 <div className='col-8' style={{ paddingRight: '0px', paddingLeft: '0px' }}>
                                     <AlgoliaPlaces
                                         placeholder=''
-                                        name='teacherAddress'
+                                        name='teacher_Address'
                                         onChange={this.handleAddressChange}
-                                        className={includes(tempMandatory, 'teacherAddress') ? 'alert-danger testing1' : 'testing2'}
+                                        className={includes(tempMandatory, 'teacher_Address') ? 'alert-danger testing1' : 'testing2'}
                                         options={{
                                             appId: 'plV842AJCU0M',
                                             apiKey: '6755273aa0e09c361d3d3f873af3326d',
@@ -201,28 +297,15 @@ class NewTeacher extends Component {
                             </div>
                             <div className="row" style={{ marginBottom: "7px" }}>
                                 <Label className="col-4">Phone Number</Label>
-                                <div className={`col-8 phone-number ${includes(tempMandatory, 'teacherPhoneNumber') ? 'alert-danger' : ''}`} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
+                                <div className={`col-8 phone-number ${includes(tempMandatory, 'user_PhoneNumber') ? 'alert-danger' : ''}`} style={{ paddingLeft: '0px', paddingRight: '0px' }}>
                                     <ReactPhoneInput
                                         defaultCountry='lb'
-                                        value={teacherPhoneNumber ? teacherPhoneNumber : ''}
-                                        onChange={this.handlePhoneChange('teacherPhoneNumber')}
+                                        value={user_PhoneNumber ? user_PhoneNumber : ''}
+                                        onChange={this.handlePhoneChange('user_PhoneNumber')}
                                         inputExtraProps={{
-                                            name: 'teacherPhoneNumber',
+                                            name: 'user_PhoneNumber',
                                             // required: true,
                                         }}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row" style={{ marginBottom: "5px" }}>
-                                <Label className="col-4">Email</Label>
-                                <div className='col-8'>
-                                    <InputComp
-                                        name='teacherEmail'
-                                        value={teacherEmail ? teacherEmail : ''}
-                                        className={includes(tempMandatory, 'teacherEmail') ? 'alert-danger' : ''}
-                                        onChange={this.handleTextChange}
-                                        onBlur={this.handleTextBlur}
-                                        errorMsg={includes(tempInvalid, 'teacherEmail') ? globalMsg.mail : null}
                                     />
                                 </div>
                             </div>

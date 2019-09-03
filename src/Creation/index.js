@@ -59,6 +59,11 @@ class Creation extends Component {
                 <Container>
                     <div className='row creation-index'>
                         {this.generateData()}
+                        {
+                            React.createElement(
+
+                            )
+                        }
                     </div>
                 </Container>
             </div >

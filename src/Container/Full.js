@@ -8,6 +8,7 @@ import NewRoom from '../Creation/NewRoom';
 import NewCourse from '../Creation/NewCourse';
 import NewTeacher from '../Creation/NewTeacher';
 import ViewTable from '../Creation/ViewTable';
+import Creation from '../Creation';
 // import TopBar from '../Components/TopBar';
 
 class Full extends Component {
@@ -25,6 +26,11 @@ class Full extends Component {
                         <Route path="/Room" component={ViewTable} />
                         <Route path="/Course" component={ViewTable} />
                         <Route path="/Teacher" component={ViewTable} />
+
+                        <Route path="/NewRoom" component={NewRoom} />
+                        <Route path="/NewCourse" component={NewCourse} />
+                        <Route path="/NewTeacher" component={NewTeacher} />
+
                     </Container>
                 </Router>
             </div >

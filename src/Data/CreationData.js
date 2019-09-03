@@ -1,4 +1,4 @@
-export const teacherMajorMajorOptions = [
+export const teacher_DiplomaOptions = [
     { label: 'Civil engineering', value: 'Civil engineering' },
     { label: 'Mechanical engineering ', value: 'Mechanical engineering ' },
     { label: 'Computer engineering', value: 'Computer engineering' },
@@ -37,6 +37,16 @@ export const availableCourses = [
     { cours_Code: 'MFP140', cours_Name: 'Analyse Et Mathematique', cours_Credit: 6, cours_Hours: 60, cours_Price: 200, cours_Semestre: '1', cours_Status: 'Closed', currency: 'L.L' },
 ];
 
+
+export const user_TypeOptions = [
+    { label: 'Admin', value: 'Admin' },
+    { label: 'User', value: 'User' },
+];
+
+export const user_StatusOptions = [
+    { label: 'Active', value: 'Active' },
+    { label: 'Not Active', value: 'Not Active' },
+];
 
 
 
