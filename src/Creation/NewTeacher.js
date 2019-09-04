@@ -27,8 +27,8 @@ class NewTeacher extends Component {
             teacher_familyName: null,
             user_PhoneNumber: null,
             teacher_Diploma: null,
-            // teacher_Address: null,
-            teacher_Address: '',
+            teacher_Address: null,
+            // teacher_Address: '',
             teacher_Expertise: null,
             teacher_Code: null,
             user_Name: null,
@@ -52,7 +52,7 @@ class NewTeacher extends Component {
             'teacher_Name',
             'teacher_familyName',
             'teacher_Diploma',
-            // 'teacher_Address',
+            'teacher_Address',
             'teacher_Expertise',
             'teacher_Code',
             'user_Name',
@@ -132,7 +132,13 @@ class NewTeacher extends Component {
         this.setState({ openSnackBar: true })
         let savedValue = {};
         map(this.toSave, val => {
-            savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
+            savedValue = {
+                ...savedValue,
+                [val]: typeof (this.state[val]) === 'object' &&
+                    this.state[val] ?
+                    (val === 'teacher_Address' ? JSON.stringify(this.state[val]) : this.state[val].value) :
+                    this.state[val]
+            };
         })
         if (isEmpty(tempMandatory)) {//validation
             const params = { ...savedValue };
@@ -162,7 +168,8 @@ class NewTeacher extends Component {
 
 
     handleAddressChange = query => {
-        console.log('query', query)
+        // console.log('query', query)
+        this.setState({ teacher_Address: query })
     }
 
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
@@ -170,7 +177,7 @@ class NewTeacher extends Component {
     render() {
         // console.log('state', this.state);
         let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
-            user_Email, teacher_Diploma, //teacher_Address,
+            user_Email, teacher_Diploma, teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
             teacher_Code, user_Name, user_Password,
             teacher_Expertise, user_Type, user_Status, openSnackBar } = this.state;
@@ -311,6 +318,7 @@ class NewTeacher extends Component {
                                             appId: 'plV842AJCU0M',
                                             apiKey: '6755273aa0e09c361d3d3f873af3326d',
                                             language: 'en',
+                                            templates: { teacher_Address },
                                             // language: 'sv', //result in arabic
                                             countries: ['lb'],
                                             type: 'city'

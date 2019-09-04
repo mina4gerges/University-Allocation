@@ -29,9 +29,10 @@ class NewRoom extends Component {
         };
 
         this.mandatory = [
-            'roomID',
+            // 'roomID',
             'roomName',
             'roomCapacity',
+            'roomFloor',
             'roomStatus',
         ];
 
@@ -39,6 +40,7 @@ class NewRoom extends Component {
             'roomID',
             'roomName',
             'roomCapacity',
+            'roomFloor',
             'roomStatus',
         ];
     }
@@ -101,7 +103,11 @@ class NewRoom extends Component {
     handleSave = () => {
         let tempMandatory = this.handleMandatory();
         if (isEmpty) {
-            const params = { ...this.toSave };
+            let savedValue = {};
+            map(this.toSave, val => {
+                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
+            })
+            const params = { ...savedValue };
             axios({
                 method: 'post',
                 url: `${DB_Link}SaveRoom`,
@@ -109,8 +115,8 @@ class NewRoom extends Component {
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
-                // let res = response.data.SaveRoomResult;
-                // console.log('res', res);
+                let res = response.data.SaveRoomResult;
+                console.log('res', res);
             }).catch((error) => {
                 // console.log('error', error);
             });
@@ -129,6 +135,7 @@ class NewRoom extends Component {
     dateTimePickerValue = (name, value) => this.setState({ [name]: value });
 
     render() {
+        console.log('state', this.state)
         let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
         return (
             <div>
