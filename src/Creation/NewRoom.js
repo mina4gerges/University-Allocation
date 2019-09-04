@@ -145,7 +145,7 @@ class NewRoom extends Component {
             roomStatusOptions, tempMandatory, errorMsg, openSnackBar } = this.state;
         return (
             <div>
-                <Container maxWidth="sm">
+                <Container maxWidth="sm" className='center'>
                     <Card>
                         <CardBody>
                             <div className="row" style={{ textAlign: 'center' }}>
