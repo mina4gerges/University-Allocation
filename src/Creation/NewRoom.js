@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
-import { filter, map, includes, isEmpty, remove } from 'lodash';
+import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
@@ -11,7 +11,7 @@ import DateTimePickerComp from '../Components/DateTimePickerComp';
 import axios from "axios";
 import { DB_Link } from '../global';
 import ViewTable from './ViewTable';
-//name, capacity, floor, status, campus
+import SnackBarComp from '../Components/SnackBarCom';
 class NewRoom extends Component {
 
     constructor(props) {
