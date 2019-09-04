@@ -3,14 +3,13 @@ import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
 import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
-import Select from "react-virtualized-select";
+// import Select from "react-virtualized-select";
 
 import { globalMsg } from "../Data/globalMsg";
-import { roomStatusOptions } from "../Data/CreationData";
+// import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
 import axios from "axios";
 import { DB_Link } from '../global';
-import ViewTable from './ViewTable';
 import SnackBarComp from '../Components/SnackBarCom';
 class NewRoom extends Component {
 
@@ -22,7 +21,8 @@ class NewRoom extends Component {
             roomName: null,
             roomCapacity: null,
             roomFloor: null,
-            roomStatus: null,
+            // roomStatus: null,
+            roomStatus: 'vacant',
             roomHoldUntil: null,
             openSnackBar: false,
             tempMandatory: [],
@@ -140,7 +140,7 @@ class NewRoom extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
-        console.log('state', this.state)
+        // console.log('state', this.state)
         let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil,
             roomStatusOptions, tempMandatory, errorMsg, openSnackBar } = this.state;
         return (
@@ -189,7 +189,7 @@ class NewRoom extends Component {
                                     onChange={this.handleTextChange}
                                 />
                             </div>
-                            <div className="row" style={{ marginBottom: "7px" }}>
+                            {/* <div className="row" style={{ marginBottom: "7px" }}>
                                 <Label className="col-4">Status</Label>
                                 <Select
                                     className={`col-8 semestre ${includes(tempMandatory, 'roomStatus') ? 'alert-danger' : ''}`}
@@ -198,7 +198,7 @@ class NewRoom extends Component {
                                     options={roomStatusOptions}
                                     onChange={this.handleSelectChange('roomStatus')}
                                 />
-                            </div>
+                            </div> */}
                             {
                                 roomStatus && roomStatus.roomHoldUntil &&
                                 <div className="row" style={{ marginBottom: "7px" }}>
