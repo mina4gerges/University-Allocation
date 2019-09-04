@@ -70,10 +70,16 @@ class Dashboard extends Component {
             let res = response.data.DashboardResult;
             if (res) {
                 res = JSON.parse(res);
+                let Dashboard = JSON.parse(Dashboard);
+                let CoursesOption = JSON.parse(CoursesOption);
+                let RoomsOption = JSON.parse(RoomsOption);
+                let TeachersOption = JSON.parse(TeachersOption);
                 map(res, value => {
-                    value.startTime = new Date(value.date + " " + value.startTime);
-                    value.endTime = new Date(value.date + " " + value.endTime);
-                    value.date = new Date(value.date);
+                    if(value.date && value.startTime && value.endTime){
+                        value.startTime = new Date(value.date + " " + value.startTime);
+                        value.endTime = new Date(value.date + " " + value.endTime);
+                        value.date = new Date(value.date);
+                    }
                 })
                 this.setState({
                     clonedDashBoardData: cloneDeep(res),

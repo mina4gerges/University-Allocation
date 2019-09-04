@@ -104,7 +104,7 @@ class NewRoom extends Component {
     handleSave = () => {
         let tempMandatory = this.handleMandatory();
         this.setState({ openSnackBar: true });
-
+        
         if (isEmpty(tempMandatory)) {//validation
             let savedValue = {};
             map(this.toSave, val => {
