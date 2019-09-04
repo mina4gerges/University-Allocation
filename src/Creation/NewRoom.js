@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
-import { filter, map, includes, isEmpty, remove } from 'lodash';
+import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
@@ -11,7 +11,7 @@ import DateTimePickerComp from '../Components/DateTimePickerComp';
 import axios from "axios";
 import { DB_Link } from '../global';
 import ViewTable from './ViewTable';
-//name, capacity, floor, status, campus
+import SnackBarComp from '../Components/SnackBarCom';
 class NewRoom extends Component {
 
     constructor(props) {
@@ -19,11 +19,12 @@ class NewRoom extends Component {
 
         this.state = {
             roomID: "",
-            roomName: "",
-            roomCapacity: "",
-            roomFloor: "",
-            roomStatus: "",
-            roomHoldUntil: "",
+            roomName: null,
+            roomCapacity: null,
+            roomFloor: null,
+            roomStatus: null,
+            roomHoldUntil: null,
+            openSnackBar: false,
             tempMandatory: [],
             roomStatusOptions
         };
@@ -102,7 +103,9 @@ class NewRoom extends Component {
 
     handleSave = () => {
         let tempMandatory = this.handleMandatory();
-        if (isEmpty) {
+        this.setState({ openSnackBar: true });
+
+        if (isEmpty(tempMandatory)) {//validation
             let savedValue = {};
             map(this.toSave, val => {
                 savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
@@ -134,12 +137,15 @@ class NewRoom extends Component {
 
     dateTimePickerValue = (name, value) => this.setState({ [name]: value });
 
+    onCloseSnackBar = () => this.setState({ openSnackBar: false })
+
     render() {
         console.log('state', this.state)
-        let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil, roomStatusOptions, tempMandatory, errorMsg } = this.state;
+        let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil,
+            roomStatusOptions, tempMandatory, errorMsg, openSnackBar } = this.state;
         return (
             <div>
-                <Container maxWidth="sm">
+                <Container maxWidth="sm" className='center'>
                     <Card>
                         <CardBody>
                             <div className="row" style={{ textAlign: 'center' }}>
@@ -147,11 +153,11 @@ class NewRoom extends Component {
                                     <b>Room Detail</b>
                                 </Label>
                             </div>
-                            <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
+                            {/* <div className="row" style={{ display: errorMsg ? 'block' : 'none', textAlign: 'center' }}>
                                 <Alert color="danger" >
                                     {errorMsg}
                                 </Alert>
-                            </div>
+                            </div> */}
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Name</Label>
                                 <Input
@@ -166,7 +172,7 @@ class NewRoom extends Component {
                                 <Label className="col-4">Capacity</Label>
                                 <InputMask
                                     className={`col-8 form-control ${includes(tempMandatory, 'roomCapacity') ? 'alert-danger' : ''}`}
-                                    mask="99"
+                                    mask="999"
                                     maskChar=" "
                                     name="roomCapacity"
                                     value={roomCapacity ? roomCapacity : ''}
@@ -217,6 +223,12 @@ class NewRoom extends Component {
                             </div>
                         </CardBody>
                     </Card>
+                    <SnackBarComp
+                        open={openSnackBar}
+                        onClose={this.onCloseSnackBar}
+                        message={errorMsg}
+                        color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                    />
                 </Container>
             </div>
         )

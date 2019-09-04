@@ -105,16 +105,13 @@ class NewCourse extends Component {
     handleSave = () => {
         let tempMandatory = this.handleMandatory();
         this.setState({ openSnackBar: true })
-        let savedValue = {};
-        map(this.toSave, val => {
-            savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
-        })
 
         if (isEmpty(tempMandatory)) {//validation
+            let savedValue = {};
+            map(this.toSave, val => {
+                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
+            })
             const params = { ...savedValue };
-            // const params = { whichData: 'teachers' };
-
-
             axios({
                 method: 'post',
                 url: `${DB_Link}SaveCours`,
