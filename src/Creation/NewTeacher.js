@@ -47,11 +47,11 @@ class NewTeacher extends Component {
         };
 
         this.mandatory = [
-            'teacher_ID',
+            // 'teacher_ID',
             'teacher_Name',
             'teacher_familyName',
             'teacher_Diploma',
-            'teacher_Address',
+            // 'teacher_Address',
             'teacher_Expertise',
             'teacher_Code',
             'user_Name',
