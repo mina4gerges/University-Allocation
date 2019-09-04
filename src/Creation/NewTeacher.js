@@ -138,12 +138,12 @@ class NewTeacher extends Component {
 
             axios({
                 method: 'post',
-                url: `${DB_Link}SaveCours`,
+                url: `${DB_Link}SaveTeacher`,
                 data: JSON.stringify(params),
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
-                let res = response.data.SaveCoursResult;
+                let res = response.data.SaveTeacherResult;
                 this.setState({ errorMsg: res })
             }).catch((error) => {
                 // console.log('error', error);
