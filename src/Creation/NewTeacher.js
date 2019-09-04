@@ -37,7 +37,7 @@ class NewTeacher extends Component {
             user_logo: '/static/images/avatar/1.jpg',
             user_Type: null,
             user_Status: null,
-            openSnackBar:false,
+            openSnackBar: false,
 
             tempMandatory: [],
             tempInvalid: [],
@@ -167,6 +167,7 @@ class NewTeacher extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
+        console.log('state', this.state);
         let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
             user_Email, teacher_Diploma, //teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
@@ -195,10 +196,9 @@ class NewTeacher extends Component {
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Code</Label>
-                                <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'teacher_Code') ? 'alert-danger' : ''}`}
-                                    mask="999"
-                                    maskChar=" "
+                                <Input
+                                    type="text"
+                                    className={`col-8 ${includes(tempMandatory, 'teacher_Code') ? 'alert-danger' : ''}`}
                                     name="teacher_Code"
                                     value={teacher_Code ? teacher_Code : ''}
                                     onChange={this.handleTextChange}
