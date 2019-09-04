@@ -172,7 +172,7 @@ class NewRoom extends Component {
                                 <Label className="col-4">Capacity</Label>
                                 <InputMask
                                     className={`col-8 form-control ${includes(tempMandatory, 'roomCapacity') ? 'alert-danger' : ''}`}
-                                    mask="99"
+                                    mask="999"
                                     maskChar=" "
                                     name="roomCapacity"
                                     value={roomCapacity ? roomCapacity : ''}
