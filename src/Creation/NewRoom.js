@@ -26,7 +26,7 @@ class NewRoom extends Component {
             roomHoldUntil: null,
             openSnackBar: false,
             tempMandatory: [],
-            roomStatusOptions
+            // roomStatusOptions
         };
 
         this.mandatory = [
