@@ -27,7 +27,8 @@ class NewTeacher extends Component {
             teacher_familyName: null,
             user_PhoneNumber: null,
             teacher_Diploma: null,
-            teacher_Address: null,
+            // teacher_Address: null,
+            teacher_Address: '',
             teacher_Expertise: null,
             teacher_Code: null,
             user_Name: null,
@@ -131,7 +132,7 @@ class NewTeacher extends Component {
         this.setState({ openSnackBar: true })
         let savedValue = {};
         map(this.toSave, val => {
-            savedValue = { ...savedValue, [val]: this.state[val] };
+            savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
         })
         if (isEmpty(tempMandatory)) {//validation
             const params = { ...savedValue };
@@ -167,7 +168,7 @@ class NewTeacher extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
-        console.log('state', this.state);
+        // console.log('state', this.state);
         let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
             user_Email, teacher_Diploma, //teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
