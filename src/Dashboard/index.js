@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { map, find, groupBy, cloneDeep, filter, includes, isEmpty } from 'lodash';
+import { map, find, groupBy, cloneDeep, filter, includes, isEmpty, isEqual } from 'lodash';
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import format from 'date-fns/format';
-// import { DashBoardData } from '../Data/DashBoardData';
+import isAfter from 'date-fns/isAfter';
+import isBefore from 'date-fns/isBefore';
+import axios from "axios";
+import { DashBoardData } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
 import FiltrationBar from './FiltrationBar';
-import './Dashboard.css';
-import axios from "axios";
 import { DB_Link } from '../global';
+import './Dashboard.css';
 class Dashboard extends Component {
 
     constructor(props) {
@@ -76,8 +78,11 @@ class Dashboard extends Component {
                     value.date = new Date(value.date);
                 })
                 this.setState({
-                    clonedDashBoardData: cloneDeep(res),
-                    DashBoardData: groupBy(res, 'floor')
+                    // clonedDashBoardData: cloneDeep(res),
+                    // DashBoardData: groupBy(res, 'floor')
+
+                    clonedDashBoardData: cloneDeep(DashBoardData),
+                    DashBoardData: groupBy(DashBoardData, 'floor')
                 })
             }
             // console.log('res', res);
@@ -85,6 +90,7 @@ class Dashboard extends Component {
             // console.log('error', error);
         });
     }
+
     toggle = () => {
         this.setState({
             tooltipOpen: !this.state.tooltipOpen
@@ -105,7 +111,7 @@ class Dashboard extends Component {
                                 return (
                                     <div className='col-3' key={`dash-board-key-${key}`}>
                                         <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid`, borderRadius: '10px' }}>
-                                            <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.id}`} className='center card-icon' style={{ fontSize: '30px' }} />
+                                            <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.roomID}`} className='center card-icon' style={{ fontSize: '30px' }} />
                                             <CardBody>
                                                 <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${val.room}` : `Floor ${val.floor}`}</CardTitle>
                                                 <CardText>
@@ -133,9 +139,63 @@ class Dashboard extends Component {
 
     closeModalDataChange = () => this.setState({ openModalDataChange: false, dataSelected: null });
 
+    validationValue = (dataSelected, DashBoardData) => {
+        //show suggestion for this date/time
+
+        //validation on room, date, time (SAME) // room is not Available at this date/time
+        //validation on room, date, time (BTW) // room is not Available at this date/time
+        //validation on room, date, time AND teacher --> this teacher is already assigned to another course and this date/time
+        //validation on room, date, time AND course --> This course is already assigned to another teacher at this date/time
+        console.clear();
+        console.log('DashBoardData', DashBoardData);
+        console.log('dataSelected', dataSelected);
+
+        let teacher = dataSelected.teacher ? dataSelected.teacher : '';
+        let room = dataSelected.room ? dataSelected.room : '';
+        let date = dataSelected.date ? dataSelected.date : null;
+        let startTime = dataSelected.startTime ? dataSelected.startTime : null;
+        let endTime = dataSelected.endTime ? dataSelected.endTime : null;
+        // let status = dataSelected.status;
+        let conflicts = filter(DashBoardData, val => {
+            let teacherSaved = val.teacher ? val.teacher : '';
+            let roomSaved = val.room ? val.room : '';
+            let dateSaved = val.date ? val.date : null;
+            let startTimeSaved = val.startTime ? val.startTime : null;
+            let endTimeSaved = val.endTime ? val.endTime : null;
+            //isAfter === >
+            //isBefore === <
+            // console.log('startTimeSaved', startTimeSaved, 'startTime', startTime)
+            // console.log('endTimeSaved', endTimeSaved, 'endTime', endTime)
+
+            console.log('isEqual(startTimeSaved, startTime)', isEqual(dateSaved + " " + startTimeSaved, date + " " + startTime))
+            console.log('isEqual(endTimeSaved, endTime)', isEqual(dateSaved + " " + endTimeSaved, date + " " + endTime))
+
+            return (
+                (roomSaved.toLowerCase().trim() === room.toLowerCase().trim()
+                    && dateSaved === date
+                    && isEqual(startTimeSaved, startTime)
+                    && isEqual(endTimeSaved, endTime)
+                )
+                ||
+                (roomSaved.toLowerCase().trim() === room.toLowerCase().trim()
+                    && dateSaved === date
+                    && (isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved)
+                        || isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved))
+                )
+                ||
+                (roomSaved.toLowerCase().trim() === room.toLowerCase().trim()
+                    && dateSaved === date
+                    && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
+                )
+            )
+        })
+        console.log('conflicts', conflicts)
+    }
+
     handleModalSave = dataSelected => event => {
-        let { DashBoardData } = this.state;
-        let tempSataSelected = find(DashBoardData, { id: dataSelected.id });
+        let { DashBoardData, clonedDashBoardData } = this.state;
+        this.validationValue(dataSelected, clonedDashBoardData);
+        let tempSataSelected = find(DashBoardData, { roomID: dataSelected.roomID });
         map(tempSataSelected, (val, key) => {
             if (tempSataSelected[key] !== dataSelected[key]) tempSataSelected[key] = dataSelected[key]
         });

@@ -1,6 +1,7 @@
 export const DashBoardData = [{
-    id: 1,
-    room: 'B1',
+    roomID: 1,
+    class_ID: 1,
+    room: 'A1',
     classCapacity: 10,
     teacher: 'Dr. Mina l zaber',
     course: 'Java 3',
@@ -12,8 +13,9 @@ export const DashBoardData = [{
     status: 'live'
 },
 {
-    id: 2,
-    room: 'B2',
+    roomID: 2,
+    class_ID: 2,
+    room: 'A2',
     classCapacity: 20,
     teacher: 'Dr. Rabih',
     course: 'Data base',
@@ -25,7 +27,8 @@ export const DashBoardData = [{
     status: 'live'
 },
 {
-    id: 3,
+    roomID: 3,
+    class_ID: 3,
     room: 'B3',
     classCapacity: 30,
     teacher: 'Dr. Chady',
@@ -38,7 +41,8 @@ export const DashBoardData = [{
     status: 'live'
 },
 {
-    id: 4,
+    roomID: 4,
+    class_ID: 4,
     room: 'B4',
     classCapacity: 40,
     teacher: 'Dr. Bilal',
@@ -52,8 +56,9 @@ export const DashBoardData = [{
 },
 
 {
-    id: 5,
-    room: 'B5',
+    roomID: 5,
+    class_ID: 5,
+    room: 'C4',
     classCapacity: 40,
     teacher: 'Dr. Bilal',
     course: 'Reseaux',
@@ -65,7 +70,8 @@ export const DashBoardData = [{
     status: 'live'
 },
 {
-    id: 6,
+    roomID: 6,
+    class_ID: 6,
     room: 'B1',
     classCapacity: 40,
     teacher: 'Dr. Fady Moukawam',
@@ -78,7 +84,8 @@ export const DashBoardData = [{
     status: 'upcoming'
 },
 {
-    id: 7,
+    roomID: 7,
+    class_ID: null,
     room: 'C2',
     classCapacity: 20,
     teacher: null,
@@ -91,8 +98,9 @@ export const DashBoardData = [{
     status: 'vacant'
 },
 {
-    id: 8,
-    room: 'A2',
+    roomID: 8,
+    class_ID: null,
+    room: 'C1',
     classCapacity: 20,
     teacher: null,
     course: null,
@@ -104,8 +112,9 @@ export const DashBoardData = [{
     status: 'vacant'
 },
 {
-    id: 9,
-    room: 'E3',
+    roomID: 9,
+    class_ID: null,
+    room: 'A3',
     classCapacity: 20,
     teacher: null,
     course: null,
@@ -117,8 +126,9 @@ export const DashBoardData = [{
     status: 'vacant'
 },
 {
-    id: 10,
-    room: 'B2',
+    roomID: 10,
+    class_ID: 8,
+    room: 'D1',
     classCapacity: 20,
     teacher: 'Dr. Omar',
     course: 'Structure',
@@ -130,8 +140,9 @@ export const DashBoardData = [{
     status: 'live'
 },
 {
-    id: 11,
-    room: 'B2',
+    roomID: 11,
+    class_ID: 9,
+    room: 'F1',
     classCapacity: 20,
     teacher: 'Dr. Rashid Aoun',
     course: 'Operating System',
@@ -143,8 +154,9 @@ export const DashBoardData = [{
     status: 'cancelled'
 },
 {
-    id: 12,
-    room: 'B2',
+    roomID: 12,
+    class_ID: 10,
+    room: 'F2',
     classCapacity: 20,
     teacher: 'Dr. Rosario Issa',
     course: 'Base De Donne',
@@ -156,8 +168,9 @@ export const DashBoardData = [{
     status: 'upcoming'
 },
 {
-    id: 13,
-    room: 'B2',
+    roomID: 13,
+    class_ID: 11,
+    room: 'C2',
     classCapacity: 20,
     teacher: 'Dr. Rabih',
     course: 'Data base',
@@ -167,6 +180,111 @@ export const DashBoardData = [{
     endTime: new Date('2019-10-01 02:45 PM'),
     floor: '2',
     status: 'cancelled'
+},
+
+{
+    roomID: 14,
+    class_ID: 12,
+    room: 'H1',
+    classCapacity: 20,
+    teacher: 'Dr. Tony',
+    course: 'React',
+    nbrStudents: 15,
+    date: new Date('2019-10-08'),//YYYY-MM-DD
+    startTime: new Date('2019-10-08 12:00 PM'),
+    endTime: new Date('2019-10-08 02:45 PM'),
+    floor: '1',
+    status: 'live'
+},
+
+{
+    roomID: 15,
+    class_ID: 13,
+    room: 'D1',
+    classCapacity: 20,
+    teacher: 'Dr. Rabih',
+    course: 'Data base',
+    nbrStudents: 15,
+    date: new Date('2019-10-07'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 12:00 PM'),
+    endTime: new Date('2019-10-01 02:45 PM'),
+    floor: '1',
+    status: 'cancelled'
+},
+
+{
+    roomID: 16,
+    class_ID: 14,
+    room: 'D3',
+    classCapacity: 20,
+    teacher: 'Dr. Mina',
+    course: 'SQL',
+    nbrStudents: 15,
+    date: new Date('2019-10-07'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 12:00 PM'),
+    endTime: new Date('2019-10-01 02:45 PM'),
+    floor: '3',
+    status: 'live'
+},
+
+{
+    roomID: 17,
+    class_ID: 15,
+    room: 'A4',
+    classCapacity: 20,
+    teacher: 'Dr. amine',
+    course: 'VB',
+    nbrStudents: 15,
+    date: new Date('2019-10-07'),//YYYY-MM-DD
+    startTime: new Date('2019-10-01 12:00 PM'),
+    endTime: new Date('2019-10-01 02:45 PM'),
+    floor: '4',
+    status: 'upcoming'
+},
+
+{
+    roomID: 18,
+    class_ID: null,
+    room: 'E1',
+    classCapacity: 20,
+    teacher: null,
+    course: null,
+    nbrStudents: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    floor: '1',
+    status: 'vacant'
+},
+
+{
+    roomID: 19,
+    class_ID: null,
+    room: 'C3',
+    classCapacity: 20,
+    teacher: null,
+    course: null,
+    nbrStudents: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    floor: '3',
+    status: 'vacant'
+},
+
+{
+    roomID: 20,
+    class_ID: null,
+    room: 'B2',
+    classCapacity: 20,
+    teacher: null,
+    course: null,
+    nbrStudents: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    floor: '2',
+    status: 'vacant'
 },
 ];
 
@@ -207,7 +325,25 @@ export const roomName = [
     { label: 'G4', value: 'G4', floor: 4 },
     { label: 'H4', value: 'H4', floor: 4 },
 
-]
+];
+
+export const teacherName = [
+    { label: 'Dr. Bilal', value: 'Dr. Bilal' },
+    { label: 'Dr. Amine', value: 'Dr. Amine' },
+    { label: 'Dr. Mina', value: 'Dr. Mina' },
+    { label: 'Dr. Omar', value: 'Dr. Omar' },
+    { label: 'Dr. Chady', value: 'Dr. Chady' },
+    { label: 'Dr. Pascal', value: 'Dr. Pascal' },
+
+];
+
+export const courseName = [
+    { label: 'Java', value: 'Java' },
+    { label: 'Maths', value: 'Maths' },
+    { label: 'Structure', value: 'Structure' },
+    { label: 'Methode', value: 'Methode' },
+    { label: 'Reseaux Et Comunication', value: 'Reseaux Et Communication' },
+];
 
 export const roomStatus = [
     { label: 'Vacant', value: 'vacant' },

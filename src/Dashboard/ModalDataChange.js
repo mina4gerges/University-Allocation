@@ -10,13 +10,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { cloneDeep, map } from 'lodash';
-import { roomName, roomStatus } from '../Data/DashBoardData';
+import { roomName, roomStatus, teacherName, courseName } from '../Data/DashBoardData';
 import TimePickerComp from '../Components/TimePickerComp';
 import DatePcikerComp from '../Components/DatePickerComp';
 class ModalDataChange extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            roomName,
+            roomStatus,
+            teacherName,
+            courseName,
             dataSelected: cloneDeep(this.props.dataSelected),
         }
     }
@@ -28,7 +32,7 @@ class ModalDataChange extends Component {
         this.setState({ dataSelected })
     }
 
-    x = name => value => {
+    handleDateTimeChange = name => value => {
         let { dataSelected } = this.state;
         dataSelected[name] = value;
         this.setState({ dataSelected })
@@ -37,14 +41,43 @@ class ModalDataChange extends Component {
 
     render() {
         let { onClose, open, handleModalSave } = this.props;
-        let { dataSelected } = this.state;
+        let { dataSelected, roomStatus, roomName, teacherName, courseName } = this.state;
+        let mode = 'edit';
+        let headerLabel = 'New Class';
+        if (!dataSelected.class_ID) mode = 'addNew';
+        if (dataSelected.course) headerLabel = dataSelected.course.toUpperCase();
+        if (dataSelected.teacher) headerLabel = dataSelected.teacher;
+        if (dataSelected.course && dataSelected.teacher) headerLabel = dataSelected.course.toUpperCase() + " (" + dataSelected.teacher + ")";
+
         return (
-            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change'>
+            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change' >
                 <DialogContent>
-                    {dataSelected.course && dataSelected.teacher &&
-                        <DialogContentText style={{ textAlign: 'center' }}>
-                            {`${dataSelected.course.toUpperCase()} (${dataSelected.teacher})`}
-                        </DialogContentText>
+                    <DialogContentText style={{ textAlign: 'center' }} title={headerLabel === 'New Class' ? 'New Class' : 'Course And Teacher Name'}>
+                        {headerLabel}
+                    </DialogContentText>
+                    {mode === 'addNew' &&
+                        <div>
+                            <FormControl style={{ width: '100%' }} className='row'>
+                                <InputLabel htmlFor="age-simple">Teacher</InputLabel>
+                                <Select
+                                    value={dataSelected.teacher ? dataSelected.teacher : ''}
+                                    onChange={this.handleChange}
+                                    name='teacher'
+                                >
+                                    {map(teacherName, teacherValue => { return (<MenuItem key={teacherValue.value} value={teacherValue.value} >{teacherValue.label}</MenuItem>) })}
+                                </Select>
+                            </FormControl>
+                            <FormControl style={{ width: '100%' }} className='row'>
+                                <InputLabel htmlFor="age-simple">Course</InputLabel>
+                                <Select
+                                    value={dataSelected.course ? dataSelected.course : ''}
+                                    onChange={this.handleChange}
+                                    name='course'
+                                >
+                                    {map(courseName, courseValue => { return (<MenuItem key={courseValue.value} value={courseValue.value} >{courseValue.label}</MenuItem>) })}
+                                </Select>
+                            </FormControl>
+                        </div>
                     }
                     <FormControl style={{ width: '100%' }} className='row'>
                         <InputLabel htmlFor="age-simple">Room</InputLabel>
@@ -66,25 +99,25 @@ class ModalDataChange extends Component {
                             {map(roomStatus, statusName => { return (<MenuItem key={statusName.value} value={statusName.value} >{statusName.label}</MenuItem>) })}
                         </Select>
                     </FormControl>
-                    <div className='raw'>
+                    <div className='row date-time'>
                         <DatePcikerComp
                             label='Date'
                             value={dataSelected.date}
-                            onChange={this.x('date')}
+                            onChange={this.handleDateTimeChange('date')}
                         />
                     </div>
-                    <div className='raw'>
+                    <div className='row date-time'>
                         <TimePickerComp
                             label='Start Time'
                             value={dataSelected.startTime}
-                            onChange={this.x('startTime')}
+                            onChange={this.handleDateTimeChange('startTime')}
                         />
                     </div>
-                    <div className='raw'>
+                    <div className='row date-time'>
                         <TimePickerComp
                             label='End Time'
                             value={dataSelected.endTime}
-                            onChange={this.x('endTime')}
+                            onChange={this.handleDateTimeChange('endTime')}
                         />
                     </div>
                 </DialogContent>
@@ -92,7 +125,7 @@ class ModalDataChange extends Component {
                     <Button onClick={onClose} color="primary">Cancel</Button>
                     <Button onClick={handleModalSave(dataSelected)} color="primary">Save</Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog >
         );
     }
 
