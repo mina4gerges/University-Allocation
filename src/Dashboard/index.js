@@ -74,7 +74,7 @@ class Dashboard extends Component {
                 let CoursesOption = JSON.parse(CoursesOption);
                 let RoomsOption = JSON.parse(RoomsOption);
                 let TeachersOption = JSON.parse(TeachersOption);
-                map(res, value => {
+                map(Dashboard, value => {
                     if(value.date && value.startTime && value.endTime){
                         value.startTime = new Date(value.date + " " + value.startTime);
                         value.endTime = new Date(value.date + " " + value.endTime);
