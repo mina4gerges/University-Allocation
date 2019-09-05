@@ -19,8 +19,11 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clonedDashBoardData: [],
-            DashBoardData: [],
+            // clonedDashBoardData: [],
+            // DashBoardData: [],
+            clonedDashBoardData: cloneDeep(DashBoardData),
+            DashBoardData: groupBy(DashBoardData, 'floor'),
+
             openModalDataChange: false,
             dataSelected: null,
 
@@ -49,7 +52,7 @@ class Dashboard extends Component {
         const CancelToken = axios.CancelToken;
         this.CancelToken = CancelToken.source();
 
-        this.FillData();
+        // this.FillData();
     }
 
     componentWillUnmount() {
@@ -77,18 +80,15 @@ class Dashboard extends Component {
                 let RoomsOption = JSON.parse(RoomsOption);
                 let TeachersOption = JSON.parse(TeachersOption);
                 map(Dashboard, value => {
-                    if(value.date && value.startTime && value.endTime){
+                    if (value.date && value.startTime && value.endTime) {
                         value.startTime = new Date(value.date + " " + value.startTime);
                         value.endTime = new Date(value.date + " " + value.endTime);
                         value.date = new Date(value.date);
                     }
                 })
                 this.setState({
-                    // clonedDashBoardData: cloneDeep(res),
-                    // DashBoardData: groupBy(res, 'floor')
-
-                    clonedDashBoardData: cloneDeep(DashBoardData),
-                    DashBoardData: groupBy(DashBoardData, 'floor')
+                    clonedDashBoardData: cloneDeep(res),
+                    DashBoardData: groupBy(res, 'floor')
                 })
             }
             // console.log('res', res);
