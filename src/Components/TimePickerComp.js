@@ -3,6 +3,8 @@ import { MuiPickersUtilsProvider, KeyboardTimePicker } from "@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 
 function TimePickerComp(props) {
+    let error = {};
+    if (props.error) error = { error: props.error };
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
@@ -12,7 +14,7 @@ function TimePickerComp(props) {
                 value={props.value}
                 onChange={props.onChange}
                 style={{ width: '100%' }}
-                error={props.error}
+                {...error}
             />
         </MuiPickersUtilsProvider>
     );
