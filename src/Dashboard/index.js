@@ -70,10 +70,10 @@ class Dashboard extends Component {
             let res = response.data.DashboardResult;
             if (res) {
                 res = JSON.parse(res);
-                let Dashboard = JSON.parse(Dashboard);
-                let CoursesOption = JSON.parse(CoursesOption);
-                let RoomsOption = JSON.parse(RoomsOption);
-                let TeachersOption = JSON.parse(TeachersOption);
+                let Dashboard = JSON.parse(res.Dashboard);
+                let CoursesOption = JSON.parse(res.CoursesOption);
+                let RoomsOption = JSON.parse(res.RoomsOption);
+                let TeachersOption = JSON.parse(res.TeachersOption);
                 map(Dashboard, value => {
                     if(value.date && value.startTime && value.endTime){
                         value.startTime = new Date(value.date + " " + value.startTime);
@@ -82,8 +82,8 @@ class Dashboard extends Component {
                     }
                 })
                 this.setState({
-                    clonedDashBoardData: cloneDeep(res),
-                    DashBoardData: groupBy(res, 'floor')
+                    clonedDashBoardData: cloneDeep(Dashboard),
+                    DashBoardData: groupBy(Dashboard, 'floor')
                 })
             }
             // console.log('res', res);
