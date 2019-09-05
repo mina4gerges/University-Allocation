@@ -4,6 +4,7 @@ export const globalMsg = {
     conflictRoomMsg: 'Room is not available at this Date/Time. Please adjsut the schedule.',
     conflictCourseMsg: 'Course is already assigned with these details (Room/Date/Time).',
     conflictTeacherMsg: 'Teacher is already giving a course with these details (Room/Date/Time).',
+    successMsg: 'Successfully Saved'
 }
 
 

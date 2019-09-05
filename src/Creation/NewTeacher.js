@@ -175,7 +175,7 @@ class NewTeacher extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
-         console.log('state', this.state);
+        console.log('state', this.state);
         let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
             user_Email, teacher_Diploma, teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,

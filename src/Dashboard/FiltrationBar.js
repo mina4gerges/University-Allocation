@@ -103,10 +103,10 @@ export default function FiltrationBar(props) {
                     <FormControlLabel
                         control={
                             <Radio
-                                checked={radioSelectedValue === 'room'}
+                                checked={radioSelectedValue === 'room_ID'}
                                 onChange={handleRadioChange}
-                                value="room"
-                                name="room"
+                                value="room_ID"
+                                name="room_ID"
                                 color="default"
                             />
                         }

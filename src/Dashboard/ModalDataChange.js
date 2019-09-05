@@ -16,6 +16,7 @@ import isValid from 'date-fns/isValid'
 import { roomName, teacherName, courseName } from '../Data/DashBoardData';
 import TimePickerComp from '../Components/TimePickerComp';
 import DatePcikerComp from '../Components/DatePickerComp';
+import { globalMsg } from '../Data/globalMsg';
 class ModalDataChange extends Component {
     constructor(props) {
         super(props);
@@ -32,25 +33,25 @@ class ModalDataChange extends Component {
         this.mode = !this.props.dataSelected.class_ID ? 'addNew' : 'edit';
 
         this.toSave = [
-            'room',
-            'date',
+            'room_ID',
+            'coursDate',
             'startTime',
             'endTime',
         ];
 
         this.mandatory = [
-            'room',
-            'date',
+            'room_ID',
+            'coursDate',
             'startTime',
             'endTime',
         ];
 
         if (this.mode === 'addNew') {
-            this.toSave.push('teacher');
-            this.toSave.push('course');
+            this.toSave.push('teacher_ID');
+            this.toSave.push('cours_ID');
 
-            this.mandatory.push('teacher');
-            this.mandatory.push('course');
+            this.mandatory.push('teacher_ID');
+            this.mandatory.push('cours_ID');
         }
     }
 
@@ -66,8 +67,8 @@ class ModalDataChange extends Component {
         let { dataSelected, tempMandatory } = this.state;
         dataSelected[name] = value;
         tempMandatory = filter(tempMandatory, val => { return val !== name });
-        if (name !== 'date' && value && isValid(value) && dataSelected.date && isValid(dataSelected.date)) {
-            dataSelected[name] = new Date(format(dataSelected.date, 'yyy-MM-dd') + " " + format(value, 'hh:mm a'))
+        if (name !== 'coursDate' && value && isValid(value) && dataSelected.coursDate && isValid(dataSelected.coursDate)) {
+            dataSelected[name] = new Date(format(dataSelected.coursDate, 'yyy-MM-dd') + " " + format(value, 'hh:mm a'))
         }
         this.setState({ dataSelected, tempMandatory });
     }
@@ -85,6 +86,7 @@ class ModalDataChange extends Component {
         })
 
         if (count === 0) this.props.handleModalSave(dataSelected)(e);
+        else this.props.handleErrorMsg(globalMsg.mandatory)
         this.setState({ tempMandatory });
     }
 
@@ -93,9 +95,9 @@ class ModalDataChange extends Component {
         // let { dataSelected, roomStatus, roomName, teacherName, courseName } = this.state;
         let { dataSelected, roomName, teacherName, courseName, tempMandatory } = this.state;
         let headerLabel = 'New Class';
-        if (dataSelected.course) headerLabel = dataSelected.course.toUpperCase();
-        if (dataSelected.teacher) headerLabel = dataSelected.teacher;
-        if (dataSelected.course && dataSelected.teacher) headerLabel = dataSelected.course.toUpperCase() + " (" + dataSelected.teacher + ")";
+        if (dataSelected.cours_ID) headerLabel = dataSelected.cours_ID.toUpperCase();
+        if (dataSelected.teacher_ID) headerLabel = dataSelected.teacher_ID;
+        if (dataSelected.cours_ID && dataSelected.teacher_ID) headerLabel = dataSelected.cours_ID.toUpperCase() + " (" + dataSelected.teacher_ID + ")";
 
         return (
             <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change' >
@@ -105,34 +107,34 @@ class ModalDataChange extends Component {
                     </DialogContentText>
                     {this.mode === 'addNew' &&
                         <div>
-                            <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'teacher')}>
+                            <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'teacher_ID')}>
                                 <InputLabel htmlFor="age-simple" >Teacher</InputLabel>
                                 <Select
-                                    value={dataSelected.teacher ? dataSelected.teacher : ''}
+                                    value={dataSelected.teacher_ID ? dataSelected.teacher_ID : ''}
                                     onChange={this.handleChange}
-                                    name='teacher'
+                                    name='teacher_ID'
                                 >
                                     {map(teacherName, teacherValue => { return (<MenuItem key={teacherValue.value} value={teacherValue.value} >{teacherValue.label}</MenuItem>) })}
                                 </Select>
                             </FormControl>
-                            <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'course')}>
+                            <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'cours_ID')}>
                                 <InputLabel htmlFor="age-simple">Course</InputLabel>
                                 <Select
-                                    value={dataSelected.course ? dataSelected.course : ''}
+                                    value={dataSelected.cours_ID ? dataSelected.cours_ID : ''}
                                     onChange={this.handleChange}
-                                    name='course'
+                                    name='cours_ID'
                                 >
                                     {map(courseName, courseValue => { return (<MenuItem key={courseValue.value} value={courseValue.value} >{courseValue.label}</MenuItem>) })}
                                 </Select>
                             </FormControl>
                         </div>
                     }
-                    <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'room')}>
+                    <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'room_ID')}>
                         <InputLabel htmlFor="age-simple">Room</InputLabel>
                         <Select
-                            value={dataSelected.room}
+                            value={dataSelected.room_ID}
                             onChange={this.handleChange}
-                            name='room'
+                            name='room_ID'
                         >
                             {map(roomName, roomValue => { return (<MenuItem key={roomValue.value} value={roomValue.value} >{roomValue.label}</MenuItem>) })}
                         </Select>
@@ -150,9 +152,9 @@ class ModalDataChange extends Component {
                     <div className='row date-time'>
                         <DatePcikerComp
                             label='Date'
-                            value={dataSelected.date}
-                            onChange={this.handleDateTimeChange('date')}
-                            error={includes(tempMandatory, 'date')}
+                            value={dataSelected.coursDate}
+                            onChange={this.handleDateTimeChange('coursDate')}
+                            error={includes(tempMandatory, 'coursDate')}
                         />
                     </div>
                     <div className='row date-time'>

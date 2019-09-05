@@ -104,7 +104,7 @@ class NewRoom extends Component {
     handleSave = () => {
         let tempMandatory = this.handleMandatory();
         this.setState({ openSnackBar: true });
-        
+
         if (isEmpty(tempMandatory)) {//validation
             let savedValue = {};
             map(this.toSave, val => {
@@ -119,7 +119,7 @@ class NewRoom extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveRoomResult;
-                console.log('res', res);
+                this.setState({ errorMsg: res })
             }).catch((error) => {
                 // console.log('error', error);
             });
