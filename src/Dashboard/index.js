@@ -24,8 +24,9 @@ class Dashboard extends Component {
         this.state = {
             clonedDashBoardData: [],
             DashBoardData: [],
-            // clonedDashBoardData: cloneDeep(DashBoardData),
-            // DashBoardData: groupBy(DashBoardData, 'floor'),
+            roomNameOption: [],
+            teacherNameOption: [],
+            courseNameOption: [],
 
             openModalDataChange: false,
             dataSelected: null,
@@ -80,9 +81,10 @@ class Dashboard extends Component {
             if (res) {
                 res = JSON.parse(res);
                 let Dashboard = JSON.parse(res.Dashboard);
-                let CoursesOption = JSON.parse(res.CoursesOption);
-                let RoomsOption = JSON.parse(res.RoomsOption);
-                let TeachersOption = JSON.parse(res.TeachersOption);
+                let courseNameOption = JSON.parse(res.CoursesOption);
+                let roomNameOption = JSON.parse(res.RoomsOption);
+                let teacherNameOption = JSON.parse(res.TeachersOption);
+
                 map(Dashboard, value => {
                     if (value.coursDate && value.startTime && value.endTime) {
                         value.startTime = new Date(value.coursDate + " " + value.startTime);
@@ -92,12 +94,13 @@ class Dashboard extends Component {
                 })
                 this.setState({
                     clonedDashBoardData: cloneDeep(Dashboard),
-                    DashBoardData: groupBy(Dashboard, 'floor')
+                    DashBoardData: groupBy(Dashboard, 'floor'),
+                    roomNameOption,
+                    teacherNameOption,
+                    courseNameOption,
                 })
             }
-            // console.log('res', res);
         }).catch((error) => {
-            // console.log('error', error);
         });
     }
 
@@ -368,8 +371,11 @@ class Dashboard extends Component {
 
     render() {
         let { openModalDataChange, dataSelected, radioSelectedValue,
-            live, upcoming, cancelled, vacant, openSnackBar, errorMsg } = this.state;
-        console.log('errorMsg')
+            live, upcoming, cancelled, vacant, openSnackBar, errorMsg, roomNameOption,
+            teacherNameOption, courseNameOption } = this.state;
+
+
+
         return (
             <div>
                 <FiltrationBar
@@ -392,13 +398,16 @@ class Dashboard extends Component {
                         dataSelected={dataSelected}
                         handleModalSave={this.handleModalSave}
                         handleErrorMsg={this.handleErrorMsg}
+                        roomNameOption={roomNameOption}
+                        teacherNameOption={teacherNameOption}
+                        courseNameOption={courseNameOption}
                     />
                 }
                 <SnackBarComp
                     open={openSnackBar}
                     onClose={this.onCloseSnackBar}
                     message={errorMsg}
-                    color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                    color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
                 />
             </div>
 

@@ -13,7 +13,7 @@ import { cloneDeep, map, includes, filter } from 'lodash';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid'
 // import { roomName, roomStatus, teacherName, courseName } from '../Data/DashBoardData';
-import { roomName, teacherName, courseName } from '../Data/DashBoardData';
+// import { roomName, teacherName, courseName } from '../Data/DashBoardData';
 import TimePickerComp from '../Components/TimePickerComp';
 import DatePcikerComp from '../Components/DatePickerComp';
 import { globalMsg } from '../Data/globalMsg';
@@ -22,10 +22,10 @@ class ModalDataChange extends Component {
         super(props);
 
         this.state = {
-            roomName,
+            // roomName,
             //roomStatus,
-            teacherName,
-            courseName,
+            // teacherName,
+            // courseName,
             tempMandatory: [],
             dataSelected: cloneDeep(this.props.dataSelected),
         }
@@ -91,9 +91,8 @@ class ModalDataChange extends Component {
     }
 
     render() {
-        let { onClose, open } = this.props;
-        // let { dataSelected, roomStatus, roomName, teacherName, courseName } = this.state;
-        let { dataSelected, roomName, teacherName, courseName, tempMandatory } = this.state;
+        let { onClose, open, roomNameOption, teacherNameOption, courseNameOption } = this.props;
+        let { dataSelected, tempMandatory } = this.state;
         let headerLabel = 'New Class';
         if (dataSelected.cours_ID) headerLabel = dataSelected.cours_ID.toUpperCase();
         if (dataSelected.teacher_ID) headerLabel = dataSelected.teacher_ID;
@@ -114,7 +113,7 @@ class ModalDataChange extends Component {
                                     onChange={this.handleChange}
                                     name='teacher_ID'
                                 >
-                                    {map(teacherName, teacherValue => { return (<MenuItem key={teacherValue.value} value={teacherValue.value} >{teacherValue.label}</MenuItem>) })}
+                                    {map(teacherNameOption, teacherValue => { return (<MenuItem key={teacherValue.value} value={teacherValue.value} >{teacherValue.label}</MenuItem>) })}
                                 </Select>
                             </FormControl>
                             <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'cours_ID')}>
@@ -124,7 +123,7 @@ class ModalDataChange extends Component {
                                     onChange={this.handleChange}
                                     name='cours_ID'
                                 >
-                                    {map(courseName, courseValue => { return (<MenuItem key={courseValue.value} value={courseValue.value} >{courseValue.label}</MenuItem>) })}
+                                    {map(courseNameOption, courseValue => { return (<MenuItem key={courseValue.value} value={courseValue.value} >{courseValue.label}</MenuItem>) })}
                                 </Select>
                             </FormControl>
                         </div>
@@ -136,7 +135,7 @@ class ModalDataChange extends Component {
                             onChange={this.handleChange}
                             name='room_ID'
                         >
-                            {map(roomName, roomValue => { return (<MenuItem key={roomValue.value} value={roomValue.value} >{roomValue.label}</MenuItem>) })}
+                            {map(roomNameOption, roomValue => { return (<MenuItem key={roomValue.value} value={roomValue.value} >{roomValue.label}</MenuItem>) })}
                         </Select>
                     </FormControl>
                     {/* <FormControl style={{ width: '100%' }} className='row'>

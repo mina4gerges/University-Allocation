@@ -153,7 +153,6 @@ class NewTeacher extends Component {
                 let res = response.data.SaveTeacherResult;
                 this.setState({ errorMsg: res })
             }).catch((error) => {
-                // console.log('error', error);
             });
         }
     }
@@ -168,7 +167,6 @@ class NewTeacher extends Component {
 
 
     handleAddressChange = query => {
-        // console.log('query', query)
         this.setState({ teacher_Address: query })
     }
 
@@ -355,7 +353,7 @@ class NewTeacher extends Component {
                         open={openSnackBar}
                         onClose={this.onCloseSnackBar}
                         message={errorMsg}
-                        color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                        color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
                     />
                 </Container>
             </div>

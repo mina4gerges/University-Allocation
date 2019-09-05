@@ -227,7 +227,7 @@ class NewRoom extends Component {
                         open={openSnackBar}
                         onClose={this.onCloseSnackBar}
                         message={errorMsg}
-                        color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                        color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
                     />
                 </Container>
             </div>

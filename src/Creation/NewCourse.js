@@ -123,7 +123,6 @@ class NewCourse extends Component {
                 let res = response.data.SaveCoursResult;
                 this.setState({ errorMsg: res })
             }).catch((error) => {
-                // console.log('error', error);
             });
         }
     }
@@ -254,7 +253,7 @@ class NewCourse extends Component {
                     open={openSnackBar}
                     onClose={this.onCloseSnackBar}
                     message={errorMsg}
-                    color={startsWith(errorMsg, 'Success') ? 'success' : 'error'}
+                    color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
                 />
             </div>
         )
