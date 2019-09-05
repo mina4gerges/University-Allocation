@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { forwardRef } from 'react';
 import { map } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +27,12 @@ import { availableCourses, courseStatus, currencyOptions } from '../Data/Creatio
 import NewRoom from './NewRoom';
 import NewCourse from './NewCourse';
 import NewTeacher from './NewTeacher';
+import axios from "axios";
+import { DB_Link } from '../global';
+
+
+
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ViewTable(props) {
+    let creationName = window.location.pathname.substring(1);
 
     let courseStatusLookup = {};
     let currencyOptionsLookup = {};
@@ -48,21 +55,72 @@ function ViewTable(props) {
     map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })
     map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })
 
-    const [state, setState] = React.useState({
-        columns: [
-            // type :'boolean', 'numeric', 'date', 'datetime', 'time', 'currency'
-            // select : lookup
-            { title: 'Code', field: 'cours_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Name', field: 'cours_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Number Of Credits', field: 'cours_Credit', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Number Of Hours', field: 'cours_Hours', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Course Price', field: 'cours_Price', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Currency', field: 'currency', lookup: { ...currencyOptionsLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Semester', field: 'cours_Semestre', lookup: { 1: '1', 2: '2' }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-            { title: 'Course Status', field: 'cours_Status', lookup: { ...courseStatusLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        ],
-        data: availableCourses
-    });
+    let Teacher=[
+        { title: 'Code', field: 'teacher_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Name', field: 'teacher_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Family', field: 'teacher_familyName', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Username', field: 'user_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Email', field: 'user_Email', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Phone number', field: 'user_PhoneNumber', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Status', field: 'user_Status', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Expertise', field: 'teacher_Expertise',headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Diploma', field: 'teacher_Diploma', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+
+    ];
+    let Course = [
+        // type :'boolean', 'numeric', 'date', 'datetime', 'time', 'currency'
+        // select : lookup
+        { title: 'Code', field: 'cours_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Name', field: 'cours_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Number Of Credits', field: 'cours_Credit', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Number Of Hours', field: 'cours_Hours', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Course Price', field: 'cours_Price', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Currency', field: 'currency', lookup: { ...currencyOptionsLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Semester', field: 'cours_Semestre', lookup: { 1: '1', 2: '2' }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Course Status', field: 'cours_Status', lookup: { ...courseStatusLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+    ];
+    let Room = [
+        // type :'boolean', 'numeric', 'date', 'datetime', 'time', 'currency'
+        // select : lookup
+        { title: 'Code', field: 'cours_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Name', field: 'cours_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Number Of Credits', field: 'cours_Credit', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Number Of Hours', field: 'cours_Hours', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Course Price', field: 'cours_Price', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Currency', field: 'currency', lookup: { ...currencyOptionsLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Semester', field: 'cours_Semestre', lookup: { 1: '1', 2: '2' }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Course Status', field: 'cours_Status', lookup: { ...courseStatusLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+    ];
+    const [columns, setColumns] = useState([]);
+    const [data, setData] = useState(availableCourses);
+
+    useEffect(() => {
+            let params = {
+        whichData: creationName
+        }
+        axios({
+            method: 'post',
+            url: `${DB_Link}LoadData`,
+            data: JSON.stringify(params),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            // cancelToken: this.CancelToken.token
+        }).then((response) => {
+            let res = response.data.LoadDataResult;
+         if(res){
+             res = JSON.parse(res);
+             if (creationName === "Teacher"){
+                 setColumns(Teacher)
+             } else if (creationName === "Course"){
+                 setColumns(Course)
+             } else if (creationName === "Room"){
+                 setColumns(Room)
+             }
+             setData(res);
+         }
+        }).catch((error) => {
+            // console.log('error', error);
+        });
+    }, []);
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -84,8 +142,6 @@ function ViewTable(props) {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
-    let creationName = window.location.pathname.substring(1)
-
     function handleChange(e) {
         props.history.push(`/New${creationName}`);
     }
@@ -105,8 +161,10 @@ function ViewTable(props) {
                     <MaterialTable
                         icons={tableIcons}
                         title={creationName}
-                        columns={state.columns}
-                        data={state.data}
+                        // columns={state.columns}
+                        columns={columns}
+                        // data={state.data}
+                        data={data}
                         editable={{
                             // onRowAdd: newData =>
                             //     new Promise(resolve => {
@@ -121,18 +179,22 @@ function ViewTable(props) {
                                 new Promise(resolve => {
                                     setTimeout(() => {
                                         resolve();
-                                        const data = [...state.data];
+                                        // const data = [...state.data];
+                                        const data = [...data];
                                         data[data.indexOf(oldData)] = newData;
-                                        setState({ ...state, data });
+                                        // setState({ ...state, data });
+                                        setData(data)
                                     }, 600);
                                 }),
                             onRowDelete: oldData =>
                                 new Promise(resolve => {
                                     setTimeout(() => {
                                         resolve();
-                                        const data = [...state.data];
+                                        // const data = [...state.data];
+                                        const data = [...data];
                                         data.splice(data.indexOf(oldData), 1);
-                                        setState({ ...state, data });
+                                        // setState({ ...state, data });
+                                        setData(data)
                                     }, 600);
                                 }),
                         }}
