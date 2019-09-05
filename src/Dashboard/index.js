@@ -22,10 +22,10 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // clonedDashBoardData: [],
-            // DashBoardData: [],
-            clonedDashBoardData: cloneDeep(DashBoardData),
-            DashBoardData: groupBy(DashBoardData, 'floor'),
+            clonedDashBoardData: [],
+            DashBoardData: [],
+            // clonedDashBoardData: cloneDeep(DashBoardData),
+            // DashBoardData: groupBy(DashBoardData, 'floor'),
 
             openModalDataChange: false,
             dataSelected: null,
@@ -56,7 +56,7 @@ class Dashboard extends Component {
         const CancelToken = axios.CancelToken;
         this.CancelToken = CancelToken.source();
 
-        // this.FillData();
+        this.FillData();
     }
 
     componentWillUnmount() {
