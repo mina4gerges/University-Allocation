@@ -22,10 +22,10 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // clonedDashBoardData: [],
-            // DashBoardData: [],
-            clonedDashBoardData: cloneDeep(DashBoardData),
-            DashBoardData: groupBy(DashBoardData, 'floor'),
+            clonedDashBoardData: [],
+            DashBoardData: [],
+            // clonedDashBoardData: cloneDeep(DashBoardData),
+            // DashBoardData: groupBy(DashBoardData, 'floor'),
 
             openModalDataChange: false,
             dataSelected: null,
@@ -109,7 +109,7 @@ class Dashboard extends Component {
             cardDisplay = map(DashBoardData, (val1, key1) => {
                 return (
                     <div className='row' key={`dash-board-key-filtarion${key1}`}>
-                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized(groupingName + " " + key1)}</b></div>
+                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b></div>
                         {
                             map(val1, (val, key) => {
                                 let borderColor = statusColor[val.status];
@@ -124,7 +124,8 @@ class Dashboard extends Component {
                                                     Date: {val.coursDate ? format(val.coursDate, 'dd/MM/yyyy') : ''}<br />
                                                     Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
                                                     End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />
-                                                    Number Of Students: {val.nbrStudents}<br />
+                                                    {/* Number Of Students: {val.nbrStudents}<br /> */}
+                                                    Capacity: {val.classCapacity}<br />
                                                 </CardText>
                                             </CardBody>
                                         </Card>
@@ -267,24 +268,25 @@ class Dashboard extends Component {
         let errorMsg = null;
         if (returnedValidationObject.conflicts) {
             errorMsg = returnedValidationObject.errorMsg;
+            this.setState({ openSnackBar: true, errorMsg })
         }
         else {
-            errorMsg = 'Success';
             let tempSataSelected = find(clonedDashBoardData, { room_ID: dataSelected.room_ID });
             map(tempSataSelected, (val, key) => {
                 if (tempSataSelected[key] !== dataSelected[key]) tempSataSelected[key] = dataSelected[key]
             });
+
             let savedValue = {};
-            console.log('dataSelected', dataSelected)
             savedValue.class_ID = dataSelected.class_ID ? dataSelected.class_ID : ''
             savedValue.room_ID = dataSelected.room_ID;
             savedValue.cours_ID = dataSelected.cours_ID;
             savedValue.teacher_ID = dataSelected.teacher_ID;
-            savedValue.status = dataSelected.status;
-            savedValue.coursDate = dataSelected.coursDate;
-            savedValue.startTime = dataSelected.startTime;
-            savedValue.endTime = dataSelected.endTime;
-            console.log('savedValue', savedValue);
+            // savedValue.status = dataSelected.status;
+            savedValue.status = 'live';
+            savedValue.coursDate = format(dataSelected.coursDate, 'dd/MM/yyyy');
+            savedValue.startTime = format(dataSelected.startTime, 'hh:mm a');
+            savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
+
             const params = { ...savedValue };
             axios({
                 method: 'post',
@@ -294,18 +296,22 @@ class Dashboard extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveDashboardResult;
-                this.setState({ errorMsg: res })
+                errorMsg = 'Successfully Saved';
+                this.closeModalDataChange();
+                this.setState({ openSnackBar: true, errorMsg })
             }).catch((error) => {
-                // console.log('error', error);
+                errorMsg = 'Error Occurred';
+                this.setState({ openSnackBar: true, errorMsg })
             });
-            this.closeModalDataChange();
-            this.setState({ DashBoardData });
+            this.setState({ DashBoardData, clonedDashBoardData });
         }
-        this.setState({ openSnackBar: true, errorMsg })
+        // this.setState({ openSnackBar: true, errorMsg })
     }
 
     handleRadioChange = event => {
-        this.handleGrouping(event.target.value.toLowerCase());
+        let value = event.target.value.toLowerCase();
+        // this.handleGrouping(event.target.value.toLowerCase());
+        this.handleGrouping(event.target.value);
         this.setState({ radioSelectedValue: event.target.value })
     }
 
@@ -363,6 +369,7 @@ class Dashboard extends Component {
     render() {
         let { openModalDataChange, dataSelected, radioSelectedValue,
             live, upcoming, cancelled, vacant, openSnackBar, errorMsg } = this.state;
+        console.log('errorMsg')
         return (
             <div>
                 <FiltrationBar
