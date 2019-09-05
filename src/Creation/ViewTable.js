@@ -82,15 +82,12 @@ function ViewTable(props) {
     let Room = [
         // type :'boolean', 'numeric', 'date', 'datetime', 'time', 'currency'
         // select : lookup
-        { title: 'Code', field: 'cours_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Name', field: 'cours_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Number Of Credits', field: 'cours_Credit', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Number Of Hours', field: 'cours_Hours', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Course Price', field: 'cours_Price', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Currency', field: 'currency', lookup: { ...currencyOptionsLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Semester', field: 'cours_Semestre', lookup: { 1: '1', 2: '2' }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Course Status', field: 'cours_Status', lookup: { ...courseStatusLookup }, headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-    ];
+        { title: 'Name', field: 'room_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Capacity', field: 'room_Capacity', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Floor', field: 'room_Floor', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Status', field: 'room_Status', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Campus', field: 'campus_Name', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+  ];
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState(availableCourses);
 
