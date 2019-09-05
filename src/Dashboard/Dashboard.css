@@ -50,3 +50,7 @@
     color:red !important;
     font-size: 15px
 }
+
+.date-time .MuiFormControl-root.MuiTextField-root{
+    width: 100%
+}

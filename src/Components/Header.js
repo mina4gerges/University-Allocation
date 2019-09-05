@@ -217,7 +217,7 @@ function PrimarySearchAppBar(props) {
                         <NavItem>
                             <div className={`MuiTab-root ${parseInt(value, 10) === 1 ? 'active' : 'notActive'}`} style={{ borderBottom: (parseInt(value, 10) === 1 ? "1px solid red" : 'none') }}>
                                 {/* <Link to="/Creation" id='1' onClick={handleTabChange}>CREATION</Link> */}
-                                <Link id='1' onClick={handleClick}>CREATION</Link>
+                                <Link id='1' to={window.location.pathname} onClick={handleClick}>CREATION</Link>
                             </div>
                             <Menu
                                 id="simple-menu"
