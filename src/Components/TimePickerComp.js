@@ -12,6 +12,7 @@ function TimePickerComp(props) {
                 value={props.value}
                 onChange={props.onChange}
                 style={{ width: '100%' }}
+                error={props.error}
             />
         </MuiPickersUtilsProvider>
     );

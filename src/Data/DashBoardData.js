@@ -3,8 +3,8 @@ export const DashBoardData = [{
     class_ID: 1,
     room: 'A1',
     classCapacity: 10,
-    teacher: 'Dr. Mina l zaber',
-    course: 'Java 3',
+    teacher: 'Dr. Mina',
+    course: 'Java',
     nbrStudents: 10,
     date: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-11-04 03:00 PM'),

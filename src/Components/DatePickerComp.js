@@ -13,6 +13,7 @@ function DatePcikerComp(props) {
                 minDate={new Date()}
                 format="dd/MM/yyyy"
                 label={props.label}
+                error={props.error}
             // maxDateMessage="test 1"
             // minDateMessage="test 2"
             // invalidDateMessage="Invalid"
