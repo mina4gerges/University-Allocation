@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { cloneDeep, map, includes, filter } from 'lodash';
+import { cloneDeep, map, includes, filter, find } from 'lodash';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid'
 // import { roomName, roomStatus, teacherName, courseName } from '../Data/DashBoardData';
@@ -94,10 +94,10 @@ class ModalDataChange extends Component {
         let { onClose, open, roomNameOption, teacherNameOption, courseNameOption } = this.props;
         let { dataSelected, tempMandatory } = this.state;
         let headerLabel = 'New Class';
-        if (dataSelected.cours_ID) headerLabel = dataSelected.cours_ID.toUpperCase();
-        if (dataSelected.teacher_ID) headerLabel = dataSelected.teacher_ID;
-        if (dataSelected.cours_ID && dataSelected.teacher_ID) headerLabel = dataSelected.cours_ID.toUpperCase() + " (" + dataSelected.teacher_ID + ")";
-
+        if (dataSelected.cours_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase();
+        if (dataSelected.teacher_ID) headerLabel = find(teacherNameOption, { value: dataSelected.teacher_ID }).label;
+        if (dataSelected.cours_ID && dataSelected.teacher_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase() + " (" + find(teacherNameOption, { value: dataSelected.teacher_ID }).label + ")";
+        //TODO
         return (
             <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change' >
                 <DialogContent>
@@ -131,7 +131,7 @@ class ModalDataChange extends Component {
                     <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'room_ID')}>
                         <InputLabel htmlFor="age-simple">Room</InputLabel>
                         <Select
-                            value={dataSelected.room_ID}
+                            value={dataSelected.room_ID ? dataSelected.room_ID : ''}
                             onChange={this.handleChange}
                             name='room_ID'
                         >

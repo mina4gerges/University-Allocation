@@ -109,7 +109,7 @@ class NewCourse extends Component {
         if (isEmpty(tempMandatory)) {//validation
             let savedValue = {};
             map(this.toSave, val => {
-                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
+                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] }; //TODO
             })
             const params = { ...savedValue };
             axios({

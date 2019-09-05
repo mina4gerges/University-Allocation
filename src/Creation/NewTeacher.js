@@ -136,7 +136,7 @@ class NewTeacher extends Component {
                 ...savedValue,
                 [val]: typeof (this.state[val]) === 'object' &&
                     this.state[val] ?
-                    (val === 'teacher_Address' ? JSON.stringify(this.state[val]) : this.state[val].value) :
+                    (val === 'teacher_Address' ? JSON.stringify(this.state[val]) : this.state[val].value) ://TODO
                     this.state[val]
             };
         })

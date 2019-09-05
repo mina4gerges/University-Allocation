@@ -69,7 +69,7 @@ class NewRoom extends Component {
         this.handleRemoveMandatory(name);
         this.handleAddRemoveMandatoryValue(value);
         if (name === 'roomStatus' && value && value.roomHoldUntil) roomHoldUntil = new Date();
-        this.setState({ [name]: value.value, roomHoldUntil });
+        this.setState({ [name]: value.value, roomHoldUntil });//TODO
     }
 
     handleAddRemoveMandatoryValue = value => {
@@ -108,7 +108,7 @@ class NewRoom extends Component {
         if (isEmpty(tempMandatory)) {//validation
             let savedValue = {};
             map(this.toSave, val => {
-                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };
+                savedValue = { ...savedValue, [val]: typeof (this.state[val]) === 'object' && this.state[val] ? this.state[val].value : this.state[val] };//TODO
             })
             const params = { ...savedValue };
             axios({
