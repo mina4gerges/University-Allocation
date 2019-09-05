@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { forwardRef } from 'react';
 import { map } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,10 +52,10 @@ function ViewTable(props) {
 
     const classes = useStyles();
 
-    map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })
-    map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })
+    map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })//TODO
+    map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })//TODO
 
-    let Teacher=[
+    let Teacher = [
         { title: 'Code', field: 'teacher_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Name', field: 'teacher_Name', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Family', field: 'teacher_familyName', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
@@ -63,7 +63,7 @@ function ViewTable(props) {
         { title: 'Email', field: 'user_Email', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Phone number', field: 'user_PhoneNumber', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Status', field: 'user_Status', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-        { title: 'Expertise', field: 'teacher_Expertise',headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
+        { title: 'Expertise', field: 'teacher_Expertise', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Diploma', field: 'teacher_Diploma', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
 
     ];
@@ -95,8 +95,8 @@ function ViewTable(props) {
     const [data, setData] = useState(availableCourses);
 
     useEffect(() => {
-            let params = {
-        whichData: creationName
+        let params = {
+            whichData: creationName
         }
         axios({
             method: 'post',
@@ -106,17 +106,17 @@ function ViewTable(props) {
             // cancelToken: this.CancelToken.token
         }).then((response) => {
             let res = response.data.LoadDataResult;
-         if(res){
-             res = JSON.parse(res);
-             if (creationName === "Teacher"){
-                 setColumns(Teacher)
-             } else if (creationName === "Course"){
-                 setColumns(Course)
-             } else if (creationName === "Room"){
-                 setColumns(Room)
-             }
-             setData(res);
-         }
+            if (res) {
+                res = JSON.parse(res);
+                if (creationName === "Teacher") {
+                    setColumns(Teacher)
+                } else if (creationName === "Course") {
+                    setColumns(Course)
+                } else if (creationName === "Room") {
+                    setColumns(Room)
+                }
+                setData(res);
+            }
         }).catch((error) => {
             // console.log('error', error);
         });
