@@ -152,7 +152,7 @@ class NewTeacher extends Component {
             }).then((response) => {
                 let res = response.data.SaveTeacherResult;
                 this.setState({ errorMsg: res });
-                setTimeout(() => { this.props.history.push(`/${window.location.pathname.substring(4)}`) }, 3000)//substring(4) --> to remove / and new)
+                setTimeout(() => { this.props.handleClose() }, 1000)
             }).catch((error) => {
                 let errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ errorMsg });

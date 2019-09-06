@@ -238,7 +238,7 @@ function ViewTable(props) {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <DynamicComponent />
+                        <DynamicComponent handleClose={handleClose} />
                     </div>
                 </Fade>
             </Modal>
