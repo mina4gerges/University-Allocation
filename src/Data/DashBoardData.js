@@ -287,10 +287,10 @@ export const courseName = [
 ];
 
 export const roomStatus = [
-    { label: 'Vacant', value: 'vacant' },
+    // { label: 'Vacant', value: 'vacant' },
     { label: 'Live', value: 'live' },
     { label: 'Cancelled', value: 'cancelled' },
-    { label: 'Up Coming', value: 'upcoming' },
+    // { label: 'Up Coming', value: 'upcoming' },
 ]
 
 export const statusColor = {

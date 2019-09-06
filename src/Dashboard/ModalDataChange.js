@@ -14,6 +14,7 @@ import format from 'date-fns/format';
 import isValid from 'date-fns/isValid'
 import isBefore from 'date-fns/isBefore';
 // import { roomName, roomStatus, teacherName, courseName } from '../Data/DashBoardData';
+import { roomStatus } from '../Data/DashBoardData';
 // import { roomName, teacherName, courseName } from '../Data/DashBoardData';
 import TimePickerComp from '../Components/TimePickerComp';
 import DatePcikerComp from '../Components/DatePickerComp';
@@ -24,7 +25,7 @@ class ModalDataChange extends Component {
 
         this.state = {
             // roomName,
-            //roomStatus,
+            roomStatus,
             // teacherName,
             // courseName,
             tempMandatory: [],
@@ -126,7 +127,7 @@ class ModalDataChange extends Component {
 
     render() {
         let { onClose, open, roomNameOption, teacherNameOption, courseNameOption } = this.props;
-        let { dataSelected, tempMandatory, timeErrorMsg } = this.state;
+        let { dataSelected, tempMandatory, timeErrorMsg, roomStatus } = this.state;
         let headerLabel = 'New Class';
         if (dataSelected.cours_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase();
         if (dataSelected.teacher_ID) headerLabel = find(teacherNameOption, { value: dataSelected.teacher_ID }).label;
@@ -172,16 +173,18 @@ class ModalDataChange extends Component {
                             {map(roomNameOption, roomValue => { return (<MenuItem key={roomValue.value} value={roomValue.value} >{roomValue.label}</MenuItem>) })}
                         </Select>
                     </FormControl>
-                    {/* <FormControl style={{ width: '100%' }} className='row'>
-                        <InputLabel htmlFor="age-simple">Status</InputLabel>
-                        <Select
-                            value={dataSelected.status}
-                            onChange={this.handleChange}
-                            name='status'
-                        >
-                            {map(roomStatus, statusName => { return (<MenuItem key={statusName.value} value={statusName.value} >{statusName.label}</MenuItem>) })}
-                        </Select>
-                    </FormControl> */}
+                    {this.mode === 'edit' &&
+                        <FormControl style={{ width: '100%' }} className='row'>
+                            <InputLabel htmlFor="age-simple">Status</InputLabel>
+                            <Select
+                                value={dataSelected.status}
+                                onChange={this.handleChange}
+                                name='status'
+                            >
+                                {map(roomStatus, statusName => { return (<MenuItem key={statusName.value} value={statusName.value} >{statusName.label}</MenuItem>) })}
+                            </Select>
+                        </FormControl>
+                    }
                     <div className='row date-time'>
                         <DatePcikerComp
                             label='Date'

@@ -87,7 +87,7 @@ class Dashboard extends Component {
                 let roomNameOption = JSON.parse(res.RoomsOption);
                 let teacherNameOption = JSON.parse(res.TeachersOption);
                 map(Dashboard, value => {
-                    if (value.class_ID) value.status = 'live'
+                    // if (value.class_ID) value.status = 'live'
                     if (value.coursDate && value.startTime && value.endTime) {
                         value.startTime = new Date(value.coursDate + " " + value.startTime);
                         value.endTime = new Date(value.coursDate + " " + value.endTime);
@@ -314,7 +314,7 @@ class Dashboard extends Component {
             map(tempSataSelected, (val, key) => {
                 if (tempSataSelected[key] !== dataSelected[key]) tempSataSelected[key] = dataSelected[key]
             });
-
+            let mode = !dataSelected.class_ID ? 'addNew' : 'edit'
             let savedValue = {};
             savedValue.class_ID = dataSelected.class_ID ? dataSelected.class_ID : ''
             savedValue.room_ID = dataSelected.room_ID;
@@ -322,7 +322,7 @@ class Dashboard extends Component {
             savedValue.teacher_ID = dataSelected.teacher_ID;
             savedValue.schedule_ID = dataSelected.schedule_ID;
             // savedValue.status = dataSelected.status;
-            savedValue.status = 'live';
+            savedValue.status = mode === 'addNew' ? 'live' : dataSelected.status;
             savedValue.coursDate = format(dataSelected.coursDate, 'yyyy-MM-dd');
             savedValue.startTime = format(dataSelected.startTime, 'hh:mm a');
             savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
