@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { forwardRef } from 'react';
 import { map } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, withRouter, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
@@ -24,15 +24,11 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
 import { availableCourses, courseStatus, currencyOptions } from '../Data/CreationData';
-import NewRoom from './NewRoom';
-import NewCourse from './NewCourse';
-import NewTeacher from './NewTeacher';
+// import NewRoom from './NewRoom';
+// import NewCourse from './NewCourse';
+// import NewTeacher from './NewTeacher';
 import axios from "axios";
 import { DB_Link } from '../global';
-
-
-
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -87,9 +83,9 @@ function ViewTable(props) {
         { title: 'Floor', field: 'room_Floor', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Status', field: 'room_Status', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Campus', field: 'campus_Name', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
-  ];
+    ];
     const [columns, setColumns] = useState([]);
-    const [data, setData] = useState(availableCourses);
+    const [dataTable, setDataTable] = useState(availableCourses);
 
     useEffect(() => {
         let params = {
@@ -112,12 +108,13 @@ function ViewTable(props) {
                 } else if (creationName === "Room") {
                     setColumns(Room)
                 }
-                setData(res);
+                setDataTable(res);
             }
         }).catch((error) => {
             // console.log('error', error);
         });
-    }, []);
+        // }, []);
+    });
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -161,7 +158,7 @@ function ViewTable(props) {
                         // columns={state.columns}
                         columns={columns}
                         // data={state.data}
-                        data={data}
+                        data={dataTable}
                         editable={{
                             // onRowAdd: newData =>
                             //     new Promise(resolve => {
@@ -177,10 +174,10 @@ function ViewTable(props) {
                                     setTimeout(() => {
                                         resolve();
                                         // const data = [...state.data];
-                                        const data = [...data];
+                                        const data = [...dataTable];
                                         data[data.indexOf(oldData)] = newData;
                                         // setState({ ...state, data });
-                                        setData(data)
+                                        setDataTable(data)
                                     }, 600);
                                 }),
                             onRowDelete: oldData =>
@@ -188,10 +185,10 @@ function ViewTable(props) {
                                     setTimeout(() => {
                                         resolve();
                                         // const data = [...state.data];
-                                        const data = [...data];
+                                        const data = [...dataTable];
                                         data.splice(data.indexOf(oldData), 1);
                                         // setState({ ...state, data });
-                                        setData(data)
+                                        setDataTable(data)
                                     }, 600);
                                 }),
                         }}

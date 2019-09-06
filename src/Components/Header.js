@@ -16,7 +16,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { Nav, NavItem } from 'reactstrap';
 import { withRouter } from "react-router-dom";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Header.css';
 // import Dashboard from '../Dashboard';
 // import { conditionalExpression } from '@babel/types';

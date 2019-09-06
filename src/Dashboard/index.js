@@ -8,7 +8,7 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import axios from "axios";
 import './Dashboard.css';
-import { DashBoardData } from '../Data/DashBoardData';
+// import { DashBoardData } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
@@ -309,7 +309,8 @@ class Dashboard extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveDashboardResult;
-                errorMsg = 'Successfully Saved';
+                // errorMsg = 'Successfully Saved';
+                errorMsg = res;
                 this.closeModalDataChange();
                 this.setState({ openSnackBar: true, errorMsg }, () => {
                     this.populateData();
@@ -324,7 +325,6 @@ class Dashboard extends Component {
     }
 
     handleRadioChange = event => {
-        let value = event.target.value.toLowerCase();
         // this.handleGrouping(event.target.value.toLowerCase());
         this.handleGrouping(event.target.value);
         this.setState({ radioSelectedValue: event.target.value })

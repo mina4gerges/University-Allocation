@@ -4,7 +4,6 @@ export const DashBoardData = [{
     classCapacity: 10,
     teacher_ID: 'Dr. Mina',
     cours_ID: 'Java',
-    classCapacity: 10,
     coursDate: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-11-04 03:00 PM'),
     endTime: new Date('2019-11-04 05:00 PM'),
@@ -17,7 +16,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: 'Dr. Rabih',
     cours_ID: 'Data base',
-    classCapacity: 15,
     coursDate: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
     endTime: new Date('2019-10-01 04:45 PM'),
@@ -30,7 +28,6 @@ export const DashBoardData = [{
     classCapacity: 30,
     teacher_ID: 'Dr. Chady',
     cours_ID: 'Programmation Avance',
-    classCapacity: 20,
     coursDate: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
     endTime: new Date('2019-10-01 06:45 PM'),
@@ -43,7 +40,6 @@ export const DashBoardData = [{
     classCapacity: 40,
     teacher_ID: 'Dr. Bilal',
     cours_ID: 'Reseaux',
-    classCapacity: 35,
     coursDate: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
     endTime: new Date('2019-10-02 05:00 PM'),
@@ -57,7 +53,6 @@ export const DashBoardData = [{
     classCapacity: 40,
     teacher_ID: 'Dr. Bilal',
     cours_ID: 'Reseaux',
-    classCapacity: 35,
     coursDate: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
     endTime: new Date('2019-10-02 05:00 PM'),
@@ -70,7 +65,6 @@ export const DashBoardData = [{
     classCapacity: 40,
     teacher_ID: 'Dr. Fady Moukawam',
     cours_ID: 'Arabe',
-    classCapacity: 10,
     coursDate: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 05:15 PM'),
     endTime: new Date('2019-10-02 07:00 PM'),
@@ -78,12 +72,10 @@ export const DashBoardData = [{
     status: 'upcoming'
 },
 {
-    teacher_ID: 7,
+    teacher_ID: null,
     room_ID: 'C2',
     classCapacity: 20,
-    teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,
@@ -93,10 +85,9 @@ export const DashBoardData = [{
 {
     class_ID: null,
     room_ID: 'C1',
-    classCapacity: 20,
+    classCapacity: 5,
     teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,
@@ -106,10 +97,9 @@ export const DashBoardData = [{
 {
     class_ID: null,
     room_ID: 'A3',
-    classCapacity: 20,
+    classCapacity: 50,
     teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,
@@ -119,10 +109,9 @@ export const DashBoardData = [{
 {
     class_ID: 8,
     room_ID: 'D1',
-    classCapacity: 20,
+    classCapacity: 10,
     teacher_ID: 'Dr. Omar',
     cours_ID: 'Structure',
-    classCapacity: 11,
     coursDate: new Date('2019-10-12'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
     endTime: new Date('2019-10-01 04:45 PM'),
@@ -132,10 +121,9 @@ export const DashBoardData = [{
 {
     class_ID: 9,
     room_ID: 'F1',
-    classCapacity: 20,
+    classCapacity: 25,
     teacher_ID: 'Dr. Rashid Aoun',
     cours_ID: 'Operating System',
-    classCapacity: 5,
     coursDate: new Date('2019-10-11'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 01:00 PM'),
     endTime: new Date('2019-10-01 02:00 PM'),
@@ -145,10 +133,9 @@ export const DashBoardData = [{
 {
     class_ID: 10,
     room_ID: 'F2',
-    classCapacity: 20,
+    classCapacity: 30,
     teacher_ID: 'Dr. Rosario Issa',
     cours_ID: 'Base De Donne',
-    classCapacity: 40,
     coursDate: new Date('2019-10-09'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
     endTime: new Date('2019-10-01 07:45 PM'),
@@ -158,10 +145,9 @@ export const DashBoardData = [{
 {
     class_ID: 11,
     room_ID: 'C2',
-    classCapacity: 20,
+    classCapacity: 40,
     teacher_ID: 'Dr. Rabih',
     cours_ID: 'Data base',
-    classCapacity: 15,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -175,7 +161,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: 'Dr. Tony',
     cours_ID: 'React',
-    classCapacity: 15,
     coursDate: new Date('2019-10-08'),//YYYY-MM-DD
     startTime: new Date('2019-10-08 12:00 PM'),
     endTime: new Date('2019-10-08 02:45 PM'),
@@ -189,7 +174,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: 'Dr. Rabih',
     cours_ID: 'Data base',
-    classCapacity: 15,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -203,7 +187,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: 'Dr. Mina',
     cours_ID: 'SQL',
-    classCapacity: 15,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -217,7 +200,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: 'Dr. amine',
     cours_ID: 'VB',
-    classCapacity: 15,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -228,10 +210,9 @@ export const DashBoardData = [{
 {
     class_ID: null,
     room_ID: 'E1',
-    classCapacity: 20,
+    classCapacity: 12,
     teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,
@@ -242,10 +223,9 @@ export const DashBoardData = [{
 {
     class_ID: null,
     room_ID: 'C3',
-    classCapacity: 20,
+    classCapacity: 15,
     teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,
@@ -259,7 +239,6 @@ export const DashBoardData = [{
     classCapacity: 20,
     teacher_ID: null,
     cours_ID: null,
-    classCapacity: null,
     coursDate: null,
     startTime: null,
     endTime: null,

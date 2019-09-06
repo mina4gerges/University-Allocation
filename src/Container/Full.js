@@ -3,12 +3,11 @@ import Header from '../Components/Header';
 import Dashboard from '../Dashboard';
 import Container from '@material-ui/core/Container';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Creaction from '../Creation';
 import NewRoom from '../Creation/NewRoom';
 import NewCourse from '../Creation/NewCourse';
 import NewTeacher from '../Creation/NewTeacher';
 import ViewTable from '../Creation/ViewTable';
-import Creation from '../Creation';
+// import Creation from '../Creation';
 // import TopBar from '../Components/TopBar';
 
 class Full extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
+import { Button, Label, Input, Card, CardBody } from 'reactstrap';
 import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty, startsWith } from 'lodash';
 import InputMask from 'react-input-mask';
@@ -27,13 +27,13 @@ class NewTeacher extends Component {
             teacher_familyName: null,
             user_PhoneNumber: null,
             teacher_Diploma: null,
-            teacher_Address: null,
-            // teacher_Address: '',
+            // teacher_Address: null,
+            teacher_Address: '',
             teacher_Expertise: null,
             teacher_Code: null,
             user_Name: null,
             user_Email: null,
-            user_PhoneNumber: null,
+            // user_PhoneNumber: null,
             user_Password: null,
             user_logo: '/static/images/avatar/1.jpg',
             user_Type: null,
@@ -173,8 +173,7 @@ class NewTeacher extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
-        console.log('state', this.state);
-        let { teacher_ID, teacher_Name, teacher_familyName, user_PhoneNumber,
+        let { teacher_Name, teacher_familyName, user_PhoneNumber,
             user_Email, teacher_Diploma, teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
             teacher_Code, user_Name, user_Password,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DB_Link } from '../global';
-import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
+import { Button, Label, Input, Card, CardBody } from 'reactstrap';
 import Container from '@material-ui/core/Container';
 import { filter, map, includes, isEmpty, startsWith } from 'lodash';
 import InputMask from 'react-input-mask';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Label, Input, Alert, Card, CardBody } from 'reactstrap';
+import { Button, Label, Input, Card, CardBody } from 'reactstrap';
 import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
@@ -142,7 +142,8 @@ class NewRoom extends Component {
     render() {
         // console.log('state', this.state)
         let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil,
-            roomStatusOptions, tempMandatory, errorMsg, openSnackBar } = this.state;
+            //roomStatusOptions, 
+            tempMandatory, errorMsg, openSnackBar } = this.state;
         return (
             <div>
                 <Container maxWidth="sm" className='center'>
