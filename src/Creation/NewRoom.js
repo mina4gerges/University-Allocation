@@ -4,6 +4,7 @@ import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 // import Select from "react-virtualized-select";
 
 import './Creation.css';
@@ -121,7 +122,10 @@ class NewRoom extends Component {
             }).then((response) => {
                 let res = response.data.SaveRoomResult;
                 this.setState({ errorMsg: res })
-                setTimeout(() => { this.props.handleClose() }, 1000);
+                setTimeout(() => {
+                    this.props.handleClose();
+                    this.props.history.push(`/`);
+                }, 1000);
             }).catch((error) => {
                 let errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ errorMsg });
@@ -238,4 +242,7 @@ class NewRoom extends Component {
     }
 }
 
-export default NewRoom;
+// export default NewRoom;
+
+export default withRouter(NewRoom);
+

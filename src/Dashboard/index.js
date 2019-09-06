@@ -87,7 +87,7 @@ class Dashboard extends Component {
                 let roomNameOption = JSON.parse(res.RoomsOption);
                 let teacherNameOption = JSON.parse(res.TeachersOption);
                 map(Dashboard, value => {
-                    // if (value.class_ID) value.status = 'live'
+                    if (value.class_ID) value.status = 'live'
                     if (value.coursDate && value.startTime && value.endTime) {
                         value.startTime = new Date(value.coursDate + " " + value.startTime);
                         value.endTime = new Date(value.coursDate + " " + value.endTime);
@@ -325,7 +325,6 @@ class Dashboard extends Component {
             savedValue.coursDate = format(dataSelected.coursDate, 'yyyy-MM-dd');
             savedValue.startTime = format(dataSelected.startTime, 'hh:mm a');
             savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
-
             const params = { ...savedValue };
             axios({
                 method: 'post',
