@@ -91,7 +91,6 @@ class Dashboard extends Component {
                         value.coursDate = new Date(value.coursDate);
                     }
                 })
-                console.log('Dashboard', Dashboard)
                 this.setState({
                     clonedDashBoardData: cloneDeep(Dashboard),
                     DashBoardData: groupBy(Dashboard, 'floor'),
@@ -110,7 +109,6 @@ class Dashboard extends Component {
         if (!isEmpty(DashBoardData)) {
             cardDisplay = map(DashBoardData, (val1, key1) => {
                 let nbrRoomVacant = filter(val1, { status: 'vacant' }).length > 0 ? (filter(val1, { status: 'vacant' }).length + " " + globalMsg.nbreRoomLeft) : globalMsg.noMoreVacantRoom;
-                console.log('val1', val1, 'nbrRoomVacant', nbrRoomVacant);
                 return (
                     <div className='row' key={`dash-board-key-filtarion${key1}`}>
                         <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({nbrRoomVacant})</span></div>
@@ -268,9 +266,6 @@ class Dashboard extends Component {
             conflicts = true;
         }
 
-        console.log('teacherTestValue', teacherTestValue)
-        console.log('courseTestValue', courseTestValue)
-        console.log('roomTestValue', roomTestValue)
         return { conflicts, errorMsg };
     }
 
@@ -300,7 +295,6 @@ class Dashboard extends Component {
             savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
 
             const params = { ...savedValue };
-            console.log('savedValue', savedValue)
             axios({
                 method: 'post',
                 url: `${DB_Link}SaveDashboard`,
