@@ -203,32 +203,36 @@ class Dashboard extends Component {
 
             let testConfilctsRoom =
                 (
-                    class_IDSaved !== class_IDSaved
-                    && roomSaved === room_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && roomSaved === room_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && roomSaved === room_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
 
             let testConfilctsTeacher =
                 (
-                    class_IDSaved !== class_IDSaved
-                    && teacherSaved === teacher_ID //teacher_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    teacherSaved === teacher_ID //teacher_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
@@ -236,8 +240,9 @@ class Dashboard extends Component {
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && teacherSaved === teacher_ID//teacher_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    teacherSaved === teacher_ID//teacher_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
@@ -245,8 +250,9 @@ class Dashboard extends Component {
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && teacherSaved === teacher_ID //teacher_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    teacherSaved === teacher_ID //teacher_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
@@ -254,8 +260,9 @@ class Dashboard extends Component {
 
             let testConfilctsCourse =
                 (
-                    class_IDSaved !== class_IDSaved
-                    && courseSaved === cours_ID  //cours_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    courseSaved === cours_ID  //cours_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
@@ -263,8 +270,9 @@ class Dashboard extends Component {
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && courseSaved === cours_ID //cours_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    courseSaved === cours_ID //cours_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
@@ -272,8 +280,9 @@ class Dashboard extends Component {
                 )
                 ||
                 (
-                    class_IDSaved !== class_IDSaved
-                    && courseSaved === cours_ID //cours_ID
+                    // class_IDSaved !== class_IDSaved
+                    // && 
+                    courseSaved === cours_ID //cours_ID
                     && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
@@ -297,6 +306,9 @@ class Dashboard extends Component {
             errorMsg = globalMsg.conflictRoomMsg;
             conflicts = true;
         }
+        // console.log('teacherTestValue', teacherTestValue)
+        // console.log('courseTestValue', courseTestValue)
+        // console.log('roomTestValue', roomTestValue)
 
         return { conflicts, errorMsg };
     }
