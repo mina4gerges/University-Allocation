@@ -314,14 +314,14 @@ class Dashboard extends Component {
             map(tempSataSelected, (val, key) => {
                 if (tempSataSelected[key] !== dataSelected[key]) tempSataSelected[key] = dataSelected[key]
             });
-
+            let mode = !dataSelected.class_ID ? 'addNew' : 'edit'
             let savedValue = {};
             savedValue.class_ID = dataSelected.class_ID ? dataSelected.class_ID : ''
             savedValue.room_ID = dataSelected.room_ID;
             savedValue.cours_ID = dataSelected.cours_ID;
             savedValue.teacher_ID = dataSelected.teacher_ID;
             // savedValue.status = dataSelected.status;
-            savedValue.status = 'live';
+            savedValue.status = mode === 'addNew' ? 'live' : dataSelected.status;
             savedValue.coursDate = format(dataSelected.coursDate, 'yyyy-MM-dd');
             savedValue.startTime = format(dataSelected.startTime, 'hh:mm a');
             savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
