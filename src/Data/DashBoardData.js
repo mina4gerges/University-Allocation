@@ -296,7 +296,6 @@ export const roomStatus = [
 export const statusColor = {
     vacant: '#D2D7D3',
     live: '#19B5FE',
-    // live: '#2ECC71',
     cancelled: '#CF000F',
     upcoming: '#F7CA18',
 }
