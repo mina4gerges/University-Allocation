@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
 import AlgoliaPlaces from 'algolia-places-react';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 
 import { globalMsg } from "../Data/globalMsg";
@@ -35,7 +35,7 @@ class NewTeacher extends Component {
             user_Email: null,
             // user_PhoneNumber: null,
             user_Password: null,
-            user_logo: '/static/images/avatar/1.jpg',
+            user_logo: `${process.env.PUBLIC_URL}/img/profile.png`,
             user_Type: null,
             user_Status: null,
             openSnackBar: false,
@@ -59,7 +59,7 @@ class NewTeacher extends Component {
             'user_PhoneNumber',
             'user_Email',
             'user_Password',
-            'user_logo',
+            // 'user_logo',
             'user_Type',
             'user_Status',
         ];
@@ -76,7 +76,7 @@ class NewTeacher extends Component {
             'user_PhoneNumber',
             'user_Email',
             'user_Password',
-            'user_logo',
+            // 'user_logo',
             'user_Type',
             'user_Status',
         ];
@@ -180,11 +180,11 @@ class NewTeacher extends Component {
             user_Email, teacher_Diploma, teacher_Address,
             teacher_DiplomaOptions, tempMandatory, tempInvalid, errorMsg,
             teacher_Code, user_Name, user_Password,
-            teacher_Expertise, user_Type, user_Status, openSnackBar } = this.state;
+            teacher_Expertise, user_Type, user_Status, user_logo, openSnackBar } = this.state;
 
         return (
             <div>
-                <Container maxWidth="sm">
+                <Container maxWidth="sm" className='center'>
                     <Card>
                         <CardBody>
                             <div className="row" style={{ textAlign: 'center' }}>
@@ -199,7 +199,8 @@ class NewTeacher extends Component {
                             </div> */}
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <div className="col-12">
-                                    <Avatar alt="Teacher Logo" href="%PUBLIC_URL%/CNAM_Logo.svg.png" style={{ margin: '10px', width: '60px', height: '60px' }} />
+                                    <img src={user_logo} alt="Teacher Logo" />
+                                    {/* <Avatar alt="Teacher Logo" href={user_logo} style={{ margin: '10px', width: '60px', height: '60px' }} /> */}
                                 </div>
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
@@ -351,13 +352,13 @@ class NewTeacher extends Component {
                             </div>
                         </CardBody>
                     </Card>
-                    <SnackBarComp
-                        open={openSnackBar}
-                        onClose={this.onCloseSnackBar}
-                        message={errorMsg}
-                        color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
-                    />
                 </Container>
+                <SnackBarComp
+                    open={openSnackBar}
+                    onClose={this.onCloseSnackBar}
+                    message={errorMsg}
+                    color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
+                />
             </div>
         )
     }

@@ -1,9 +1,9 @@
 export const DashBoardData = [{
     class_ID: 1,
-    room_ID: 'A1',
+    room_ID: 1,
     classCapacity: 10,
-    teacher_ID: 'Dr. Mina',
-    cours_ID: 'Java',
+    teacher_ID: 1,
+    cours_ID: 1,
     coursDate: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-11-04 03:00 PM'),
     endTime: new Date('2019-11-04 05:00 PM'),
@@ -12,10 +12,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 2,
-    room_ID: 'A2',
+    room_ID: 2,
     classCapacity: 20,
-    teacher_ID: 'Dr. Rabih',
-    cours_ID: 'Data base',
+    teacher_ID: 2,
+    cours_ID: 2,
     coursDate: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
     endTime: new Date('2019-10-01 04:45 PM'),
@@ -24,10 +24,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 3,
-    room_ID: 'B3',
+    room_ID: 2,
     classCapacity: 30,
-    teacher_ID: 'Dr. Chady',
-    cours_ID: 'Programmation Avance',
+    teacher_ID: 3,
+    cours_ID: 3,
     coursDate: new Date('2019-10-01'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
     endTime: new Date('2019-10-01 06:45 PM'),
@@ -36,10 +36,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 4,
-    room_ID: 'B4',
+    room_ID: 4,
     classCapacity: 40,
-    teacher_ID: 'Dr. Bilal',
-    cours_ID: 'Reseaux',
+    teacher_ID: 4,
+    cours_ID: 4,
     coursDate: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
     endTime: new Date('2019-10-02 05:00 PM'),
@@ -49,10 +49,10 @@ export const DashBoardData = [{
 
 {
     class_ID: 5,
-    room_ID: 'C4',
+    room_ID: 5,
     classCapacity: 40,
-    teacher_ID: 'Dr. Bilal',
-    cours_ID: 'Reseaux',
+    teacher_ID: 2,
+    cours_ID: 4,
     coursDate: new Date('2019-10-02'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 03:00 PM'),
     endTime: new Date('2019-10-02 05:00 PM'),
@@ -61,10 +61,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 6,
-    room_ID: 'B1',
+    room_ID: 3,
     classCapacity: 40,
-    teacher_ID: 'Dr. Fady Moukawam',
-    cours_ID: 'Arabe',
+    teacher_ID: 3,
+    cours_ID: 1,
     coursDate: new Date('2019-11-04'),//YYYY-MM-DD
     startTime: new Date('2019-10-02 05:15 PM'),
     endTime: new Date('2019-10-02 07:00 PM'),
@@ -73,7 +73,7 @@ export const DashBoardData = [{
 },
 {
     teacher_ID: null,
-    room_ID: 'C2',
+    room_ID: 5,
     classCapacity: 20,
     cours_ID: null,
     coursDate: null,
@@ -84,7 +84,7 @@ export const DashBoardData = [{
 },
 {
     class_ID: null,
-    room_ID: 'C1',
+    room_ID: 7,
     classCapacity: 5,
     teacher_ID: null,
     cours_ID: null,
@@ -96,7 +96,7 @@ export const DashBoardData = [{
 },
 {
     class_ID: null,
-    room_ID: 'A3',
+    room_ID: 7,
     classCapacity: 50,
     teacher_ID: null,
     cours_ID: null,
@@ -108,10 +108,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 8,
-    room_ID: 'D1',
+    room_ID: 8,
     classCapacity: 10,
-    teacher_ID: 'Dr. Omar',
-    cours_ID: 'Structure',
+    teacher_ID: 6,
+    cours_ID: 2,
     coursDate: new Date('2019-10-12'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 03:00 PM'),
     endTime: new Date('2019-10-01 04:45 PM'),
@@ -120,10 +120,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 9,
-    room_ID: 'F1',
+    room_ID: 12,
     classCapacity: 25,
-    teacher_ID: 'Dr. Rashid Aoun',
-    cours_ID: 'Operating System',
+    teacher_ID: 4,
+    cours_ID: 3,
     coursDate: new Date('2019-10-11'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 01:00 PM'),
     endTime: new Date('2019-10-01 02:00 PM'),
@@ -132,10 +132,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 10,
-    room_ID: 'F2',
+    room_ID: 2,
     classCapacity: 30,
-    teacher_ID: 'Dr. Rosario Issa',
-    cours_ID: 'Base De Donne',
+    teacher_ID: 3,
+    cours_ID: 4,
     coursDate: new Date('2019-10-09'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 05:00 PM'),
     endTime: new Date('2019-10-01 07:45 PM'),
@@ -144,10 +144,10 @@ export const DashBoardData = [{
 },
 {
     class_ID: 11,
-    room_ID: 'C2',
+    room_ID: 1,
     classCapacity: 40,
-    teacher_ID: 'Dr. Rabih',
-    cours_ID: 'Data base',
+    teacher_ID: 4,
+    cours_ID: 2,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -157,10 +157,10 @@ export const DashBoardData = [{
 
 {
     class_ID: 12,
-    room_ID: 'H1',
+    room_ID: 1,
     classCapacity: 20,
-    teacher_ID: 'Dr. Tony',
-    cours_ID: 'React',
+    teacher_ID: 6,
+    cours_ID: 2,
     coursDate: new Date('2019-10-08'),//YYYY-MM-DD
     startTime: new Date('2019-10-08 12:00 PM'),
     endTime: new Date('2019-10-08 02:45 PM'),
@@ -170,10 +170,10 @@ export const DashBoardData = [{
 
 {
     class_ID: 13,
-    room_ID: 'D1',
+    room_ID: 2,
     classCapacity: 20,
-    teacher_ID: 'Dr. Rabih',
-    cours_ID: 'Data base',
+    teacher_ID: 3,
+    cours_ID: 1,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -183,10 +183,10 @@ export const DashBoardData = [{
 
 {
     class_ID: 14,
-    room_ID: 'D3',
+    room_ID: 3,
     classCapacity: 20,
-    teacher_ID: 'Dr. Mina',
-    cours_ID: 'SQL',
+    teacher_ID: 4,
+    cours_ID: 2,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -196,10 +196,10 @@ export const DashBoardData = [{
 
 {
     class_ID: 15,
-    room_ID: 'A4',
+    room_ID: 4,
     classCapacity: 20,
-    teacher_ID: 'Dr. amine',
-    cours_ID: 'VB',
+    teacher_ID: 3,
+    cours_ID: 3,
     coursDate: new Date('2019-10-07'),//YYYY-MM-DD
     startTime: new Date('2019-10-01 12:00 PM'),
     endTime: new Date('2019-10-01 02:45 PM'),
@@ -209,7 +209,7 @@ export const DashBoardData = [{
 
 {
     class_ID: null,
-    room_ID: 'E1',
+    room_ID: 5,
     classCapacity: 12,
     teacher_ID: null,
     cours_ID: null,
@@ -222,7 +222,7 @@ export const DashBoardData = [{
 
 {
     class_ID: null,
-    room_ID: 'C3',
+    room_ID: 5,
     classCapacity: 15,
     teacher_ID: null,
     cours_ID: null,
@@ -235,7 +235,7 @@ export const DashBoardData = [{
 
 {
     class_ID: null,
-    room_ID: 'B2',
+    room_ID: 6,
     classCapacity: 20,
     teacher_ID: null,
     cours_ID: null,
@@ -248,60 +248,42 @@ export const DashBoardData = [{
 ];
 
 export const roomName = [
-    { label: 'A1', value: 'A1', floor: 1 },
-    { label: 'B1', value: 'B1', floor: 1 },
-    { label: 'C1', value: 'C1', floor: 1 },
-    { label: 'D1', value: 'D1', floor: 1 },
-    { label: 'E1', value: 'E1', floor: 1 },
-    { label: 'F1', value: 'F1', floor: 1 },
-    { label: 'G1', value: 'G1', floor: 1 },
-    { label: 'H1', value: 'H1', floor: 1 },
+    { label: 'A1', value: 1, floor: 1 },
+    { label: 'B1', value: 2, floor: 1 },
+    { label: 'C1', value: 3, floor: 1 },
+    { label: 'D1', value: 4, floor: 1 },
+    { label: 'E1', value: 5, floor: 1 },
+    { label: 'F1', value: 6, floor: 1 },
+    { label: 'G1', value: 7, floor: 1 },
+    { label: 'H1', value: 8, floor: 1 },
 
-    { label: 'A2', value: 'A2', floor: 2 },
-    { label: 'B2', value: 'B2', floor: 2 },
-    { label: 'C2', value: 'C2', floor: 2 },
-    { label: 'D2', value: 'D2', floor: 2 },
-    { label: 'E2', value: 'E2', floor: 2 },
-    { label: 'F2', value: 'F2', floor: 2 },
-    { label: 'G2', value: 'G2', floor: 2 },
-    { label: 'H2', value: 'H2', floor: 2 },
-
-    { label: 'A3', value: 'A3', floor: 3 },
-    { label: 'B3', value: 'B3', floor: 3 },
-    { label: 'C3', value: 'C3', floor: 3 },
-    { label: 'D3', value: 'D3', floor: 3 },
-    { label: 'E3', value: 'E3', floor: 3 },
-    { label: 'F3', value: 'F3', floor: 3 },
-    { label: 'G3', value: 'G3', floor: 3 },
-    { label: 'H3', value: 'H3', floor: 3 },
-
-    { label: 'A4', value: 'A4', floor: 4 },
-    { label: 'B4', value: 'B4', floor: 4 },
-    { label: 'C4', value: 'C4', floor: 4 },
-    { label: 'D4', value: 'D4', floor: 4 },
-    { label: 'E4', value: 'E4', floor: 4 },
-    { label: 'F4', value: 'F4', floor: 4 },
-    { label: 'G4', value: 'G4', floor: 4 },
-    { label: 'H4', value: 'H4', floor: 4 },
+    { label: 'A2', value: 9, floor: 2 },
+    { label: 'B2', value: 10, floor: 2 },
+    { label: 'C2', value: 11, floor: 2 },
+    { label: 'D2', value: 12, floor: 2 },
+    { label: 'E2', value: 13, floor: 2 },
+    { label: 'F2', value: 14, floor: 2 },
+    { label: 'G2', value: 15, floor: 2 },
+    { label: 'H2', value: 16, floor: 2 },
 
 ];
 
 export const teacherName = [
-    { label: 'Dr. Bilal', value: 'Dr. Bilal' },
-    { label: 'Dr. Amine', value: 'Dr. Amine' },
-    { label: 'Dr. Mina', value: 'Dr. Mina' },
-    { label: 'Dr. Omar', value: 'Dr. Omar' },
-    { label: 'Dr. Chady', value: 'Dr. Chady' },
-    { label: 'Dr. Pascal', value: 'Dr. Pascal' },
+    { label: 'Dr. Bilal', value: 1 },
+    { label: 'Dr. Amine', value: 2 },
+    { label: 'Dr. Mina', value: 3 },
+    { label: 'Dr. Omar', value: 4 },
+    { label: 'Dr. Chady', value: 5 },
+    { label: 'Dr. Pascal', value: 6 },
 
 ];
 
 export const courseName = [
-    { label: 'Java', value: 'Java' },
-    { label: 'Maths', value: 'Maths' },
-    { label: 'Structure', value: 'Structure' },
-    { label: 'Methode', value: 'Methode' },
-    { label: 'Reseaux Et Comunication', value: 'Reseaux Et Communication' },
+    { label: 'Java', value: 1 },
+    { label: 'Maths', value: 2 },
+    { label: 'Structure', value: 3 },
+    { label: 'Methode', value: 4 },
+    { label: 'Reseaux Et Comunication', value: 5 },
 ];
 
 export const roomStatus = [

@@ -6,8 +6,8 @@ export const globalMsg = {
     conflictTeacherMsg: 'Teacher is already giving a course with these details (Room/Date/Time).',
     successMsg: 'Successfully Saved',
     emptyDataMsg: 'No Data Found',
-    noMoreVacantRoom: 'No more empty rooms are available',
-    nbreRoomLeft: 'more room(s) left',
+    noMoreVacantRoom: 'No more empty rooms',
+    nbreRoomLeft: { single: 'vacant room is available', plural: 'vacant rooms are available' },
     errorSaveMsg: 'Error Occurred'
 }
 

@@ -226,13 +226,13 @@ class NewRoom extends Component {
                             </div>
                         </CardBody>
                     </Card>
-                    <SnackBarComp
-                        open={openSnackBar}
-                        onClose={this.onCloseSnackBar}
-                        message={errorMsg}
-                        color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
-                    />
                 </Container>
+                <SnackBarComp
+                    open={openSnackBar}
+                    onClose={this.onCloseSnackBar}
+                    message={errorMsg}
+                    color={startsWith(errorMsg, 'Successfully Saved') ? 'success' : 'error'}
+                />
             </div>
         )
     }

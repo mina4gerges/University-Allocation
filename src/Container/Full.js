@@ -15,7 +15,8 @@ class Full extends Component {
     //#eeeeee body backgrouond
     render() {
         return (
-            <div style={{ background: '#eeeeee', height: '-webkit-fill-available' }}>
+            //  <div style={{ background: '#eeeeee', height: '-webkit-fill-available' }}>
+            <div>
                 <Router>
                     <Header />
                     {/* <TopBar /> */}

@@ -22,11 +22,14 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 import { courseStatus, currencyOptions } from '../Data/CreationData';
-// import NewRoom from './NewRoom';
-// import NewCourse from './NewCourse';
-// import NewTeacher from './NewTeacher';
+import NewRoom from './NewRoom';
+import NewCourse from './NewCourse';
+import NewTeacher from './NewTeacher';
 import axios from "axios";
 import { DB_Link } from '../global';
 import { globalMsg } from '../Data/globalMsg';
@@ -39,18 +42,57 @@ const useStyles = makeStyles(theme => ({
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
 }));
 
 function ViewTable(props) {
-    let creationName = window.location.pathname.substring(1);
+    const [columns, setColumns] = useState([]);
+    const [dataTable, setDataTable] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [creationComponent] = React.useState({
+        NewRoom,
+        NewCourse,
+        NewTeacher,
+    });
+    const classes = useStyles();
 
     let courseStatusLookup = {};
     let currencyOptionsLookup = {};
+    let creationName = window.location.pathname.substring(1);
+    let DynamicComponent = creationComponent['New' + creationName];
 
-    const classes = useStyles();
+    map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })
+    map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })
 
-    map(courseStatus, val => { courseStatusLookup = { ...courseStatusLookup, [val.value]: val.value } })//TODO
-    map(currencyOptions, val => { currencyOptionsLookup = { ...currencyOptionsLookup, [val.value]: val.value } })//TODO
+    const tableIcons = {
+        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+        Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+        Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+        Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+        DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+        Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+        Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+        Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+        FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+        LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+        NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+        PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+        ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+        Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+        SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
+        ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+        ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    };
 
     let Teacher = [
         { title: 'Code', field: 'teacher_Code', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
@@ -85,8 +127,6 @@ function ViewTable(props) {
         { title: 'Status', field: 'room_Status', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
         { title: 'Campus', field: 'campus_Name', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
     ];
-    const [columns, setColumns] = useState([]);
-    const [dataTable, setDataTable] = useState([]);
 
     useEffect(() => {
         let params = {
@@ -117,28 +157,13 @@ function ViewTable(props) {
         // }, []);
     });
 
-    const tableIcons = {
-        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-        Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-        Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-        Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-        DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-        Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-        Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-        Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-        FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-        LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-        NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-        PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-        ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-        Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-        SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
-        ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-        ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-    };
-
     function handleChange(e) {
-        props.history.push(`/New${creationName}`);
+        // props.history.push(`/New${creationName}`);
+        setOpen(true);
+    }
+
+    function handleClose(e) {
+        setOpen(false);
     }
 
     return (
@@ -199,6 +224,24 @@ function ViewTable(props) {
                     />
                 </div>
             </div>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <DynamicComponent />
+                    </div>
+                </Fade>
+            </Modal>
         </div>
     );
 }

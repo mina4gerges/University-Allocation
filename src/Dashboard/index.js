@@ -8,7 +8,7 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import axios from "axios";
 import './Dashboard.css';
-// import { DashBoardData } from '../Data/DashBoardData';
+import { DashBoardData, roomName, teacherName, courseName } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
@@ -100,6 +100,13 @@ class Dashboard extends Component {
                 })
             }
         }).catch((error) => {
+            this.setState({
+                clonedDashBoardData: cloneDeep(DashBoardData),
+                DashBoardData: groupBy(DashBoardData, 'floor'),
+                roomNameOption: roomName,
+                teacherNameOption: teacherName,
+                courseNameOption: courseName,
+            })
         });
     }
 
@@ -108,10 +115,11 @@ class Dashboard extends Component {
         let cardDisplay = <div className='no-data-found center' style={{ fontSize: '0.875rem' }}>{globalMsg.emptyDataMsg}</div>;
         if (!isEmpty(DashBoardData)) {
             cardDisplay = map(DashBoardData, (val1, key1) => {
-                let nbrRoomVacant = filter(val1, { status: 'vacant' }).length > 0 ? (filter(val1, { status: 'vacant' }).length + " " + globalMsg.nbreRoomLeft) : globalMsg.noMoreVacantRoom;
+                let nbrRoomVacant = filter(val1, { status: 'vacant' }).length;
+                let roomavailabilityMsg = nbrRoomVacant > 0 ? (nbrRoomVacant + " " + (nbrRoomVacant > 1 ? globalMsg.nbreRoomLeft.plural : globalMsg.nbreRoomLeft.single)) : globalMsg.noMoreVacantRoom;
                 return (
                     <div className='row' key={`dash-board-key-filtarion${key1}`}>
-                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({nbrRoomVacant})</span></div>
+                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({roomavailabilityMsg})</span></div>
                         {
                             map(val1, (val, key) => {
                                 let borderColor = statusColor[val.status];
