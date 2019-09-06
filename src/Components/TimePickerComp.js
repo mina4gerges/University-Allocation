@@ -4,7 +4,12 @@ import DateFnsUtils from '@date-io/date-fns';
 
 function TimePickerComp(props) {
     let error = {};
+    let invalidDateMessage = {};
     if (props.error) error = { error: props.error };
+    if (props.timeErrorMsg) {
+        error = { error: true };
+        invalidDateMessage = { invalidDateMessage: props.timeErrorMsg };
+    }
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
@@ -15,6 +20,7 @@ function TimePickerComp(props) {
                 onChange={props.onChange}
                 style={{ width: '100%' }}
                 {...error}
+                {...invalidDateMessage}
             />
         </MuiPickersUtilsProvider>
     );

@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import { cloneDeep, map, includes, filter, find } from 'lodash';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid'
+import isBefore from 'date-fns/isBefore';
 // import { roomName, roomStatus, teacherName, courseName } from '../Data/DashBoardData';
 // import { roomName, teacherName, courseName } from '../Data/DashBoardData';
 import TimePickerComp from '../Components/TimePickerComp';
@@ -27,6 +28,7 @@ class ModalDataChange extends Component {
             // teacherName,
             // courseName,
             tempMandatory: [],
+            timeErrorMsg: {},
             dataSelected: cloneDeep(this.props.dataSelected),
         }
 
@@ -65,34 +67,66 @@ class ModalDataChange extends Component {
 
     handleDateTimeChange = name => value => {
         let { dataSelected, tempMandatory } = this.state;
+        let timeErrorMsg = {};
+        let isValidTime = true;
         dataSelected[name] = value;
         tempMandatory = filter(tempMandatory, val => { return val !== name });
         if (name !== 'coursDate' && value && isValid(value) && dataSelected.coursDate && isValid(dataSelected.coursDate)) {
             dataSelected[name] = new Date(format(dataSelected.coursDate, 'yyy-MM-dd') + " " + format(value, 'hh:mm a'))
         }
-        this.setState({ dataSelected, tempMandatory });
+
+        if (name === 'startTime' || name === 'endTime') isValidTime = this.handleValidationTime(name, value, dataSelected);
+
+        if (!isValidTime) timeErrorMsg = { ...timeErrorMsg, [name]: globalMsg[`${name}ErrorMsg`] }
+        else if (timeErrorMsg[name]) delete timeErrorMsg[name];
+
+        this.setState({ dataSelected, tempMandatory, timeErrorMsg });
+    }
+
+    handleValidationTime = (name, value, dataSelected) => {
+        let isValidTime = true;
+        if (name === 'startTime') {
+            if (value && isValid(value) && dataSelected.endTime && isValid(dataSelected.endTime)) {
+                let startTime = value;
+                let endTime = dataSelected.endTime;
+                isValidTime = isBefore(new Date(format(new Date(), 'yyy-MM-dd') + " " + format(startTime, 'hh:mm a')), new Date(format(new Date(), 'yyy-MM-dd') + " " + format(endTime, 'hh:mm a')));
+            }
+        }
+        else if (name === 'endTime') {
+            if (value && isValid(value) && dataSelected.startTime && isValid(dataSelected.startTime)) {
+                let startTime = dataSelected.startTime;
+                let endTime = value;
+                isValidTime = isBefore(new Date(format(new Date(), 'yyy-MM-dd') + " " + format(startTime, 'hh:mm a')), new Date(format(new Date(), 'yyy-MM-dd') + " " + format(endTime, 'hh:mm a')));
+            }
+        }
+        return isValidTime;
     }
 
 
     handleModalSave = dataSelected => e => {
-        let count = 0;
-        let tempMandatory = [];
+        let countMandatory = 0;
+        let countPendingChanges = 0;
 
+        let tempMandatory = [];
         map(this.toSave, val => {
             if (!dataSelected[val]) {
-                count++;
+                countMandatory++;
                 tempMandatory.push(val);
             }
         })
 
-        if (count === 0) this.props.handleModalSave(dataSelected)(e);
-        else this.props.handleErrorMsg(globalMsg.mandatory)
+        let allDateTimeValid = isValid(dataSelected.coursDate) && isValid(dataSelected.endTime) && isValid(dataSelected.startTime);
+
+        if (!allDateTimeValid && countMandatory === 0) countPendingChanges++;//if no mandatory and at least one date or time is not valid --> prevent saving
+
+        if (countMandatory === 0 && countPendingChanges === 0) this.props.handleModalSave(dataSelected)(e);
+        else this.props.handleErrorMsg(countPendingChanges > 0 ? globalMsg.pendingChanges : globalMsg.mandatory)
         this.setState({ tempMandatory });
     }
 
     render() {
         let { onClose, open, roomNameOption, teacherNameOption, courseNameOption } = this.props;
-        let { dataSelected, tempMandatory } = this.state;
+        let { dataSelected, tempMandatory, timeErrorMsg } = this.state;
         let headerLabel = 'New Class';
         if (dataSelected.cours_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase();
         if (dataSelected.teacher_ID) headerLabel = find(teacherNameOption, { value: dataSelected.teacher_ID }).label;
@@ -162,6 +196,7 @@ class ModalDataChange extends Component {
                             value={dataSelected.startTime}
                             onChange={this.handleDateTimeChange('startTime')}
                             error={includes(tempMandatory, 'startTime')}
+                            timeErrorMsg={timeErrorMsg.startTime}
                         />
                     </div>
                     <div className='row date-time'>
@@ -170,6 +205,7 @@ class ModalDataChange extends Component {
                             value={dataSelected.endTime}
                             onChange={this.handleDateTimeChange('endTime')}
                             error={includes(tempMandatory, 'endTime')}
+                            timeErrorMsg={timeErrorMsg.endTime}
                         />
                     </div>
                 </DialogContent>

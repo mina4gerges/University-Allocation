@@ -8,7 +8,7 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import axios from "axios";
 import './Dashboard.css';
-import { DashBoardData, roomName, teacherName, courseName } from '../Data/DashBoardData';
+// import { DashBoardData, roomName, teacherName, courseName } from '../Data/DashBoardData';
 import ModalDataChange from './ModalDataChange';
 import { statusColor } from '../Data/DashBoardData';
 import { nameCapitalized } from '../GlobalFunctions';
@@ -92,6 +92,8 @@ class Dashboard extends Component {
                     }
                 })
                 this.setState({
+                    errorMsg: null,
+                    openSnackBar: false,
                     clonedDashBoardData: cloneDeep(Dashboard),
                     DashBoardData: groupBy(Dashboard, 'floor'),
                     roomNameOption,
@@ -101,11 +103,13 @@ class Dashboard extends Component {
             }
         }).catch((error) => {
             this.setState({
-                clonedDashBoardData: cloneDeep(DashBoardData),
-                DashBoardData: groupBy(DashBoardData, 'floor'),
-                roomNameOption: roomName,
-                teacherNameOption: teacherName,
-                courseNameOption: courseName,
+                errorMsg: globalMsg.errorSaveMsg,
+                openSnackBar: true,
+                // clonedDashBoardData: cloneDeep(DashBoardData),
+                // DashBoardData: groupBy(DashBoardData, 'floor'),
+                // roomNameOption: roomName,
+                // teacherNameOption: teacherName,
+                // courseNameOption: courseName,
             })
         });
     }

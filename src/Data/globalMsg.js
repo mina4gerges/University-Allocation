@@ -8,9 +8,11 @@ export const globalMsg = {
     emptyDataMsg: 'No Data Found',
     noMoreVacantRoom: 'No more empty rooms',
     nbreRoomLeft: { single: 'vacant room is available', plural: 'vacant rooms are available' },
-    errorSaveMsg: 'Error Occurred'
+    errorSaveMsg: 'Error Occurred',
+    endTimeErrorMsg: 'End time should be greater than Start Time',
+    startTimeErrorMsg: 'Start time should be smaller than End Time',
+    pendingChanges: 'You have pending changes'
 }
-
 
 
 
