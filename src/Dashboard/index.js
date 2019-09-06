@@ -306,9 +306,7 @@ class Dashboard extends Component {
                 // errorMsg = 'Successfully Saved';
                 errorMsg = res;
                 this.closeModalDataChange();
-                this.setState({ openSnackBar: true, errorMsg }, () => {
-                    this.populateData();
-                })
+                this.setState({ openSnackBar: true, errorMsg }, () => { this.populateData() }) //to repopulate data after save
             }).catch((error) => {
                 errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ openSnackBar: true, errorMsg })
