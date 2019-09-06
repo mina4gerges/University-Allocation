@@ -87,7 +87,7 @@ class Dashboard extends Component {
                 let roomNameOption = JSON.parse(res.RoomsOption);
                 let teacherNameOption = JSON.parse(res.TeachersOption);
                 map(Dashboard, value => {
-                    if (value.class_ID) value.status = 'live'
+                    if (!value.class_ID) value.status = 'vacant'
                     if (value.coursDate && value.startTime && value.endTime) {
                         value.startTime = new Date(value.coursDate + " " + value.startTime);
                         value.endTime = new Date(value.coursDate + " " + value.endTime);
