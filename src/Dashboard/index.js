@@ -121,9 +121,11 @@ class Dashboard extends Component {
             cardDisplay = map(DashBoardData, (val1, key1) => {
                 let nbrRoomVacant = filter(val1, { status: 'vacant' }).length;
                 let roomavailabilityMsg = nbrRoomVacant > 0 ? (nbrRoomVacant + " " + (nbrRoomVacant > 1 ? globalMsg.nbreRoomLeft.plural : globalMsg.nbreRoomLeft.single)) : globalMsg.noMoreVacantRoom;
+                let titleGrouping = nameCapitalized(includes(groupingName, 'room') ? 'room' : groupingName) //
+                let titleType = includes(groupingName, 'room') ? find(roomNameOption, { value: parseInt(key1, 10) }).label : key1;
                 return (
                     <div className='row' key={`dash-board-key-filtarion${key1}`}>
-                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({roomavailabilityMsg})</span></div>
+                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{titleGrouping + " " + titleType}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({roomavailabilityMsg})</span></div>
                         {
                             map(val1, (val, key) => {
                                 let borderColor = statusColor[val.status];

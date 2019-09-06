@@ -41,13 +41,13 @@
 }
 
 @media (max-width: 767px){
-    .center{
+    /* .center{
     margin: none; 
      position: unset; 
      top: 0;
      left: 0;
      transform:none;
      white-space: nowrap;
-    }
+    } */
 }
 

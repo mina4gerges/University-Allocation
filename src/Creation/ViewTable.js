@@ -58,8 +58,8 @@ const useStyles = makeStyles(theme => ({
 function ViewTable(props) {
     const [columns, setColumns] = useState([]);
     const [dataTable, setDataTable] = useState([]);
-    const [open, setOpen] = React.useState(false);
-    const [creationComponent] = React.useState({
+    const [open, setOpen] = useState(false);
+    const [creationComponent] = useState({
         NewRoom,
         NewCourse,
         NewTeacher,
@@ -154,8 +154,7 @@ function ViewTable(props) {
         }).catch((error) => {
             // console.log('error', error);
         });
-        // }, []);
-    });
+    }, []);
 
     function handleChange(e) {
         // props.history.push(`/New${creationName}`);
@@ -167,6 +166,7 @@ function ViewTable(props) {
     }
 
     return (
+
         <div>
             <div className='row view-table-buttom' style={{ marginLeft: '1px', marginRight: '1px', marginBottom: '5px' }}>
                 <div className='col-12' style={{ textAlign: 'center' }}>
