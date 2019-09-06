@@ -10,7 +10,7 @@ import axios from "axios";
 import { globalMsg } from "../Data/globalMsg";
 import { courseStatus, currencyOptions } from "../Data/CreationData";
 import SnackBarComp from '../Components/SnackBarCom';
-
+import './Creation.css';
 class NewCourse extends Component {
 
     constructor(props) {
@@ -122,7 +122,10 @@ class NewCourse extends Component {
             }).then((response) => {
                 let res = response.data.SaveCoursResult;
                 this.setState({ errorMsg: res })
+                setTimeout(() => { this.props.history.push(`/${window.location.pathname.substring(4)}`) }, 3000)//substring(4) --> to remove / and new)
             }).catch((error) => {
+                let errorMsg = globalMsg.errorSaveMsg;
+                this.setState({ errorMsg });
             });
         }
     }

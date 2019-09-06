@@ -3,12 +3,13 @@ import { Button, Label, Input, Card, CardBody } from 'reactstrap';
 import { filter, map, includes, isEmpty, remove, startsWith } from 'lodash';
 import Container from '@material-ui/core/Container';
 import InputMask from 'react-input-mask';
+import axios from "axios";
 // import Select from "react-virtualized-select";
 
+import './Creation.css';
 import { globalMsg } from "../Data/globalMsg";
 // import { roomStatusOptions } from "../Data/CreationData";
 import DateTimePickerComp from '../Components/DateTimePickerComp';
-import axios from "axios";
 import { DB_Link } from '../global';
 import SnackBarComp from '../Components/SnackBarCom';
 class NewRoom extends Component {
@@ -120,8 +121,10 @@ class NewRoom extends Component {
             }).then((response) => {
                 let res = response.data.SaveRoomResult;
                 this.setState({ errorMsg: res })
+                setTimeout(() => { this.props.history.push(`/${window.location.pathname.substring(4)}`) }, 3000)//substring(4) --> to remove / and new)
             }).catch((error) => {
-                // console.log('error', error);
+                let errorMsg = globalMsg.errorSaveMsg;
+                this.setState({ errorMsg });
             });
         }
     }
@@ -140,7 +143,6 @@ class NewRoom extends Component {
     onCloseSnackBar = () => this.setState({ openSnackBar: false })
 
     render() {
-        // console.log('state', this.state)
         let { roomName, roomCapacity, roomFloor, roomStatus, roomHoldUntil,
             //roomStatusOptions, 
             tempMandatory, errorMsg, openSnackBar } = this.state;

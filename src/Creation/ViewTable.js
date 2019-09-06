@@ -29,6 +29,7 @@ import { availableCourses, courseStatus, currencyOptions } from '../Data/Creatio
 // import NewTeacher from './NewTeacher';
 import axios from "axios";
 import { DB_Link } from '../global';
+import { globalMsg } from '../Data/globalMsg';
 
 
 const useStyles = makeStyles(theme => ({
@@ -85,7 +86,7 @@ function ViewTable(props) {
         { title: 'Campus', field: 'campus_Name', type: 'numeric', headerStyle: { whiteSpace: 'nowrap', paddingRight: '0px' }, cellStyle: { whiteSpace: 'nowrap', paddingRight: '0px' } },
     ];
     const [columns, setColumns] = useState([]);
-    const [dataTable, setDataTable] = useState(availableCourses);
+    const [dataTable, setDataTable] = useState([]);
 
     useEffect(() => {
         let params = {
@@ -159,6 +160,9 @@ function ViewTable(props) {
                         columns={columns}
                         // data={state.data}
                         data={dataTable}
+                        localization={{
+                            body: { emptyDataSourceMessage: globalMsg.emptyDataMsg }
+                        }}
                         editable={{
                             // onRowAdd: newData =>
                             //     new Promise(resolve => {

@@ -191,10 +191,11 @@ function PrimarySearchAppBar(props) {
     }
 
     function handleClose() {
+        setValue(1);
         setAnchorEl1(null);
     }
 
-    let creationName = window.location.pathname.substring(1)
+    let creationName = window.location.pathname.substring(1);
 
     return (
         < div className={classes.grow} >

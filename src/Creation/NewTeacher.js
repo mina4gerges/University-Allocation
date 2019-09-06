@@ -151,8 +151,11 @@ class NewTeacher extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveTeacherResult;
-                this.setState({ errorMsg: res })
+                this.setState({ errorMsg: res });
+                setTimeout(() => { this.props.history.push(`/${window.location.pathname.substring(4)}`) }, 3000)//substring(4) --> to remove / and new)
             }).catch((error) => {
+                let errorMsg = globalMsg.errorSaveMsg;
+                this.setState({ errorMsg });
             });
         }
     }

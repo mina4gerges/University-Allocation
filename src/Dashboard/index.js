@@ -105,7 +105,7 @@ class Dashboard extends Component {
 
     generateCard = () => {
         let { DashBoardData, groupingName, roomNameOption } = this.state;
-        let cardDisplay = <div className='no-data-found center'>No Data Found</div>;
+        let cardDisplay = <div className='no-data-found center' style={{ fontSize: '0.875rem' }}>{globalMsg.emptyDataMsg}</div>;
         if (!isEmpty(DashBoardData)) {
             cardDisplay = map(DashBoardData, (val1, key1) => {
                 let nbrRoomVacant = filter(val1, { status: 'vacant' }).length > 0 ? (filter(val1, { status: 'vacant' }).length + " " + globalMsg.nbreRoomLeft) : globalMsg.noMoreVacantRoom;
@@ -123,7 +123,7 @@ class Dashboard extends Component {
                                                 <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${find(roomNameOption, { value: val.room_ID }).label}` : `Floor ${val.floor}`}</CardTitle>
                                                 <CardText>
                                                     <span className='vacant' style={{ display: val.status === 'vacant' ? 'block' : 'none' }}>
-                                                        <span>{globalMsg.vacantMsg}</span>
+                                                        <span style={{ fontSize: '0.875rem' }}>{globalMsg.emptyDataMsg}</span>
                                                     </span>
                                                     <span style={{ display: val.status !== 'vacant' ? 'block' : 'none' }}>
                                                         Course: {val.cours_ID}<br />
@@ -310,7 +310,7 @@ class Dashboard extends Component {
                     this.populateData();
                 })
             }).catch((error) => {
-                errorMsg = 'Error Occurred';
+                errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ openSnackBar: true, errorMsg })
             });
             this.setState({ DashBoardData, clonedDashBoardData });
