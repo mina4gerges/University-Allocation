@@ -302,6 +302,7 @@ class Dashboard extends Component {
             savedValue.room_ID = dataSelected.room_ID;
             savedValue.cours_ID = dataSelected.cours_ID;
             savedValue.teacher_ID = dataSelected.teacher_ID;
+            savedValue.schedule_ID = dataSelected.schedule_ID;
             // savedValue.status = dataSelected.status;
             savedValue.status = 'live';
             savedValue.coursDate = format(dataSelected.coursDate, 'yyyy-MM-dd');
