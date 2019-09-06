@@ -6,6 +6,9 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
+import isToday from 'date-fns/isToday';
+import isTomorrow from 'date-fns/isTomorrow';
+import formatDistance from 'date-fns/formatDistance';
 import axios from "axios";
 import './Dashboard.css';
 // import { DashBoardData, roomName, teacherName, courseName } from '../Data/DashBoardData';
@@ -90,6 +93,11 @@ class Dashboard extends Component {
                         value.endTime = new Date(value.coursDate + " " + value.endTime);
                         value.coursDate = new Date(value.coursDate);
                     }
+                    // console.log('value.room', value.room_ID)
+                    // console.log('value.startTime', value.startTime)
+                    // console.log('value.endTime', value.endTime)
+                    // let x = formatDistance(value.startTime, value.endTime)
+                    // console.log('x', x)
                 })
                 this.setState({
                     errorMsg: null,
@@ -115,7 +123,7 @@ class Dashboard extends Component {
     }
 
     generateCard = () => {
-        let { DashBoardData, groupingName, roomNameOption } = this.state;
+        let { DashBoardData, groupingName, roomNameOption, courseNameOption, teacherNameOption } = this.state;
         let cardDisplay = <div className='no-data-found center' style={{ fontSize: '0.875rem' }}>{globalMsg.emptyDataMsg}</div>;
         if (!isEmpty(DashBoardData)) {
             cardDisplay = map(DashBoardData, (val1, key1) => {
@@ -130,7 +138,7 @@ class Dashboard extends Component {
                             map(val1, (val, key) => {
                                 let borderColor = statusColor[val.status];
                                 return (
-                                    <div className='col-12 col-sm-6 col-md-4 col-lg-3' key={`dash-board-key-${key}`}>
+                                    <div className='col-12 col-sm-6 col-md-5 col-lg-4' key={`dash-board-key-${key}`}>
                                         <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid`, borderRadius: '10px' }} title={val.status === 'vacant' ? 'Click to add new class' : 'click to edit'}>
                                             <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.room_ID}`} className='center card-icon' style={{ fontSize: '30px' }} />
                                             <CardBody>
@@ -139,12 +147,11 @@ class Dashboard extends Component {
                                                     <span className='vacant' style={{ display: val.status === 'vacant' ? 'block' : 'none' }}>
                                                         <span style={{ fontSize: '0.875rem' }}>{globalMsg.emptyDataMsg}</span>
                                                     </span>
-                                                    <span style={{ display: val.status !== 'vacant' ? 'block' : 'none' }}>
-                                                        Course: {val.cours_ID}<br />
-                                                        Date: {val.coursDate ? format(val.coursDate, 'dd/MM/yyyy') : ''}<br />
-                                                        Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
-                                                        End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />
-                                                        Capacity: {val.classCapacity}<br />
+                                                    <span style={{ textAlign: 'center', display: val.status !== 'vacant' ? 'block' : 'none' }}>
+                                                        <span className='card-info-row'> <b>{val.teacher_ID ? find(teacherNameOption, { value: val.teacher_ID }).label : ''}</b></span><br />
+                                                        <span className='card-info-row'> {val.cours_ID ? find(courseNameOption, { value: val.cours_ID }).label : ''}</span><br />
+                                                        <span className='card-info-row' style={{ whiteSpace: 'pre' }}> {val.coursDate ? `${(isToday(val.coursDate) ? "Today \n" : (isTomorrow(val.coursDate) ? "Tomorrow \n" : `${format(val.coursDate, 'dd/MM/yyyy')} \n`))} From ${val.startTime ? format(val.startTime, 'hh:mm a') : ''} Till ${val.endTime ? format(val.endTime, 'hh:mm a') : ''}` : ''}</span><br />
+                                                        {/* Capacity: {val.classCapacity}<br /> */}
                                                     </span>
                                                 </CardText>
                                             </CardBody>
@@ -178,6 +185,7 @@ class Dashboard extends Component {
         let coursDate = dataSelected.coursDate ? dataSelected.coursDate : null;
         let startTime = dataSelected.startTime ? dataSelected.startTime : null;
         let endTime = dataSelected.endTime ? dataSelected.endTime : null;
+        let class_ID = dataSelected.class_ID ? dataSelected.class_ID : null;
         // let status = dataSelected.status;
 
         let teacherTestValue = [];
@@ -191,72 +199,82 @@ class Dashboard extends Component {
             let dateSaved = val.coursDate ? val.coursDate : null;
             let startTimeSaved = val.startTime ? val.startTime : null;
             let endTimeSaved = val.endTime ? val.endTime : null;
+            let class_IDSaved = dataSelected.class_ID ? dataSelected.class_ID : null;
 
             let testConfilctsRoom =
                 (
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
 
             let testConfilctsTeacher =
                 (
-                    teacherSaved === teacher_ID && //teacher_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && teacherSaved === teacher_ID //teacher_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    teacherSaved === teacher_ID &&//teacher_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && teacherSaved === teacher_ID//teacher_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    teacherSaved === teacher_ID &&//teacher_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && teacherSaved === teacher_ID //teacher_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
 
             let testConfilctsCourse =
                 (
-                    courseSaved === cours_ID && //cours_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && courseSaved === cours_ID  //cours_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    courseSaved === cours_ID &&//cours_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && courseSaved === cours_ID //cours_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    courseSaved === cours_ID &&//cours_ID
-                    roomSaved === room_ID
+                    class_IDSaved !== class_IDSaved
+                    && courseSaved === cours_ID //cours_ID
+                    && roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
