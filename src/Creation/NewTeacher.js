@@ -6,6 +6,7 @@ import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import ReactPhoneInput from 'react-phone-input-2';
 import AlgoliaPlaces from 'algolia-places-react';
+import { withRouter } from "react-router-dom";
 // import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 
@@ -52,7 +53,7 @@ class NewTeacher extends Component {
             'teacher_Name',
             'teacher_familyName',
             'teacher_Diploma',
-            'teacher_Address',
+            // 'teacher_Address',
             'teacher_Expertise',
             'teacher_Code',
             'user_Name',
@@ -69,7 +70,7 @@ class NewTeacher extends Component {
             'teacher_Name',
             'teacher_familyName',
             'teacher_Diploma',
-            'teacher_Address',
+            // 'teacher_Address',
             'teacher_Expertise',
             'teacher_Code',
             'user_Name',
@@ -151,8 +152,13 @@ class NewTeacher extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveTeacherResult;
+                if (startsWith(res, 'Success')) {
+                    setTimeout(() => {
+                        this.props.handleClose();
+                        this.props.history.push(`/`);
+                    }, 1000)
+                }
                 this.setState({ errorMsg: res });
-                setTimeout(() => { this.props.handleClose() }, 1000)
             }).catch((error) => {
                 let errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ errorMsg });
@@ -279,13 +285,14 @@ class NewTeacher extends Component {
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Expertise</Label>
                                 <InputMask
-                                    className={`col-8 form-control ${includes(tempMandatory, 'teacher_Expertise') ? 'alert-danger' : ''}`}
+                                    className={`col-6 form-control ${includes(tempMandatory, 'teacher_Expertise') ? 'alert-danger' : ''}`}
                                     mask="999"
                                     maskChar=" "
                                     name="teacher_Expertise"
                                     value={teacher_Expertise ? teacher_Expertise : ''}
                                     onChange={this.handleTextChange}
                                 />
+                                <Label className="col-2" style={{ paddingTop: '5px' }}>years</Label>
                             </div>
                             <div className="row" style={{ marginBottom: "5px" }}>
                                 <Label className="col-4">Type</Label>
@@ -313,13 +320,13 @@ class NewTeacher extends Component {
                                     <AlgoliaPlaces
                                         placeholder=''
                                         name='teacher_Address'
-                                        onChange={this.handleAddressChange}
+                                        // onChange={this.handleAddressChange}
                                         className={includes(tempMandatory, 'teacher_Address') ? 'alert-danger testing1' : 'testing2'}
                                         options={{
                                             appId: 'plV842AJCU0M',
                                             apiKey: '6755273aa0e09c361d3d3f873af3326d',
                                             language: 'en',
-                                            templates: { teacher_Address },
+                                            // templates: { teacher_Address },
                                             // language: 'sv', //result in arabic
                                             countries: ['lb'],
                                             type: 'city'
@@ -364,4 +371,7 @@ class NewTeacher extends Component {
     }
 }
 
-export default NewTeacher;
+// export default NewTeacher;
+
+export default withRouter(NewTeacher);
+

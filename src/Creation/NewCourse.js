@@ -6,6 +6,7 @@ import { filter, map, includes, isEmpty, startsWith } from 'lodash';
 import InputMask from 'react-input-mask';
 import Select from "react-virtualized-select";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 import { globalMsg } from "../Data/globalMsg";
 import { courseStatus, currencyOptions } from "../Data/CreationData";
@@ -121,8 +122,13 @@ class NewCourse extends Component {
                 // cancelToken: this.CancelToken.token
             }).then((response) => {
                 let res = response.data.SaveCoursResult;
+                if (startsWith(res, 'Success')) {
+                    setTimeout(() => {
+                        this.props.handleClose();
+                        this.props.history.push(`/`);
+                    }, 1000)
+                }
                 this.setState({ errorMsg: res });
-                setTimeout(() => { this.props.handleClose() }, 1000)
             }).catch((error) => {
                 let errorMsg = globalMsg.errorSaveMsg;
                 this.setState({ errorMsg });
@@ -263,4 +269,7 @@ class NewCourse extends Component {
     }
 }
 
-export default NewCourse;
+// export default NewCourse;
+
+export default withRouter(NewCourse);
+
