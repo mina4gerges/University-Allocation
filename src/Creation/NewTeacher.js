@@ -198,8 +198,8 @@ class NewTeacher extends Component {
                                 </Alert>
                             </div> */}
                             <div className="row" style={{ marginBottom: "5px" }}>
-                                <div className="col-12">
-                                    <img src={user_logo} alt="Teacher Logo" />
+                                <div className="col-12 avatar" title="User Logo">
+                                    <img src={user_logo} alt="Teacher Logo" style={{ width: '8%' }} />
                                     {/* <Avatar alt="Teacher Logo" href={user_logo} style={{ margin: '10px', width: '60px', height: '60px' }} /> */}
                                 </div>
                             </div>
