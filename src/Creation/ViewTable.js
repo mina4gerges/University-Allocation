@@ -23,7 +23,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
-import { availableCourses, courseStatus, currencyOptions } from '../Data/CreationData';
+import { courseStatus, currencyOptions } from '../Data/CreationData';
 // import NewRoom from './NewRoom';
 // import NewCourse from './NewCourse';
 // import NewTeacher from './NewTeacher';
