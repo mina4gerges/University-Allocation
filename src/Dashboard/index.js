@@ -56,8 +56,7 @@ class Dashboard extends Component {
     componentDidMount() {
         const CancelToken = axios.CancelToken;
         this.CancelToken = CancelToken.source();
-
-        this.FillData();
+        this.populateData();
     }
 
     componentWillUnmount() {
@@ -68,7 +67,7 @@ class Dashboard extends Component {
         }
     }
 
-    FillData = () => {
+    populateData = () => {
         const params = {};
         axios({
             method: 'post',
@@ -84,14 +83,15 @@ class Dashboard extends Component {
                 let courseNameOption = JSON.parse(res.CoursesOption);
                 let roomNameOption = JSON.parse(res.RoomsOption);
                 let teacherNameOption = JSON.parse(res.TeachersOption);
-
                 map(Dashboard, value => {
+                    if (value.class_ID) value.status = 'live'
                     if (value.coursDate && value.startTime && value.endTime) {
                         value.startTime = new Date(value.coursDate + " " + value.startTime);
                         value.endTime = new Date(value.coursDate + " " + value.endTime);
                         value.coursDate = new Date(value.coursDate);
                     }
                 })
+                console.log('Dashboard', Dashboard)
                 this.setState({
                     clonedDashBoardData: cloneDeep(Dashboard),
                     DashBoardData: groupBy(Dashboard, 'floor'),
@@ -104,31 +104,36 @@ class Dashboard extends Component {
         });
     }
 
-
     generateCard = () => {
-        let { DashBoardData, groupingName } = this.state;
+        let { DashBoardData, groupingName, roomNameOption } = this.state;
         let cardDisplay = <div className='no-data-found center'>No Data Found</div>;
         if (!isEmpty(DashBoardData)) {
             cardDisplay = map(DashBoardData, (val1, key1) => {
+                let nbrRoomVacant = filter(val1, { status: 'vacant' }).length > 0 ? (filter(val1, { status: 'vacant' }).length + " " + globalMsg.nbreRoomLeft) : globalMsg.noMoreVacantRoom;
+                console.log('val1', val1, 'nbrRoomVacant', nbrRoomVacant);
                 return (
                     <div className='row' key={`dash-board-key-filtarion${key1}`}>
-                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b></div>
+                        <div className='col-12' style={{ textAlign: 'center', marginBottom: '10px' }}><b>{nameCapitalized((includes(groupingName, 'room') ? 'Room' : groupingName) + " " + key1)}</b><span style={{ color: 'rgb(170, 170, 170)' }}> ({nbrRoomVacant})</span></div>
                         {
                             map(val1, (val, key) => {
                                 let borderColor = statusColor[val.status];
                                 return (
-                                    <div className='col-3' key={`dash-board-key-${key}`}>
-                                        <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid`, borderRadius: '10px' }}>
+                                    <div className='col-12 col-sm-6 col-md-4 col-lg-3' key={`dash-board-key-${key}`}>
+                                        <Card className="dash-board-card" onClick={this.classModification(val)} style={{ border: `3px ${borderColor} solid`, borderRadius: '10px' }} title={val.status === 'vacant' ? 'Click to add new class' : 'click to edit'}>
                                             <FontAwesomeIcon icon={faPencilAlt} id={`tooltip-id-${val.room_ID}`} className='center card-icon' style={{ fontSize: '30px' }} />
                                             <CardBody>
-                                                <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${val.room_ID}` : `Floor ${val.floor}`}</CardTitle>
+                                                <CardTitle style={{ color: 'white', background: borderColor, borderRadius: '3px' }}>{groupingName === 'floor' ? `Room ${find(roomNameOption, { value: val.room_ID }).label}` : `Floor ${val.floor}`}</CardTitle>
                                                 <CardText>
-                                                    Course: {val.cours_ID}<br />
-                                                    Date: {val.coursDate ? format(val.coursDate, 'dd/MM/yyyy') : ''}<br />
-                                                    Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
-                                                    End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />
-                                                    {/* Number Of Students: {val.nbrStudents}<br /> */}
-                                                    Capacity: {val.classCapacity}<br />
+                                                    <span className='vacant' style={{ display: val.status === 'vacant' ? 'block' : 'none' }}>
+                                                        <span>{globalMsg.vacantMsg}</span>
+                                                    </span>
+                                                    <span style={{ display: val.status !== 'vacant' ? 'block' : 'none' }}>
+                                                        Course: {val.cours_ID}<br />
+                                                        Date: {val.coursDate ? format(val.coursDate, 'dd/MM/yyyy') : ''}<br />
+                                                        Start Time: {val.startTime ? format(val.startTime, 'hh:mm a') : ''}<br />
+                                                        End Time: {val.endTime ? format(val.endTime, 'hh:mm a') : ''}<br />
+                                                        Capacity: {val.classCapacity}<br />
+                                                    </span>
                                                 </CardText>
                                             </CardBody>
                                         </Card>
@@ -177,69 +182,69 @@ class Dashboard extends Component {
 
             let testConfilctsRoom =
                 (
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
 
             let testConfilctsTeacher =
                 (
-                    teacherSaved.toLowerCase().trim() === teacher_ID.toLowerCase().trim() && //teacher_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    teacherSaved === teacher_ID && //teacher_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    teacherSaved.toLowerCase().trim() === teacher_ID.toLowerCase().trim() &&//teacher_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    teacherSaved === teacher_ID &&//teacher_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    teacherSaved.toLowerCase().trim() === teacher_ID.toLowerCase().trim() &&//teacher_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    teacherSaved === teacher_ID &&//teacher_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
 
             let testConfilctsCourse =
                 (
-                    courseSaved.toLowerCase().trim() === cours_ID.toLowerCase().trim() && //cours_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    courseSaved === cours_ID && //cours_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && (startTimeSaved && startTime && format(startTimeSaved, 'hh:mm a') === format(startTime, 'hh:mm a'))
                     && (endTimeSaved && endTime && format(endTimeSaved, 'hh:mm a') === format(endTime, 'hh:mm a'))
                 )
                 ||
                 (
-                    courseSaved.toLowerCase().trim() === cours_ID.toLowerCase().trim() &&//cours_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    courseSaved === cours_ID &&//cours_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && ((isAfter(startTime, startTimeSaved) && isBefore(startTime, endTimeSaved))
                         || (isAfter(endTime, startTimeSaved) && isBefore(endTime, endTimeSaved)))
                 )
                 ||
                 (
-                    courseSaved.toLowerCase().trim() === cours_ID.toLowerCase().trim() &&//cours_ID
-                    roomSaved.toLowerCase().trim() === room_ID.toLowerCase().trim()
+                    courseSaved === cours_ID &&//cours_ID
+                    roomSaved === room_ID
                     && (dateSaved && coursDate && format(dateSaved, 'yyy-MM-dd') === format(coursDate, 'yyy-MM-dd'))
                     && isBefore(startTime, startTimeSaved) && isBefore(endTimeSaved, endTime)
                 );
@@ -262,6 +267,10 @@ class Dashboard extends Component {
             errorMsg = globalMsg.conflictRoomMsg;
             conflicts = true;
         }
+
+        console.log('teacherTestValue', teacherTestValue)
+        console.log('courseTestValue', courseTestValue)
+        console.log('roomTestValue', roomTestValue)
         return { conflicts, errorMsg };
     }
 
@@ -286,11 +295,12 @@ class Dashboard extends Component {
             savedValue.teacher_ID = dataSelected.teacher_ID;
             // savedValue.status = dataSelected.status;
             savedValue.status = 'live';
-            savedValue.coursDate = format(dataSelected.coursDate, 'dd/MM/yyyy');
+            savedValue.coursDate = format(dataSelected.coursDate, 'yyyy-MM-dd');
             savedValue.startTime = format(dataSelected.startTime, 'hh:mm a');
             savedValue.endTime = format(dataSelected.endTime, 'hh:mm a');
 
             const params = { ...savedValue };
+            console.log('savedValue', savedValue)
             axios({
                 method: 'post',
                 url: `${DB_Link}SaveDashboard`,
@@ -301,7 +311,9 @@ class Dashboard extends Component {
                 let res = response.data.SaveDashboardResult;
                 errorMsg = 'Successfully Saved';
                 this.closeModalDataChange();
-                this.setState({ openSnackBar: true, errorMsg })
+                this.setState({ openSnackBar: true, errorMsg }, () => {
+                    this.populateData();
+                })
             }).catch((error) => {
                 errorMsg = 'Error Occurred';
                 this.setState({ openSnackBar: true, errorMsg })
@@ -373,8 +385,6 @@ class Dashboard extends Component {
         let { openModalDataChange, dataSelected, radioSelectedValue,
             live, upcoming, cancelled, vacant, openSnackBar, errorMsg, roomNameOption,
             teacherNameOption, courseNameOption } = this.state;
-
-
 
         return (
             <div>

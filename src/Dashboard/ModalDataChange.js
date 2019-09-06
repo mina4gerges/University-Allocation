@@ -97,7 +97,7 @@ class ModalDataChange extends Component {
         if (dataSelected.cours_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase();
         if (dataSelected.teacher_ID) headerLabel = find(teacherNameOption, { value: dataSelected.teacher_ID }).label;
         if (dataSelected.cours_ID && dataSelected.teacher_ID) headerLabel = find(courseNameOption, { value: dataSelected.cours_ID }).label.toUpperCase() + " (" + find(teacherNameOption, { value: dataSelected.teacher_ID }).label + ")";
-        //TODO
+
         return (
             <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" className='modal-data-change' >
                 <DialogContent>
@@ -128,7 +128,7 @@ class ModalDataChange extends Component {
                             </FormControl>
                         </div>
                     }
-                    <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'room_ID')}>
+                    <FormControl style={{ width: '100%' }} className='row' error={includes(tempMandatory, 'room_ID')} disabled={this.mode === 'addNew'}>
                         <InputLabel htmlFor="age-simple">Room</InputLabel>
                         <Select
                             value={dataSelected.room_ID ? dataSelected.room_ID : ''}

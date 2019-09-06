@@ -54,3 +54,10 @@
 .date-time .MuiFormControl-root.MuiTextField-root{
     width: 100%
 }
+
+.vacant{
+    margin: 15px auto;
+    text-align: center;
+    color: rgb(170, 170, 170);
+    font-size: 14px
+}
