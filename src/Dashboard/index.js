@@ -152,6 +152,7 @@ class Dashboard extends Component {
                                                         <span className='card-info-row'> {val.cours_ID ? find(courseNameOption, { value: val.cours_ID }).label : ''}</span><br />
                                                         <span className='card-info-row' style={{ whiteSpace: 'pre' }}> {val.coursDate ? `${(isToday(val.coursDate) ? "Today \n" : (isTomorrow(val.coursDate) ? "Tomorrow \n" : `${format(val.coursDate, 'dd/MM/yyyy')} \n`))} From ${val.startTime ? format(val.startTime, 'hh:mm a') : ''} Till ${val.endTime ? format(val.endTime, 'hh:mm a') : ''}` : ''}</span><br />
                                                         {/* Capacity: {val.classCapacity}<br /> */}
+                                                        <span className='card-info-row'> {val.classCapacity}</span><br />
                                                     </span>
                                                 </CardText>
                                             </CardBody>
